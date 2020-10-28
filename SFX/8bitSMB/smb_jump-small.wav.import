@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/smb_jump-small.wav-54514760784d992ecd3e80abfb36654b.sample"
+
+[deps]
+
+source_file="res://SFX/8bitSMB/smb_jump-small.wav"
+dest_files=[ "res://.import/smb_jump-small.wav-54514760784d992ecd3e80abfb36654b.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

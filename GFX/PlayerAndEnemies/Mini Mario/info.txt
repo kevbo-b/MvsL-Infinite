@@ -1,0 +1,9 @@
+[settings]
+skin type=mario
+credits=but mini!
+
+[short names]
+mario=MARIO
+
+[long names]
+mario=Mario

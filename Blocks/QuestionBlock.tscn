@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Blocks/QuestionBlock.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Tileset/SMB1Tileset_Customized.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="QuestionBlock" type="StaticBody2D"]
+z_index = -1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="BlockCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+
+[node name="BlockArea" type="Area2D" parent="."]
+
+[node name="BlockSprite" type="Sprite" parent="BlockArea"]
+texture = ExtResource( 2 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 384, 0, 16, 16 )
+
+[node name="Area2DCollision" type="CollisionShape2D" parent="BlockArea"]
+position = Vector2( 8, 8 )
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+
+[node name="HitAboveArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 46
+
+[node name="Area2DCollision" type="CollisionShape2D" parent="HitAboveArea"]
+position = Vector2( 8, -4 )
+scale = Vector2( 0.8, 0.4 )
+shape = SubResource( 1 )

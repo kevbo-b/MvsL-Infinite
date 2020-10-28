@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/nsmb_megaShrink.wav-31862c3269016c72cf16ebf8e536e790.sample"
+
+[deps]
+
+source_file="res://SFX/NSMB/nsmb_megaShrink.wav"
+dest_files=[ "res://.import/nsmb_megaShrink.wav-31862c3269016c72cf16ebf8e536e790.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

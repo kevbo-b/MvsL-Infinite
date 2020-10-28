@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/nsmb_MegaShroom.ogg-7867a821d0e9c2764026c33d193c7dcf.oggstr"
+
+[deps]
+
+source_file="res://SFX/NSMB/nsmb_MegaShroom.ogg"
+dest_files=[ "res://.import/nsmb_MegaShroom.ogg-7867a821d0e9c2764026c33d193c7dcf.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/smb_breakblock.wav-17726691cb6e06de458c5164b673ab0f.sample"
+
+[deps]
+
+source_file="res://SFX/8bitSMB/smb_breakblock.wav"
+dest_files=[ "res://.import/smb_breakblock.wav-17726691cb6e06de458c5164b673ab0f.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

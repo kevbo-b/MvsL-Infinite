@@ -1,0 +1,61 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Misc/Projectiles/Fireball.gd" type="Script" id=1]
+[ext_resource path="res://Misc/Projectiles/fire0.png" type="Texture" id=2]
+[ext_resource path="res://Misc/Projectiles/fire1.png" type="Texture" id=3]
+[ext_resource path="res://Misc/Projectiles/fire2.png" type="Texture" id=4]
+[ext_resource path="res://Misc/Projectiles/fire3.png" type="Texture" id=5]
+[ext_resource path="res://Misc/Projectiles/explosion0.png" type="Texture" id=6]
+[ext_resource path="res://Misc/Projectiles/explosion1.png" type="Texture" id=7]
+[ext_resource path="res://Misc/Projectiles/explosion2.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "explode",
+"speed": 20.0
+} ]
+
+[node name="Fireball" type="KinematicBody2D"]
+z_index = 2
+collision_layer = 0
+collision_mask = 65
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="FireballKinBodyShape" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2 )
+scale = Vector2( 0.05, 0.1 )
+shape = SubResource( 1 )
+
+[node name="FireballArea2D" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 10
+
+[node name="FireballArea2DShape" type="CollisionShape2D" parent="FireballArea2D"]
+scale = Vector2( 0.25, 0.25 )
+z_index = 1
+shape = SubResource( 1 )
+
+[node name="FireballSprite" type="AnimatedSprite" parent="FireballArea2D"]
+frames = SubResource( 2 )
+frame = 3
+playing = true
+
+[node name="DespawnTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 6.0
+autostart = true
+[connection signal="body_entered" from="FireballArea2D" to="." method="_on_FireballArea2D_body_entered"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_DespawnTimer_timeout"]

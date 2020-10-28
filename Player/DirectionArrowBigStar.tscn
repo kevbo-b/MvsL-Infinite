@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player/DirectionArrowBigStar.gd" type="Script" id=1]
+[ext_resource path="res://Player/arrow.png" type="Texture" id=2]
+[ext_resource path="res://Player/HudIcons/starHUD.png" type="Texture" id=3]
+[ext_resource path="res://Menu/hud_theme.tres" type="Theme" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeOut"
+length = 4.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 4, 4.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+
+[node name="DirectionArrowBigStar" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+alignment = 1
+
+[node name="Arrow" type="Sprite" parent="VBoxContainer"]
+position = Vector2( 8, -17 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
+
+[node name="StarSprite" type="Sprite" parent="VBoxContainer"]
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Display" type="Label" parent="VBoxContainer"]
+margin_top = 16.0
+margin_right = 40.0
+margin_bottom = 24.0
+theme = ExtResource( 4 )
+text = "xd"
+
+[node name="AnimPlayer" type="AnimationPlayer" parent="."]
+anims/FadeOut = SubResource( 1 )

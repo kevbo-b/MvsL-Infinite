@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/smb_peachSaved.ogg-9115601bfae6fa868a84470f26169205.oggstr"
+
+[deps]
+
+source_file="res://SFX/MusicThemes/smb_peachSaved.ogg"
+dest_files=[ "res://.import/smb_peachSaved.ogg-9115601bfae6fa868a84470f26169205.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=6.053

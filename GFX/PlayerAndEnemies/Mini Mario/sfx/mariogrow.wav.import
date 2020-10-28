@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mariogrow.wav-4795e20bd27898ece16b3ea68f05ad09.sample"
+
+[deps]
+
+source_file="res://GFX/PlayerAndEnemies/Mini Mario/sfx/mariogrow.wav"
+dest_files=[ "res://.import/mariogrow.wav-4795e20bd27898ece16b3ea68f05ad09.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

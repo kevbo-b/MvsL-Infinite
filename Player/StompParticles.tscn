@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player/StompParticlesRight.tres" type="Material" id=1]
+[ext_resource path="res://Player/stompParticle.png" type="Texture" id=2]
+[ext_resource path="res://Player/StompParticles.gd" type="Script" id=3]
+[ext_resource path="res://Player/StompParticlesLeft.tres" type="Material" id=4]
+
+[node name="StompParticle" type="Particles2D"]
+z_index = 2
+amount = 2
+lifetime = 0.65
+preprocess = 0.25
+explosiveness = 1.0
+fract_delta = false
+visibility_rect = Rect2( 0, 0, 0, 0 )
+process_material = ExtResource( 1 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Lifetime" type="Timer" parent="."]
+process_mode = 0
+
+[node name="StompParticleLeft" type="Particles2D" parent="."]
+amount = 2
+lifetime = 0.65
+preprocess = 0.25
+explosiveness = 1.0
+fract_delta = false
+visibility_rect = Rect2( 0, 0, 0, 0 )
+process_material = ExtResource( 4 )
+texture = ExtResource( 2 )
+[connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]

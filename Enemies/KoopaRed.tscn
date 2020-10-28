@@ -1,0 +1,132 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Enemies/KoopaRed.gd" type="Script" id=1]
+[ext_resource path="res://Enemies/gfxKoopas/red_wake0.png" type="Texture" id=2]
+[ext_resource path="res://Enemies/gfxKoopas/red_dead.png" type="Texture" id=3]
+[ext_resource path="res://Enemies/gfxKoopas/red_kick0.png" type="Texture" id=4]
+[ext_resource path="res://Enemies/gfxKoopas/red_kick1.png" type="Texture" id=5]
+[ext_resource path="res://Enemies/gfxKoopas/red_kick2.png" type="Texture" id=6]
+[ext_resource path="res://Enemies/gfxKoopas/red_wake1.png" type="Texture" id=7]
+[ext_resource path="res://Enemies/gfxKoopas/red_walk0.png" type="Texture" id=8]
+[ext_resource path="res://Enemies/gfxKoopas/red_walk1.png" type="Texture" id=9]
+[ext_resource path="res://Enemies/EnemyVisibilityNotifier.tscn" type="PackedScene" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": false,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": false,
+"name": "squished",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "wakeUp",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "kicked",
+"speed": 13.0
+} ]
+
+[node name="KoopaRed" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 81
+script = ExtResource( 1 )
+
+[node name="KinematicCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2 )
+scale = Vector2( 0.7, 0.6 )
+shape = SubResource( 1 )
+
+[node name="KoopaRSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -4 )
+frames = SubResource( 2 )
+animation = "walk"
+frame = 1
+playing = true
+
+[node name="enemie_hitbox" type="Area2D" parent="."]
+position = Vector2( 0, 2 )
+scale = Vector2( 0.8, 0.6 )
+collision_layer = 8
+collision_mask = 10
+
+[node name="hitbox_collision" type="CollisionShape2D" parent="enemie_hitbox"]
+shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 3, 9 )
+scale = Vector2( 1, 0.3 )
+enabled = true
+cast_to = Vector2( 0, 13 )
+collision_mask = 65
+
+[node name="RayCast2DFar" type="RayCast2D" parent="."]
+position = Vector2( 10, 9 )
+scale = Vector2( 1, 0.3 )
+enabled = true
+cast_to = Vector2( 0, 13 )
+collision_mask = 65
+
+[node name="SquishedTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 5.0
+
+[node name="WakeUpTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 2.0
+
+[node name="InvincibleToPlayerAfterKick" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.33
+
+[node name="BlockHitRight1" type="RayCast2D" parent="."]
+position = Vector2( 8, -4 )
+rotation = 4.71239
+scale = Vector2( 1, 0.2 )
+enabled = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="BlockHitRight2" type="RayCast2D" parent="."]
+position = Vector2( 8, 8 )
+rotation = 4.71239
+scale = Vector2( 1, 0.2 )
+enabled = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="BlockHitLeft1" type="RayCast2D" parent="."]
+position = Vector2( -8, -4 )
+rotation = 1.5708
+scale = Vector2( 1, 0.2 )
+enabled = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="BlockHitLeft2" type="RayCast2D" parent="."]
+position = Vector2( -8, 8 )
+rotation = 1.5708
+scale = Vector2( 1, 0.2 )
+enabled = true
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="EnemyVisibilityNotifier" parent="." instance=ExtResource( 10 )]
+[connection signal="area_entered" from="enemie_hitbox" to="." method="_on_enemie_hitbox_area_entered"]
+[connection signal="timeout" from="SquishedTimer" to="." method="_on_SquishedTimer_timeout"]
+[connection signal="timeout" from="WakeUpTimer" to="." method="_on_WakeUpTimer_timeout"]
+[connection signal="timeout" from="InvincibleToPlayerAfterKick" to="." method="_on_InvincibleToPlayerAfterKick_timeout"]

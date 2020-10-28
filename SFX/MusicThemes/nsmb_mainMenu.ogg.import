@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/nsmb_mainMenu.ogg-b61308e76e11e75b77c263ce8aa01857.oggstr"
+
+[deps]
+
+source_file="res://SFX/MusicThemes/nsmb_mainMenu.ogg"
+dest_files=[ "res://.import/nsmb_mainMenu.ogg-b61308e76e11e75b77c263ce8aa01857.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=3.694

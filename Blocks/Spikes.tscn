@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Blocks/Spikes.gd" type="Script" id=1]
+[ext_resource path="res://Blocks/Spikes/Spikes.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[node name="Spike" type="StaticBody2D"]
+z_index = -1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.5 )
+scale = Vector2( 0.75, 0.75 )
+shape = SubResource( 1 )
+
+[node name="SpikeArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="SpikeArea"]
+texture = ExtResource( 2 )
+
+[node name="SpikeDamage" type="CollisionShape2D" parent="SpikeArea"]
+scale = Vector2( 0.8, 0.8 )
+shape = SubResource( 1 )
+
+[node name="TriggerArea" type="Area2D" parent="."]
+position = Vector2( 0, -8 )
+scale = Vector2( 0.8, 0.5 )
+collision_layer = 0
+collision_mask = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="TriggerCollision" type="CollisionShape2D" parent="TriggerArea"]
+shape = SubResource( 1 )
+
+[node name="TimeToTrigger" type="Timer" parent="."]
+wait_time = 0.3
+
+[node name="TimeTillReset" type="Timer" parent="."]
+
+[node name="Rise" type="Timer" parent="."]
+wait_time = 0.01
+
+[node name="PullBack" type="Timer" parent="."]
+wait_time = 0.01
+
+[connection signal="area_entered" from="SpikeArea" to="." method="_on_SpikeArea_area_entered"]
+[connection signal="body_entered" from="TriggerArea" to="." method="_on_TriggerArea_body_entered"]
+[connection signal="timeout" from="TimeToTrigger" to="." method="_on_TimeToTrigger_timeout"]
+[connection signal="timeout" from="TimeTillReset" to="." method="_on_TimeTillReset_timeout"]
+[connection signal="timeout" from="Rise" to="." method="_on_Rise_timeout"]
+[connection signal="timeout" from="PullBack" to="." method="_on_PullBack_timeout"]

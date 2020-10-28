@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Player/megaGrowParticle.png" type="Texture" id=1]
+[ext_resource path="res://Player/megaGrowParticles.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.309211, 0.588816, 1 )
+colors = PoolColorArray( 0.316406, 0.451256, 1, 1, 1, 1, 1, 1, 0.96652, 0.975586, 0.312492, 1, 0.51021, 0.27523, 0.541992, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+max_value = 1.5
+_data = [ Vector2( 0, 0.00340903 ), 0.0, 0.0, 0, 0, Vector2( 0.287462, 0.773864 ), 0.0, 0.0, 0, 0, Vector2( 0.896024, 0 ), 0.0844515, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+flag_align_y = true
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 35.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 70.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
+hue_variation = 0.01
+hue_variation_random = 0.1
+
+[node name="megaGrow" type="Particles2D"]
+z_index = 2
+emitting = false
+amount = 30
+lifetime = 3.0
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.3
+local_coords = false
+process_material = SubResource( 5 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Lifetime" type="Timer" parent="."]
+process_mode = 0
+wait_time = 3.0
+[connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]

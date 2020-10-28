@@ -1,0 +1,466 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Misc/SPAWNS.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Misc/SpawnWarp.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Misc/Background/LevelBackground.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Blocks/Tileset/TileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemies/BuzzyBeetle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Enemies/KoopaRed.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Enemies/Goomba.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemies/KoopaGreen.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Misc/BigStar.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Misc/LevelSettings.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Enemies/BulletBill.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Misc/ShootingGenerator.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Misc/PawBlock.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Misc/SMBPipe.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Misc/SMBSmallPipe.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Misc/SMBMiniPipe.tscn" type="PackedScene" id=16]
+
+[node name="World" type="Node2D"]
+
+[node name="LevelSettings" parent="." instance=ExtResource( 10 )]
+repeatingHorizontally = true
+blocksSpaceTop = 5
+
+[node name="LevelBackgrounds" type="Node2D" parent="."]
+
+[node name="LevelBackground" parent="LevelBackgrounds" instance=ExtResource( 3 )]
+BackgroundColor = Color( 0.188235, 0.305882, 0.721569, 1 )
+
+[node name="SPAWNS" parent="." instance=ExtResource( 1 )]
+
+[node name="SpawnWarp" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 38.2543, 215.555 )
+
+[node name="SpawnWarp2" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 688, 184 )
+spawnID = 10
+spawnType = 3
+destinationSpawn = 11
+
+[node name="SpawnWarp3" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 368, 152 )
+spawnID = 11
+spawnType = 3
+destinationSpawn = 10
+
+[node name="SpawnWarp4" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 811, 88 )
+spawnID = 12
+spawnType = 6
+destinationSpawn = 13
+
+[node name="SpawnWarp5" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 1189, 104 )
+spawnID = 13
+spawnType = 5
+destinationSpawn = 12
+
+[node name="SpawnWarp6" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 1892, 120 )
+spawnID = 20
+spawnType = 5
+destinationSpawn = 21
+
+[node name="SpawnWarp7" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 1820, 120 )
+spawnID = 21
+spawnType = 6
+destinationSpawn = 20
+
+[node name="TileMap" parent="." instance=ExtResource( 4 )]
+tile_data = PoolIntArray( -1572844, 22, 0, -1572843, 22, 0, -1572842, 22, 0, -1572841, 22, 0, -1572840, 22, 0, -1572839, 22, 0, -1572838, 22, 0, -1507308, 22, 0, -1507307, 22, 0, -1507306, 22, 0, -1507305, 22, 0, -1507304, 22, 0, -1507303, 22, 0, -1507302, 22, 0, -1441772, 22, 0, -1441771, 22, 0, -1441770, 22, 0, -1441769, 22, 0, -1441768, 22, 0, -1441767, 22, 0, -1441766, 22, 0, -1376236, 3, 0, -1376235, 3, 0, -1376234, 3, 0, -1376233, 3, 0, -1376232, 3, 0, -1376231, 3, 0, -1376230, 22, 0, -1310700, 3, 0, -1310699, 3, 0, -1310698, 3, 0, -1310697, 3, 0, -1310696, 3, 0, -1310695, 3, 0, -1310694, 22, 0, -1245164, 3, 0, -1245163, 3, 0, -1245162, 3, 0, -1245161, 3, 0, -1245160, 3, 0, -1245159, 3, 0, -1245158, 22, 0, -1179628, 22, 0, -1179627, 22, 0, -1179626, 22, 0, -1179625, 22, 0, -1179624, 22, 0, -1179623, 22, 0, -1179622, 22, 0, -1114092, 22, 0, -1114091, 22, 0, -1114090, 22, 0, -1114089, 22, 0, -1114088, 22, 0, -1114087, 22, 0, -1114086, 22, 0, -1048556, 22, 0, -1048555, 22, 0, -1048554, 22, 0, -1048553, 22, 0, -1048552, 22, 0, -1048551, 22, 0, -1048550, 22, 0, -983020, 22, 0, -983019, 22, 0, -983018, 22, 0, -983017, 22, 0, -983016, 22, 0, -983015, 22, 0, -983014, 22, 0, -917484, 3, 0, -917483, 3, 0, -917482, 3, 0, -917481, 3, 0, -917480, 3, 0, -917479, 3, 0, -917478, 3, 0, -851948, 3, 0, -851947, 3, 0, -851946, 3, 0, -851945, 3, 0, -851944, 3, 0, -851943, 3, 0, -851942, 3, 0, -786412, 3, 0, -786411, 3, 0, -786410, 3, 0, -786409, 3, 0, -786408, 3, 0, -786407, 3, 0, -786406, 3, 0, -720876, 3, 0, -720875, 3, 0, -720874, 3, 0, -720873, 3, 0, -720872, 3, 0, -720871, 3, 0, -720870, 3, 0, -655340, 3, 0, -655339, 3, 0, -655338, 3, 0, -655337, 3, 0, -655336, 3, 0, -655335, 3, 0, -655334, 3, 0, -589804, 3, 0, -589803, 3, 0, -589802, 3, 0, -589801, 3, 0, -589800, 3, 0, -589799, 3, 0, -589798, 3, 0, -524268, 3, 0, -524267, 3, 0, -524266, 3, 0, -524265, 3, 0, -524264, 3, 0, -524263, 3, 0, -524262, 3, 0, -458732, 3, 0, -458731, 3, 0, -458730, 3, 0, -458729, 3, 0, -458728, 3, 0, -458727, 3, 0, -458726, 3, 0, -393196, 3, 0, -393195, 3, 0, -393194, 3, 0, -393193, 3, 0, -393192, 3, 0, -393191, 3, 0, -393190, 3, 0, -327660, 3, 0, -327659, 3, 0, -327658, 3, 0, -327657, 3, 0, -327656, 3, 0, -327655, 3, 0, -327654, 3, 0, -262124, 3, 0, -262123, 3, 0, -262122, 3, 0, -262121, 3, 0, -262120, 3, 0, -262119, 3, 0, -262118, 3, 0, -196588, 3, 0, -196587, 3, 0, -196586, 3, 0, -196585, 3, 0, -196584, 3, 0, -196583, 3, 0, -196582, 3, 0, -131052, 3, 0, -131051, 3, 0, -131050, 3, 0, -131049, 3, 0, -131048, 3, 0, -131047, 3, 0, -131046, 3, 0, -65516, 3, 0, -65515, 3, 0, -65514, 3, 0, -65513, 3, 0, -65512, 3, 0, -65511, 3, 0, -65510, 3, 0, 20, 3, 0, 21, 3, 0, 22, 3, 0, 23, 3, 0, 24, 3, 0, 25, 3, 0, 26, 3, 0, 29, 0, 0, 30, 0, 0, 31, 0, 0, 32, 0, 0, 33, 0, 0, 34, 0, 0, 35, 0, 0, 36, 0, 0, 37, 0, 0, 49, 0, 0, 50, 0, 0, 51, 0, 0, 52, 0, 0, 53, 0, 0, 54, 0, 0, 55, 0, 0, 56, 0, 0, 57, 0, 0, 58, 0, 0, 59, 0, 0, 60, 0, 0, 61, 0, 0, 62, 0, 0, 63, 0, 0, 64, 0, 0, 65, 0, 0, 66, 0, 0, 67, 0, 0, 68, 0, 0, 69, 0, 0, 70, 0, 0, 71, 0, 0, 72, 0, 0, 73, 0, 0, 74, 0, 0, 75, 0, 0, 65556, 3, 0, 65557, 3, 0, 65558, 3, 0, 65559, 3, 0, 65560, 3, 0, 65561, 3, 0, 65562, 3, 0, 65565, 3, 0, 65566, 3, 0, 65567, 3, 0, 65568, 3, 0, 65569, 3, 0, 65570, 3, 0, 65571, 3, 0, 65572, 3, 0, 65573, 3, 0, 65575, 5, 0, 65585, 0, 0, 65586, 0, 0, 65587, 0, 0, 65588, 0, 0, 65589, 0, 0, 65590, 0, 0, 65591, 0, 0, 65594, 0, 0, 65595, 0, 0, 65598, 0, 0, 65599, 0, 0, 65600, 0, 0, 65601, 171, 0, 65602, 0, 0, 65603, 171, 0, 65604, 0, 0, 65605, 0, 0, 65606, 0, 0, 65607, 0, 0, 65608, 0, 0, 65609, 0, 0, 65610, 0, 0, 65611, 0, 0, 131092, 3, 0, 131093, 3, 0, 131094, 3, 0, 131095, 3, 0, 131096, 3, 0, 131097, 3, 0, 131098, 3, 0, 131101, 3, 0, 131102, 3, 0, 131103, 3, 0, 131104, 3, 0, 131105, 3, 0, 131106, 3, 0, 131107, 3, 0, 131108, 3, 0, 131109, 3, 0, 131110, 5, 0, 131111, 5, 0, 131112, 5, 0, 131121, 0, 0, 131122, 0, 0, 131123, 0, 0, 131124, 0, 0, 131125, 0, 0, 131126, 0, 0, 131127, 0, 0, 131130, 0, 0, 131131, 0, 0, 131134, 0, 0, 131135, 0, 0, 131136, 0, 0, 131137, 171, 0, 131138, 0, 0, 131139, 171, 0, 131140, 0, 0, 131141, 0, 0, 131142, 0, 0, 131143, 0, 0, 131144, 0, 0, 131145, 0, 0, 131146, 0, 0, 131147, 0, 0, 196628, 3, 0, 196629, 3, 0, 196630, 3, 0, 196631, 3, 0, 196632, 3, 0, 196633, 3, 0, 196634, 3, 0, 196637, 5, 0, 196638, 5, 0, 196639, 5, 0, 196640, 5, 0, 196641, 5, 0, 196642, 5, 0, 196643, 5, 0, 196644, 5, 0, 196646, 5, 0, 196647, 5, 0, 196648, 5, 0, 196659, 0, 0, 196660, 0, 0, 196661, 0, 0, 196662, 0, 0, 196663, 0, 0, 196666, 0, 0, 196667, 0, 0, 196670, 0, 0, 196671, 0, 0, 196672, 0, 0, 196673, 171, 0, 196674, 0, 0, 196675, 171, 0, 196676, 0, 0, 196677, 0, 0, 196678, 0, 0, 196679, 0, 0, 196680, 0, 0, 196681, 0, 0, 196682, 0, 0, 196683, 0, 0, 262164, 3, 0, 262165, 3, 0, 262166, 3, 0, 262167, 3, 0, 262168, 3, 0, 262169, 3, 0, 262170, 3, 0, 262173, 5, 0, 262174, 5, 0, 262175, 5, 0, 262176, 5, 0, 262177, 5, 0, 262178, 5, 0, 262179, 5, 0, 262180, 5, 0, 262182, 5, 0, 262183, 5, 0, 262184, 5, 0, 262185, 5, 0, 262188, 0, 0, 262195, 0, 0, 262198, 0, 0, 262199, 0, 0, 262202, 0, 0, 262203, 0, 0, 262206, 0, 0, 262207, 0, 0, 262208, 0, 0, 262209, 171, 0, 262210, 0, 0, 262211, 171, 0, 262212, 0, 0, 262213, 0, 0, 262214, 0, 0, 262215, 0, 0, 262216, 0, 0, 262217, 0, 0, 327700, 3, 0, 327701, 3, 0, 327702, 3, 0, 327703, 3, 0, 327704, 3, 0, 327705, 3, 0, 327706, 3, 0, 327718, 5, 0, 327719, 5, 0, 327721, 5, 0, 327722, 5, 0, 327734, 0, 0, 327735, 0, 0, 327738, 0, 0, 327739, 0, 0, 327742, 0, 0, 327743, 0, 0, 327744, 0, 0, 327745, 171, 0, 327746, 0, 0, 327747, 171, 0, 327748, 0, 0, 327749, 0, 0, 327750, 0, 0, 327785, 20, 0, 327786, 20, 0, 327787, 21, 0, 327788, 21, 0, 327789, 37, 0, 327790, 37, 0, 327791, 37, 0, 393258, 5, 0, 393259, 5, 0, 393261, 56, 0, 393262, 5, 0, 393265, 0, 0, 393266, 0, 0, 393267, 0, 0, 393268, 0, 0, 393269, 0, 0, 393270, 0, 0, 393271, 0, 0, 393274, 0, 0, 393275, 0, 0, 393278, 0, 0, 393279, 0, 0, 393280, 0, 0, 393281, 171, 0, 393282, 0, 0, 393283, 171, 0, 393284, 0, 0, 393285, 0, 0, 393286, 0, 0, 393289, 0, 0, 393292, 5, 0, 393293, 5, 0, 393294, 5, 0, 458781, 3, 0, 458782, 3, 0, 458783, 3, 0, 458784, 3, 0, 458785, 3, 0, 458786, 3, 0, 458787, 3, 0, 458788, 3, 0, 458789, 3, 0, 458797, 0, 0, 458798, 0, 0, 458801, 0, 0, 458802, 172, 0, 458803, 172, 0, 458804, 172, 0, 458805, 172, 0, 458806, 172, 0, 458807, 172, 0, 458810, 172, 0, 458811, 172, 0, 458813, 0, 0, 458814, 0, 0, 458815, 0, 0, 458816, 0, 0, 458817, 171, 0, 458818, 0, 0, 458819, 171, 0, 458820, 0, 0, 458821, 0, 0, 458822, 0, 0, 458823, 0, 0, 458824, 0, 0, 458825, 0, 0, 458826, 0, 0, 458827, 0, 0, 458828, 5, 0, 458831, 5, 0, 524304, 36, 0, 524317, 3, 0, 524325, 3, 0, 524326, 0, 0, 524327, 0, 0, 524328, 0, 0, 524329, 0, 0, 524330, 0, 0, 524331, 0, 0, 524332, 0, 0, 524333, 0, 0, 524334, 5, 0, 524337, 0, 0, 524338, 0, 0, 524339, 0, 0, 524340, 0, 0, 524341, 0, 0, 524342, 0, 0, 524343, 0, 0, 524346, 0, 0, 524347, 0, 0, 524350, 0, 0, 524351, 0, 0, 524352, 0, 0, 524353, 171, 0, 524354, 0, 0, 524355, 171, 0, 524356, 0, 0, 524357, 0, 0, 524358, 0, 0, 524359, 0, 0, 524360, 0, 0, 524361, 0, 0, 524362, 0, 0, 524363, 0, 0, 524364, 5, 0, 524365, 5, 0, 524367, 5, 0, 524368, 5, 0, 524401, 4, 0, 524402, 4, 0, 524403, 4, 0, 524404, 4, 0, 524405, 4, 0, 524406, 4, 0, 589853, 0, 0, 589861, 0, 0, 589862, 0, 0, 589863, 0, 0, 589864, 0, 0, 589865, 0, 0, 589870, 5, 0, 589873, 0, 0, 589874, 0, 0, 589875, 0, 0, 589876, 0, 0, 589877, 0, 0, 589878, 0, 0, 589879, 0, 0, 589880, 0, 0, 589881, 0, 0, 589882, 0, 0, 589883, 0, 0, 589884, 0, 0, 589885, 0, 0, 589886, 0, 0, 589887, 0, 0, 589888, 0, 0, 589889, 0, 0, 589890, 0, 0, 589891, 0, 0, 589892, 0, 0, 589893, 0, 0, 589894, 0, 0, 589895, 0, 0, 589896, 0, 0, 589897, 0, 0, 589898, 0, 0, 589899, 0, 0, 589901, 5, 0, 589904, 5, 0, 589928, 0, 0, 720894, 24, 0, 655360, 24, 0, 655365, 38, 0, 655367, 38, 0, 655388, 0, 0, 655389, 0, 0, 655390, 1, 0, 655391, 1, 0, 655392, 1, 0, 655393, 1, 0, 655394, 1, 0, 655395, 1, 0, 655396, 1, 0, 655397, 0, 0, 655399, 3, 0, 655409, 5, 0, 655410, 5, 0, 655411, 5, 0, 655412, 5, 0, 655413, 5, 0, 655414, 5, 0, 655416, 5, 0, 655417, 5, 0, 655418, 5, 0, 655419, 5, 0, 655421, 5, 0, 655422, 5, 0, 655423, 5, 0, 655426, 5, 0, 655427, 5, 0, 655428, 5, 0, 655434, 5, 0, 655436, 5, 0, 655437, 5, 0, 655438, 5, 0, 655440, 5, 0, 655466, 0, 0, 655467, 4, 0, 655468, 4, 0, 655469, 4, 0, 655470, 4, 0, 655471, 4, 0, 655472, 4, 0, 655473, 4, 0, 655474, 4, 0, 655475, 4, 0, 655476, 4, 0, 655477, 4, 0, 655478, 4, 0, 720924, 0, 0, 720925, 0, 0, 720926, 1, 0, 720927, 1, 0, 720928, 1, 0, 720929, 1, 0, 720930, 1, 0, 720931, 1, 0, 720932, 1, 0, 720933, 0, 0, 720935, 3, 0, 720950, 5, 0, 720952, 5, 0, 720953, 5, 0, 720954, 5, 0, 720955, 5, 0, 720957, 5, 0, 720959, 5, 0, 720962, 5, 0, 720963, 5, 0, 720964, 5, 0, 720966, 5, 0, 720967, 5, 0, 720968, 5, 0, 720969, 5, 0, 720970, 5, 0, 720973, 5, 0, 720974, 5, 0, 720976, 5, 0, 721016, 23, 0, 786459, 0, 0, 786460, 0, 0, 786461, 0, 0, 786462, 0, 0, 786463, 0, 0, 786464, 0, 0, 786465, 0, 0, 786466, 0, 0, 786467, 0, 0, 786468, 0, 0, 786469, 0, 0, 786470, 0, 0, 786471, 0, 0, 786481, 5, 0, 786482, 5, 0, 786483, 5, 0, 786484, 5, 0, 786485, 5, 0, 786486, 5, 0, 786493, 5, 0, 786494, 5, 0, 786495, 5, 0, 786499, 5, 0, 786500, 5, 0, 786534, 0, 0, 786541, 0, 0, 786545, 141, 0, 786546, 141, 0, 786547, 141, 0, 786548, 141, 0, 786549, 141, 0, 786550, 141, 0, 851993, 22, 0, 851994, 22, 0, 851996, 0, 0, 851997, 0, 0, 851998, 33, 0, 851999, 35, 0, 852000, 37, 0, 852002, 36, 0, 852003, 34, 0, 852005, 0, 0, 852006, 0, 0, 852007, 0, 0, 852014, 0, 0, 983036, 0, 0, 983037, 0, 0, 983038, 0, 0, 983039, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 917510, 0, 0, 917511, 0, 0, 917512, 0, 0, 917513, 0, 0, 917514, 0, 0, 917515, 0, 0, 917516, 0, 0, 917517, 0, 0, 917518, 0, 0, 917519, 0, 0, 917520, 0, 0, 917521, 0, 0, 917529, 22, 0, 917530, 22, 0, 917548, 0, 0, 917549, 0, 0, 917550, 0, 0, 917551, 0, 0, 917552, 0, 0, 917553, 0, 0, 917554, 0, 0, 917555, 0, 0, 917556, 0, 0, 917557, 0, 0, 917558, 0, 0, 917559, 0, 0, 917560, 0, 0, 917561, 0, 0, 917562, 0, 0, 917563, 0, 0, 917564, 0, 0, 917565, 0, 0, 917566, 0, 0, 917567, 0, 0, 917568, 0, 0, 917569, 0, 0, 917570, 0, 0, 917571, 0, 0, 917572, 0, 0, 917573, 0, 0, 917574, 0, 0, 917575, 0, 0, 917576, 0, 0, 917577, 0, 0, 917578, 0, 0, 917579, 0, 0, 917580, 0, 0, 917581, 0, 0, 917582, 0, 0, 917583, 0, 0, 917584, 0, 0, 917585, 0, 0, 917586, 0, 0, 917587, 0, 0, 917588, 0, 0, 917589, 0, 0, 917590, 0, 0, 917591, 0, 0, 917592, 0, 0, 917593, 0, 0, 917594, 0, 0, 917595, 0, 0, 917596, 0, 0, 917597, 0, 0, 917598, 0, 0, 917599, 0, 0, 917600, 0, 0, 917601, 0, 0, 917602, 0, 0, 917603, 0, 0, 917604, 0, 0, 917605, 0, 0, 917606, 0, 0, 917607, 0, 0, 917608, 0, 0, 917609, 0, 0, 917610, 0, 0, 917611, 0, 0, 917612, 0, 0, 917613, 0, 0, 917614, 0, 0, 917615, 0, 0, 917616, 0, 0, 917617, 0, 0, 917618, 0, 0, 917619, 0, 0, 917620, 0, 0, 917621, 0, 0, 917622, 0, 0, 917623, 0, 0, 917624, 0, 0, 917625, 0, 0, 917626, 0, 0, 917627, 0, 0, 917628, 0, 0, 917629, 0, 0, 917630, 0, 0, 917631, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983065, 22, 0, 983066, 22, 0, 983067, 0, 0, 983068, 0, 0, 983069, 0, 0, 983070, 0, 0, 983071, 0, 0, 983072, 0, 0, 983073, 0, 0, 983074, 0, 0, 983075, 0, 0, 983076, 0, 0, 983077, 0, 0, 983078, 0, 0, 983079, 0, 0, 983080, 0, 0, 983081, 0, 0, 983082, 0, 0, 983083, 0, 0, 983084, 0, 0, 983085, 0, 0, 983086, 0, 0, 983087, 0, 0, 983088, 0, 0, 983089, 0, 0, 983090, 0, 0, 983091, 0, 0, 983092, 0, 0, 983093, 0, 0, 983094, 0, 0, 983095, 0, 0, 983096, 0, 0, 983097, 0, 0, 983098, 0, 0, 983099, 0, 0, 983100, 0, 0, 983101, 0, 0, 983102, 0, 0, 983103, 0, 0, 983104, 0, 0, 983105, 0, 0, 983106, 0, 0, 983107, 0, 0, 983108, 0, 0, 983109, 0, 0, 983110, 0, 0, 983111, 0, 0, 983112, 0, 0, 983113, 0, 0, 983114, 0, 0, 983115, 0, 0, 983116, 0, 0, 983117, 0, 0, 983118, 0, 0, 983119, 0, 0, 983120, 0, 0, 983121, 0, 0, 983122, 0, 0, 983123, 0, 0, 983124, 0, 0, 983125, 0, 0, 983126, 0, 0, 983127, 0, 0, 983128, 0, 0, 983129, 0, 0, 983130, 0, 0, 983131, 0, 0, 983132, 0, 0, 983133, 0, 0, 983134, 0, 0, 983135, 0, 0, 983136, 0, 0, 983137, 0, 0, 983138, 0, 0, 983139, 0, 0, 983140, 0, 0, 983141, 0, 0, 983142, 0, 0, 983143, 0, 0, 983144, 0, 0, 983145, 0, 0, 983146, 0, 0, 983147, 0, 0, 983148, 0, 0, 983149, 0, 0, 983150, 0, 0, 983151, 0, 0, 983152, 0, 0, 983153, 0, 0, 983154, 0, 0, 983155, 0, 0, 983156, 0, 0, 983157, 0, 0, 983158, 0, 0, 983159, 0, 0, 983160, 0, 0, 983161, 0, 0, 983162, 0, 0, 983163, 0, 0, 983164, 0, 0, 983165, 0, 0, 983166, 0, 0, 983167, 0, 0 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="KoopaRed" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 496, 144 )
+
+[node name="KoopaRed2" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 512, 144 )
+
+[node name="KoopaRed3" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 528, 144 )
+
+[node name="KoopaRed4" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 544, 144 )
+
+[node name="KoopaRed5" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 560, 144 )
+
+[node name="KoopaRed6" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( 576, 144 )
+
+[node name="Goomba" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 912, 48 )
+
+[node name="Goomba2" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 912, 64 )
+
+[node name="Goomba3" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 912, 80 )
+
+[node name="Goomba4" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 912, 96 )
+
+[node name="Goomba5" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 912, 112 )
+
+[node name="Goomba6" parent="Enemies" instance=ExtResource( 7 )]
+position = Vector2( 912, 32 )
+
+[node name="KoopaGreen3" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 496, 128 )
+
+[node name="KoopaGreen4" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 240, 208 )
+
+[node name="KoopaGreen5" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 528, 128 )
+
+[node name="KoopaGreen6" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 544, 128 )
+
+[node name="KoopaGreen7" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 560, 128 )
+
+[node name="BulletBill" parent="Enemies" instance=ExtResource( 11 )]
+position = Vector2( 724.006, 216 )
+
+[node name="BuzzyBeetle" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 496, 160 )
+
+[node name="BuzzyBeetle2" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 512, 160 )
+
+[node name="BuzzyBeetle3" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 528, 160 )
+
+[node name="BuzzyBeetle4" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 544, 160 )
+
+[node name="BuzzyBeetle5" parent="Enemies" instance=ExtResource( 5 )]
+position = Vector2( 560, 160 )
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="BigStarPositions" type="Node2D" parent="."]
+
+[node name="BigStar" parent="BigStarPositions" instance=ExtResource( 9 )]
+position = Vector2( 192.18, 160.134 )
+
+[node name="BigStarPosition1" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 191.581, 157.657 )
+
+[node name="BigStarPosition2" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 194.128, 158.256 )
+
+[node name="BigStarPosition3" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 190.066, 158.002 )
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="SMBMiniPipe" parent="Blocks" instance=ExtResource( 16 )]
+position = Vector2( 1856, 16 )
+isEnterable = true
+spawnID = 21
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBMiniPipe8" parent="Blocks" instance=ExtResource( 16 )]
+position = Vector2( 1952, 144 )
+isEnterable = true
+spawnID = 21
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBMiniPipe4" parent="Blocks" instance=ExtResource( 16 )]
+position = Vector2( 1824, 160 )
+rotation = 4.71239
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBMiniPipe6" parent="Blocks" instance=ExtResource( 16 )]
+position = Vector2( 1824, 128 )
+rotation = 4.71239
+isEnterable = true
+spawnID = 21
+fastPipeWarpTileLength = 4
+
+[node name="SMBMiniPipe3" parent="Blocks" instance=ExtResource( 16 )]
+position = Vector2( 1888, 152 )
+rotation = 1.5708
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBMiniPipe5" parent="Blocks" instance=ExtResource( 16 )]
+position = Vector2( 1888, 120 )
+rotation = 1.5708
+isEnterable = true
+spawnID = 20
+fastPipeWarpTileLength = 4
+
+[node name="SMBMiniPipe2" parent="Blocks" instance=ExtResource( 16 )]
+position = Vector2( 1864, 80 )
+rotation = 3.14159
+isEnterable = true
+spawnID = 20
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBMiniPipe7" parent="Blocks" instance=ExtResource( 16 )]
+position = Vector2( 1960, 208 )
+rotation = 3.14159
+isEnterable = true
+spawnID = 20
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="PawBlock" parent="Blocks" instance=ExtResource( 13 )]
+position = Vector2( 432, 144 )
+typeAsColor = 5
+
+[node name="PawBlock4" parent="Blocks" instance=ExtResource( 13 )]
+position = Vector2( 264, 120 )
+typeAsColor = 5
+
+[node name="PawBlock5" parent="Blocks" instance=ExtResource( 13 )]
+position = Vector2( 288, 112 )
+typeAsColor = 5
+
+[node name="PawBlock2" parent="Blocks" instance=ExtResource( 13 )]
+position = Vector2( 464, 208 )
+typeAsColor = 5
+
+[node name="PawBlock3" parent="Blocks" instance=ExtResource( 13 )]
+position = Vector2( 528, 208 )
+typeAsColor = 5
+
+[node name="SMBPipe" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 672, 192 )
+pipeTileLength = 4
+isEnterable = true
+spawnID = 10
+
+[node name="SMBPipe8" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 1360, 112 )
+isEnterable = true
+spawnID = 10
+isFastPipe = true
+fastPipeWarpTileLength = 5
+
+[node name="SMBPipe13" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 1312, 48 )
+isEnterable = true
+spawnID = 10
+isFastPipe = true
+fastPipeWarpTileLength = 9
+
+[node name="SMBPipe9" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 1392, 192 )
+rotation = 3.14159
+pipeTileLength = 3
+isEnterable = true
+spawnID = 10
+isFastPipe = true
+fastPipeWarpTileLength = 5
+destroyablePipe = false
+
+[node name="SMBPipe12" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 1344, 192 )
+rotation = 3.14159
+isEnterable = true
+spawnID = 10
+isFastPipe = true
+fastPipeWarpTileLength = 9
+
+[node name="SMBPipe10" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 1488, 192 )
+rotation = 1.5708
+pipeTileLength = 3
+isEnterable = true
+spawnID = 10
+isFastPipe = true
+fastPipeWarpTileLength = 6
+
+[node name="SMBPipe15" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 1616, 112 )
+rotation = 1.5708
+pipeTileLength = 3
+isEnterable = true
+spawnID = 10
+isFastPipe = true
+fastPipeWarpTileLength = 6
+
+[node name="SMBPipe11" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 1392, 224 )
+rotation = 4.71239
+pipeTileLength = 3
+isEnterable = true
+spawnID = 10
+isFastPipe = true
+fastPipeWarpTileLength = 6
+
+[node name="SMBPipe14" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 1520, 144 )
+rotation = 4.71239
+pipeTileLength = 3
+isEnterable = true
+spawnID = 10
+isFastPipe = true
+fastPipeWarpTileLength = 6
+
+[node name="SMBPipe6" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 160, 48 )
+pipeColor = 5
+pipeTileLength = 4
+isEnterable = true
+spawnID = 11
+
+[node name="SMBSmallPipe" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 1648, 128 )
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe5" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 1984, 144 )
+pipeColor = 6
+isEnterable = true
+fastPipeWarpTileLength = 4
+destroyablePipe = false
+
+[node name="SMBSmallPipe10" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 2016, 144 )
+pipeColor = 8
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe3" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 1792, 144 )
+rotation = 1.5708
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe7" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 1888, 176 )
+rotation = 1.5708
+pipeColor = 7
+isEnterable = true
+spawnID = 21
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe2" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 1664, 192 )
+rotation = 3.14159
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe6" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 2000, 208 )
+rotation = 3.14159
+pipeColor = 6
+isEnterable = true
+fastPipeWarpTileLength = 4
+destroyablePipe = false
+
+[node name="SMBSmallPipe9" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 2032, 208 )
+rotation = 3.14159
+pipeColor = 8
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe4" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 1728, 160 )
+rotation = 4.71239
+pipeColor = 7
+isEnterable = true
+spawnID = 10
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe8" parent="Blocks" instance=ExtResource( 15 )]
+position = Vector2( 1824, 192 )
+rotation = 4.71239
+pipeColor = 7
+isEnterable = true
+spawnID = 20
+fastPipeWarpTileLength = 4
+
+[node name="SMBPipe17" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 208, 48 )
+pipeColor = 6
+pipeTileLength = 4
+isEnterable = true
+spawnID = 11
+
+[node name="SMBPipe18" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 256, 48 )
+pipeColor = 7
+pipeTileLength = 4
+isEnterable = true
+spawnID = 11
+
+[node name="SMBPipe19" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 304, 48 )
+pipeColor = 8
+pipeTileLength = 4
+isEnterable = true
+spawnID = 11
+
+[node name="SMBPipe2" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 144, 80 )
+rotation = 3.14159
+pipeColor = 4
+pipeTileLength = 4
+isEnterable = true
+spawnID = 11
+
+[node name="SMBPipe3" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 816, 96 )
+rotation = 4.71239
+pipeTileLength = 3
+isEnterable = true
+spawnID = 12
+
+[node name="SMBPipe7" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 1184, 80 )
+rotation = 1.5708
+pipeTileLength = 3
+isEnterable = true
+spawnID = 13
+
+[node name="SMBPipe4" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 96, 80 )
+rotation = 3.14159
+pipeColor = 3
+pipeTileLength = 4
+isEnterable = true
+
+[node name="SMBPipe5" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( 32, 80 )
+rotation = 3.92699
+pipeColor = 2
+pipeTileLength = 4
+isEnterable = true
+
+[node name="SMBPipe16" parent="Blocks" instance=ExtResource( 14 )]
+position = Vector2( -16, 80 )
+rotation = 3.92699
+pipeColor = 1
+pipeTileLength = 4
+isEnterable = true
+
+[node name="ShootingGenerator" parent="." instance=ExtResource( 12 )]
+position = Vector2( 728, 104 )
+is_enabled = false
+content = 3

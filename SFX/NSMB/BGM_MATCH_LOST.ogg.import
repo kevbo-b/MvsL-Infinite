@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/BGM_MATCH_LOST.ogg-96e0f1384d4e89eba350c0da91e6c621.oggstr"
+
+[deps]
+
+source_file="res://SFX/NSMB/BGM_MATCH_LOST.ogg"
+dest_files=[ "res://.import/BGM_MATCH_LOST.ogg-96e0f1384d4e89eba350c0da91e6c621.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

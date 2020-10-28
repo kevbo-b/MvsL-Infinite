@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/star_get.wav-399478df56fc2e49dee63bee112f19be.sample"
+
+[deps]
+
+source_file="res://SFX/NSMB/star_get.wav"
+dest_files=[ "res://.import/star_get.wav-399478df56fc2e49dee63bee112f19be.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

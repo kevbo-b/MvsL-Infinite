@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/smb_invincible.ogg-772890708be3ee823d2e2426108f4cb2.oggstr"
+
+[deps]
+
+source_file="res://SFX/MusicThemes/smb_invincible.ogg"
+dest_files=[ "res://.import/smb_invincible.ogg-772890708be3ee823d2e2426108f4cb2.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=3.264

@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Misc/SMBMiniPipe.gd" type="Script" id=1]
+[ext_resource path="res://Misc/gfx/PipeGFX/miniPipeMiddle.png" type="Texture" id=2]
+[ext_resource path="res://Misc/gfx/PipeGFX/miniPipeTop.png" type="Texture" id=3]
+[ext_resource path="res://Misc/gfx/PipeGFX/smallPipeButtom.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="SMBMiniPipe" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 1 )
+
+[node name="unusedCollision" type="CollisionShape2D" parent="."]
+scale = Vector2( 0.2, 0.2 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="PipeCollision" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 4, 8 )
+scale = Vector2( 0.4, 0.8 )
+shape = SubResource( 2 )
+
+[node name="Top" type="Sprite" parent="StaticBody2D"]
+use_parent_material = true
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Middle" type="Sprite" parent="StaticBody2D"]
+use_parent_material = true
+position = Vector2( 0, 16 )
+texture = ExtResource( 2 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 8, 16 )
+
+[node name="Buttom" type="Sprite" parent="StaticBody2D"]
+visible = false
+use_parent_material = true
+texture = ExtResource( 4 )
+centered = false
+
+[node name="EnterPipe" type="Area2D" parent="StaticBody2D"]
+position = Vector2( 4, 7.6 )
+scale = Vector2( 0.2, 0.4 )
+monitoring = false
+collision_layer = 256
+collision_mask = 256
+
+[node name="EnterCollision" type="CollisionShape2D" parent="StaticBody2D/EnterPipe"]
+position = Vector2( 0, -9 )
+shape = SubResource( 2 )
+
+[node name="PipeDetectableArea" type="Area2D" parent="."]
+position = Vector2( 3.5, 8 )
+scale = Vector2( 0.35, 0.8 )
+monitoring = false
+
+[node name="DetectableArea" type="CollisionShape2D" parent="PipeDetectableArea"]
+shape = SubResource( 2 )

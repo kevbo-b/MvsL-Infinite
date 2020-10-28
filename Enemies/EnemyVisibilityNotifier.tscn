@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Enemies/EnemyVisibilityNotifier.gd" type="Script" id=1]
+
+[node name="EnemyVisibilityNotifier" type="VisibilityNotifier2D"]
+script = ExtResource( 1 )
+
+[connection signal="viewport_entered" from="." to="." method="_on_EnemyVisibilityNotifier_viewport_entered"]
+[connection signal="viewport_exited" from="." to="." method="_on_EnemyVisibilityNotifier_viewport_exited"]

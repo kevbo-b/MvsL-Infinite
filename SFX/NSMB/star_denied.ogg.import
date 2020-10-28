@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/star_denied.ogg-cf69329f6115101ed6bf6437bb68faf1.oggstr"
+
+[deps]
+
+source_file="res://SFX/NSMB/star_denied.ogg"
+dest_files=[ "res://.import/star_denied.ogg-cf69329f6115101ed6bf6437bb68faf1.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

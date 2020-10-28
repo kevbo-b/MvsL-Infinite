@@ -1,0 +1,364 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Menu/Screen.gd" type="Script" id=1]
+[ext_resource path="res://Menu/SplitscreenCam1.gd" type="Script" id=2]
+[ext_resource path="res://Menu/menu_theme.tres" type="Theme" id=3]
+[ext_resource path="res://SFX/MusicHandler.tscn" type="PackedScene" id=4]
+[ext_resource path="res://SFX/SFXPlayback.tscn" type="PackedScene" id=5]
+
+[node name="Screen" type="Node"]
+script = ExtResource( 1 )
+
+[node name="SeperationColor" type="ColorRect" parent="."]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.172549, 0.172549, 0.172549, 1 )
+
+[node name="WholeScreen" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UpperScreen" type="HBoxContainer" parent="WholeScreen"]
+margin_right = 256.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="ViewPlayer1" type="ViewportContainer" parent="WholeScreen/UpperScreen"]
+margin_right = 128.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport1" type="Viewport" parent="WholeScreen/UpperScreen/ViewPlayer1"]
+size = Vector2( 128, 128 )
+own_world = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_target_update_mode = 3
+
+[node name="SplitscreenCam1" type="Camera2D" parent="WholeScreen/UpperScreen/ViewPlayer1/Viewport1"]
+current = true
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_top = 0.34
+script = ExtResource( 2 )
+
+[node name="P1FunImage" type="TextureRect" parent="WholeScreen/UpperScreen/ViewPlayer1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 200.0
+margin_bottom = 200.0
+expand = true
+stretch_mode = 4
+
+[node name="ViewPlayer2" type="ViewportContainer" parent="WholeScreen/UpperScreen"]
+margin_left = 128.0
+margin_right = 256.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport2" type="Viewport" parent="WholeScreen/UpperScreen/ViewPlayer2"]
+size = Vector2( 128, 128 )
+handle_input_locally = false
+hdr = false
+disable_3d = true
+render_target_update_mode = 3
+
+[node name="SplitscreenCam2" type="Camera2D" parent="WholeScreen/UpperScreen/ViewPlayer2/Viewport2"]
+current = true
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_top = 0.34
+script = ExtResource( 2 )
+
+[node name="P2FunImage" type="TextureRect" parent="WholeScreen/UpperScreen/ViewPlayer2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 200.0
+margin_bottom = 200.0
+expand = true
+stretch_mode = 4
+
+[node name="LowerScreen" type="HBoxContainer" parent="WholeScreen"]
+margin_top = 128.0
+margin_right = 256.0
+margin_bottom = 256.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 0
+
+[node name="ViewPlayer3" type="ViewportContainer" parent="WholeScreen/LowerScreen"]
+margin_right = 128.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport3" type="Viewport" parent="WholeScreen/LowerScreen/ViewPlayer3"]
+size = Vector2( 128, 128 )
+handle_input_locally = false
+hdr = false
+disable_3d = true
+render_target_update_mode = 3
+
+[node name="SplitscreenCam3" type="Camera2D" parent="WholeScreen/LowerScreen/ViewPlayer3/Viewport3"]
+current = true
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_top = 0.34
+script = ExtResource( 2 )
+
+[node name="P3FunImage" type="TextureRect" parent="WholeScreen/LowerScreen/ViewPlayer3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 72.0
+margin_bottom = 72.0
+expand = true
+stretch_mode = 4
+
+[node name="ViewPlayer4" type="ViewportContainer" parent="WholeScreen/LowerScreen"]
+margin_left = 128.0
+margin_right = 256.0
+margin_bottom = 128.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="Viewport4" type="Viewport" parent="WholeScreen/LowerScreen/ViewPlayer4"]
+size = Vector2( 128, 128 )
+handle_input_locally = false
+hdr = false
+disable_3d = true
+render_target_update_mode = 3
+
+[node name="SplitscreenCam4" type="Camera2D" parent="WholeScreen/LowerScreen/ViewPlayer4/Viewport4"]
+current = true
+limit_smoothed = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+drag_margin_top = 0.34
+script = ExtResource( 2 )
+
+[node name="P4FunImage" type="TextureRect" parent="WholeScreen/LowerScreen/ViewPlayer4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 200.0
+margin_bottom = 200.0
+expand = true
+stretch_mode = 4
+
+[node name="ErrorWindow" type="CenterContainer" parent="."]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+
+[node name="Container" type="VBoxContainer" parent="ErrorWindow"]
+margin_left = 92.0
+margin_top = 91.0
+margin_right = 164.0
+margin_bottom = 164.0
+
+[node name="ErrorMSG" type="Label" parent="ErrorWindow/Container"]
+margin_right = 72.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 0, 50 )
+text = "ERROR:"
+
+[node name="ExitBtn" type="Button" parent="ErrorWindow/Container"]
+margin_top = 54.0
+margin_right = 72.0
+margin_bottom = 73.0
+text = "EXIT"
+
+[node name="MusicChannel1" parent="." instance=ExtResource( 4 )]
+
+[node name="SFXStarCollect" parent="." instance=ExtResource( 5 )]
+pause_mode = 2
+
+[node name="SFXChannel0" parent="." instance=ExtResource( 5 )]
+
+[node name="SFXChannel1" parent="." instance=ExtResource( 5 )]
+
+[node name="SFXChannel2" parent="." instance=ExtResource( 5 )]
+
+[node name="SFXChannel3" parent="." instance=ExtResource( 5 )]
+
+[node name="SFXChannel4" parent="." instance=ExtResource( 5 )]
+
+[node name="HiddenViewports" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="viewportWorldHorizontal1" type="Viewport" parent="HiddenViewports"]
+process_priority = 1
+size = Vector2( 256, 256 )
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_direct_to_screen = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="worldCamera" type="Camera2D" parent="HiddenViewports/viewportWorldHorizontal1"]
+anchor_mode = 0
+current = true
+limit_left = -10000
+limit_top = -10000
+limit_right = 10000
+limit_bottom = 10000
+
+[node name="viewportWorldHorizontal2" type="Viewport" parent="HiddenViewports"]
+process_priority = 1
+size = Vector2( 256, 256 )
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_direct_to_screen = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="worldCamera" type="Camera2D" parent="HiddenViewports/viewportWorldHorizontal2"]
+anchor_mode = 0
+current = true
+limit_left = -10000
+limit_top = -10000
+limit_right = 10000
+limit_bottom = 10000
+
+[node name="viewportWorldVertical1" type="Viewport" parent="HiddenViewports"]
+process_priority = 1
+size = Vector2( 256, 256 )
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_direct_to_screen = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="worldCamera" type="Camera2D" parent="HiddenViewports/viewportWorldVertical1"]
+anchor_mode = 0
+current = true
+limit_left = -10000
+limit_top = -10000
+limit_right = 10000
+limit_bottom = 10000
+
+[node name="viewportWorldVertical2" type="Viewport" parent="HiddenViewports"]
+process_priority = 1
+size = Vector2( 256, 256 )
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_direct_to_screen = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="worldCamera" type="Camera2D" parent="HiddenViewports/viewportWorldVertical2"]
+anchor_mode = 0
+current = true
+limit_left = -10000
+limit_top = -10000
+limit_right = 10000
+limit_bottom = 10000
+
+[node name="viewportWorldDiagonal1" type="Viewport" parent="HiddenViewports"]
+process_priority = 1
+size = Vector2( 256, 256 )
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_direct_to_screen = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="worldCamera" type="Camera2D" parent="HiddenViewports/viewportWorldDiagonal1"]
+anchor_mode = 0
+current = true
+limit_left = -10000
+limit_top = -10000
+limit_right = 10000
+limit_bottom = 10000
+
+[node name="viewportWorldDiagonal2" type="Viewport" parent="HiddenViewports"]
+process_priority = 1
+size = Vector2( 256, 256 )
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_direct_to_screen = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="worldCamera" type="Camera2D" parent="HiddenViewports/viewportWorldDiagonal2"]
+anchor_mode = 0
+current = true
+limit_left = -10000
+limit_top = -10000
+limit_right = 10000
+limit_bottom = 10000
+
+[node name="viewportWorldDiagonal3" type="Viewport" parent="HiddenViewports"]
+process_priority = 1
+size = Vector2( 256, 256 )
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_direct_to_screen = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="worldCamera" type="Camera2D" parent="HiddenViewports/viewportWorldDiagonal3"]
+anchor_mode = 0
+current = true
+limit_left = -10000
+limit_top = -10000
+limit_right = 10000
+limit_bottom = 10000
+
+[node name="viewportWorldDiagonal4" type="Viewport" parent="HiddenViewports"]
+process_priority = 1
+size = Vector2( 256, 256 )
+transparent_bg = true
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_direct_to_screen = true
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="worldCamera" type="Camera2D" parent="HiddenViewports/viewportWorldDiagonal4"]
+anchor_mode = 0
+current = true
+limit_left = -10000
+limit_top = -10000
+limit_right = 10000
+limit_bottom = 10000
+[connection signal="pressed" from="ErrorWindow/Container/ExitBtn" to="." method="_on_ExitBtn_pressed"]

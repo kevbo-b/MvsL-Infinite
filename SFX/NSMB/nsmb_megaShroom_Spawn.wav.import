@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/nsmb_megaShroom_Spawn.wav-2e06728a93aa827b7f123a189ee6ba13.sample"
+
+[deps]
+
+source_file="res://SFX/NSMB/nsmb_megaShroom_Spawn.wav"
+dest_files=[ "res://.import/nsmb_megaShroom_Spawn.wav-2e06728a93aa827b7f123a189ee6ba13.sample" ]
+
+[params]
+
+force/8_bit=true
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

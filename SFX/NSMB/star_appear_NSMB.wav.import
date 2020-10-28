@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/star_appear_NSMB.wav-f38f4657be6cb8dfd876db5f84cb18f1.sample"
+
+[deps]
+
+source_file="res://SFX/NSMB/star_appear_NSMB.wav"
+dest_files=[ "res://.import/star_appear_NSMB.wav-f38f4657be6cb8dfd876db5f84cb18f1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Misc/SpawnPipe.gd" type="Script" id=1]
+[ext_resource path="res://Misc/gfx/spawnPipe.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="SpawnPipe" type="KinematicBody2D"]
+z_index = -1
+collision_layer = 0
+collision_mask = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="unusedCollision" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+texture = ExtResource( 2 )
+
+[node name="Collision" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2( 1.6, 2.4 )
+shape = SubResource( 2 )
+
+[node name="BlinkTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 3.0
+
+[node name="DespawnAfterBlink" type="Timer" parent="."]
+process_mode = 0
+[connection signal="timeout" from="BlinkTimer" to="." method="_on_BlinkTimer_timeout"]
+[connection signal="timeout" from="DespawnAfterBlink" to="." method="_on_DespawnAfterBlink_timeout"]

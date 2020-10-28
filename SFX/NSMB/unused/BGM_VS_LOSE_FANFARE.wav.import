@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/BGM_VS_LOSE_FANFARE.wav-5ad057cc28462b90ed2bb3d174339893.sample"
+
+[deps]
+
+source_file="res://SFX/NSMB/unused/BGM_VS_LOSE_FANFARE.wav"
+dest_files=[ "res://.import/BGM_VS_LOSE_FANFARE.wav-5ad057cc28462b90ed2bb3d174339893.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

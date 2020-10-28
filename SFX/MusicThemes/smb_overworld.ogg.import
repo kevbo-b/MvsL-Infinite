@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/smb_overworld.ogg-f00e78648c4d8f69c6a53bd880182848.oggstr"
+
+[deps]
+
+source_file="res://SFX/MusicThemes/smb_overworld.ogg"
+dest_files=[ "res://.import/smb_overworld.ogg-f00e78648c4d8f69c6a53bd880182848.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=2.464

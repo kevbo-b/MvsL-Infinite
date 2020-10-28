@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Misc/BigStarParticle.gd" type="Script" id=1]
+[ext_resource path="res://Misc/gfx/blankStar.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 1, 1, 1, 1, 0.930663, 1, 0, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color_ramp = SubResource( 2 )
+hue_variation = 1.0
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.345395, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.784314, 1, 1, 1, 0.784314, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0.25 ), 0.0, 0.990909, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 1.5
+scale_curve = SubResource( 7 )
+color_ramp = SubResource( 5 )
+
+[node name="BigStarParticle" type="Particles2D"]
+z_index = 2
+amount = 100
+lifetime = 0.3
+explosiveness = 1.0
+process_material = SubResource( 3 )
+script = ExtResource( 1 )
+
+[node name="Lifetime" type="Timer" parent="."]
+
+[node name="StarParticle" type="Particles2D" parent="."]
+amount = 1
+lifetime = 0.3
+explosiveness = 1.0
+process_material = SubResource( 8 )
+texture = ExtResource( 2 )
+[connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]

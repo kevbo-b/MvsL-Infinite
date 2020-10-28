@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/star_denied_NSMB.wav-696ee081700b092d325008a62b5ba984.sample"
+
+[deps]
+
+source_file="res://SFX/NSMB/star_denied_NSMB.wav"
+dest_files=[ "res://.import/star_denied_NSMB.wav-696ee081700b092d325008a62b5ba984.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

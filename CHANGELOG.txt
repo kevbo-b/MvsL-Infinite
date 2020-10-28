@@ -1,0 +1,621 @@
+NOTE: Not everything has been added on to here. Changes yes, but not ideas.
+Most ideas are still on the Phone, so keep that in mind.
+
+
+20 Nov 19
+
++Fixed Red Koopa Spazziness by keeping the RayCast enabled (Also set an condition for infinite world change)
++Red Koopa: added second Ray cast for almost-off-the-edge Situations
++Area2D Refresh: wrote a Function to reset an Areas Specific mask bits
++Fixed problem in Enemies, where player wouldnt be damaged after "Invincible To Player" Timer is over with a Area2D Refresh (for all shell types) 
++Added Resizable Firebar
++Added Spike
+
+*Spike detection is bad. Player should possibly look for fixed spikes himself
+*Firebar AND Spike doesnt kill player after hes invincible and stays in area (consider Area_entered in player)
+*Mega Shroom grow goes more smoothly. Only Needs Animation, Room detection + Stop Music when dead
+*Player sometimes invincible to Buzzy Beetle, reason unknown. Consider using area_entered
+
+!Cut down the to do list to only necessary things and IdeasOnly, define the next near goal
+
+
+21 Nov 19
+
++Added Transition to death / respawn of player (vs mode and other modes)
++Firebar can spin Counter-Clockwise
+
+*Added a Coop/Solo Menu. No Function to start coop game yet (start like in smb with lives), changed Background and some other stuff
+
+
+22 Nov 19
+
++Spike can be triggered, moved up and down (standard move spike down a bit (16px)!)
+
+23 Nov 19
+
+++Fixed Area Detection of Player after Receiving Damage (invincibleTimer and Star)
++Therefore fixed some conditions like invincible player jumping
+
++Spike can now move and gives damage, triggers and works flawlessly
++fixed Jumping off as Idle (not possible, changes to jump anim.)
++fixed falling with same anim (changes to frozen run)
++Added NSMB Underground Level
+
+*Reprogrammed tileset, has now 60+ slots for interactive blocks (Spike inserted)
+, some blocks are off now (Question Block, Bush...)
+
+LO:
+Collect coins where hit on top of block, fucked this up. Coin Animation totally asyncron across other coins.
+Also: Koopa Red does what he wants after respawn. He doesnt notice ledges anymore
+
+
+24 Nov 19
+
++Coin gets collected on top of Block like in NSMB. Even generator spawned Enemies execute the function, through pow etc.
+
+
+Error: ' !area_in && !E ' is true because of POWs. Happens even when only a single POW explodes and hits not an other one
+SOLUTION: something to do with $BlastRadius in despawn() in PowBlock.gd. If commented both commands, error is gone!
+*KoopaRed walk off fail still persists
+
+
+26 Nov 19
+
++Fixed !area_in && !E Error in  POW Blocks.
++KoopaRed walk off fixed
++Fixed the Tileset, All Item Blocks are now avaiable and the Palette switches just fine!
++Added Shader to coin, coin now fits to environment.
+
+*Player sometimes still is invinicble to enemies / can't interact with them
+
+LO: Set some Menu fades (Pause Quit, Start Level), doesnt look tooo smooth yet?
+
+
+27 Nov 19
+
++fixed existing Levels and Level selection
++added new invisible Block (From Hard Relay Mario)
++added Ready Screen
++added Random Backgrounds
++fixed Generator to have a actual List
+
+LO: added SnowLevel NSMB (undone), now fix the HUD that you now the control node structure!
+
+
+28 Nov 19
+
++made restore of blocks better (ONLY despawned / hit Blocks)
++added IceBlock (breakable / unbreakable)
++added slippery effect (slippery raycast on player, slippery layer)
++Star Spawn sound doesnt happen on begin of match
++Replaced some sounds with original NSMB sounds
++added Star direction Arrow
+
+
+*found weird bug: player is sometimes not fully on top of something (walking). Position is always off by a bit. Doesnt seem to affect gameplay.
+Even  rounding position doesnt help
+
+LO: Angle of Star Direction Arrow doesnt work out
+
+
+29 Nov 19
+
++Fixed Star arrow, is working now
++Changed Item Spawning height
++max_coins changes with player amount (less coins needed with more players)
++MegaShroom now doesnt go through floor (only when crouched), MegaDestructiveFall changed, Area2Ds when DestructiveFall changed
++Added Winner Menu (When all Wins achieved), with some Stats
++Player 3 and 4 now controllable on its own
++Objects dont despawn above the screen
++mini shot dead star loose fix
++adjusted mega and star time
++adjusted arrow so it only shows at star spawn
++HUD shader when almost game done (one star left to collect)
++Added Music Player
+
+
+*Stats in Winner Menu dont work 100% (stars)
+*stats dont yet show in win screen
+*Arrow doesnt care about the screen jump in calculation
+*Arrow is active on dead, should be on after spawn if star spawned or something
+*Music doesnt interrupt on Game Overs
+*Music doesnt stay hectic when repeating loop at max - 1 stars
+*Shader of HUD stars doesnt look so good
+
+LO: Create Levels: Break box with alot of POWs, activated by generator (POW which doesnt hurt players or something)
+Castle SMB1 Level with lava ground, firebar
+Platform Chaos level
+
+
+30 Nov 19
+
++added new Level (Castle Style) > Custom_CastleLike1
++added Mini passes to Tileset
++Music now properly plays hectic, stops on Game Overs
++Firebar Block is now a alwaysHit Question Block, therefore breakable
++Changed Collision of Mini Mushroom
++Changed Spawn Rate of Items, has yet to be star count dependent
+
+*When big, invisible blocks still stop yout jumping
+*After Mega, can stay in firebar (no refresh)
+
+LO: look phone m9
+
+
+1 Dec 19
+
++Fixed Fast Music Playback (Hectic Theme)
++Player / Enemies / Star move out of wall when stuck. Downwarp only with items (rough)
+
+LO: mini and mega still stuck in wall. Get outside wall for items/star is unfluid and looks bad
+Also: look phone m9
+
+
+5 Dec 19
+
++Enemies Now Respawn when walked in with players screen (No spawn-death on player anymore) aka Respawn ONLY offscreen
+
+*Goomba did some respawning BS, died or spawned bad. fixed with motion not calculating when despawned.
+What about other enemies? Red Koopa fucks up too! Motion calcs when despawned. This might be the fix
++Fixed with Motion calc disabling at despawn.
+
++Fixed Position from Coins Spawning from an enemy
++Enemies now Spawn on Sight (When first spawned ever)
+
+! Enemies that are on screen right when spawned (in starting area) dont appear. Test in default_level
+! enemy got undetectable after dieing from shot (only for one player)
+
+6 Dec 19
+
++ Mega Music doesnt play in VS., is now on MusicChannel1
+! Music can be speeded up, but only with Pitch workaround. (OGG mix rate cant be changed) Consider writing GDNative Script
+
+7 Dec 19
+
++Block Break SFX now has a fixed SFXChannel (No Loud Multiple Breaks anymore)
++Bump SFX now has fixed SFXChannel, Plays only if Enemy is on Screen (With function in Enemy Base Class playEnemySFX())
++Item Appear from Block now has fixed SFXChannel
+
+@ Learned, that call_deferred doesnt directly add a child to a node, but takes one more machine cycle to do so?
+use call_defered only if necessary!
+
+! no BUMP sound from enemy when hitting interactible Blocks (no sound ONLY when hitting switch Block?)
+
+
+10 Dec 19
+
++Added Jumping Fireball
+-Initial Position as Jumping Height doesnt work yet, sometimes skips jump cycles
+
+! even new FireBall has problems with detecting the player and vise versa sometimes.
+
+13 Dec 19
+
++Added Options Menu, can enable/disable following options:
+	+Music
+	+BigSplitscreen for Player 3
+	+LeftRight for 2 Players !(Doesnt work yet)
+	+inapropiate Mode
+-Option Menu navigation skips one Button
+-yet to Center Winner Menu correct (rect/ControlNode menu)
+
+
+14 Dec 19
+
++LeftRight for 2 Players and BigSplitscreen Player3 works good now (Options Menu is good)
+
+
++Fixed Pause and Win Menu with Centering
++Added Nice border to PAUSE Menu and WIN Menu
+
+-Fixed !area_in && !E Error in  POW Blocks. No, fuck its back (POW Block again)
+-Fadeout, Win stats and Sound needs to be in Win Menu
+
+15 Dec 19
+
++BigStar has own SoundChannel now, star sound plays in win moment
++fixed fade out / in in several Menus
+
+16 Dec 19
+
++Fixed neighbors in Start Menu
++Mouse input in Menu now possible
++Added Pixel Seperation to screen (with Color)
++Random Level Selection now works
++FadeIn in Main Menu now works
+-WallRun disabled, but cant jump on wall?
+
+20 Dec 19
+
++Updated Ice GFX Palette (same as in MarioRoyale)
++Added Walljump to Player (with GFX)
++Added Option for Modern Movement
++Added Stomp Attack
+-Stomp attack still needs to accelerate right (x axis), needs to hit block below, Pow Block, more stars gone, fire shell, mini kill enemy etc...
+-Modern movement needs GFX for _Big and _Flower
+
+23 Dec 19
+
++Item Spawn now dependent on Star Number
++Winner Menu now has Total star count implemented
++Added PAW Block (replaces POW), Area Error got fixed
++PAW Blocks have Brown Color now and has some cool new options
++Fixed HUD (Added to Player View, removed from Viewport), scales good
+-HUD scales bad on a 1 player screen, still something overlaps on the right
+
+24 Dec 19
+
+-HUD fucking sucks 1 or 3 Players
+
+27 Dec 19
+
++When Music off:
+	+Short dead sound
+	+PlayerPipe Spawn
++Stomp attack can now Destroy Blocks when big
++adjusted some stuff in Stomp Attack
+
+30 Dec 19
+
++Added Notifications to Start Menu
+
+1 jan 20
+
++Added Menu Souds (Round / Match)
+
+3 jan 20
+
++Mega shroom cant crouch, but stomp attack works with it good
++Adjusted some Stomp attack stuff
++Blocks now drop items/coins downwards when stomped on
++Block breaks now move relative to players motion (mega only)
+++Fixed Player Raycasts (ceiling, BlockStomping, enemyStomp...)
++Adjusted Walljump (Animation when canceling, time without turning, noFireball shoot while at it, etc...)
++fixed Player Raycast on Enemie detection (only when same enemy is detected)
++Player now looses 3 stars when stomped on it
++Player doesnt refresh item state all the time now
++stomping has effect on player and enemies now
+
+4 jan 20
+
++fixed Star Arrow in infinity world
++fixed Crouching and then getting damaged / collecting an item (hitbox used to be wrong)
++added Full Animation to Stomping and WallSliding, animation changes properly on item collected / damage / shot
++fixed wallJumping when pressing wrong direction
++fixed Mini Shroom able to StompJump other players
+
+
+5 jan 2019
+
++fixed bounce / stomp on goomba
++kicking is now dependend on x Position, not on rayCast's
+!Disabled KickRayCasts. Might be able to delete them
++Refreshing RayCasts before checking for collisions
++fixed Stomp attack detection and enemy & player interaction with stomp attacks (mini-item in mind)
++fixed RayCasts on Red Koopa
++mini shroom can now properly drop from question Block downwards
++Mega Stomp is now possible even without modern movement (but of course cant stomp otherwise)
+
+
+12 Feb 2019
+
++Enemies now spawn dependent on the Players position (x and y)
+-Enemies make sound even off screen
+
++Shell enemies now have rotating animation
++fixed Sound bug when stomping on hard Brick Blocks
++Wallslide is now easier: While sliding down, player has 0.25 seconds till release without holding against the wall
++Music is now looping flawlessly (Menu, VS Themes, Results theme)
+
+-> maybe import the rest of the 8 bit music as ogg with perfect loops?
+
+
+13 Feb 2019
+
++inserted all SMB Music with loop into the game
++created the scene "LevelMusic", stores song file information and can choose a song with it 
++if LevelMusic exists, it chooses its song. If not, a random VS Song is played (Script in "Screen")
++modified MusicChannel, plays all songs and can speed them up / slow them down
++MusicChannel: If not VS Mode, it even plays a warning sound ("Time almost up")
++fixed Multiple Pipe Spawn at the beginning
++added Audio Buses for SFX and Music (gets controlled in Global Values)
++Option to Mute Music now mutes complete Audio Bus
++adjusted whole Audio system (Volume)
++added cooldown for bump sound (enemies)
+
+
+14 Feb 2019
+
++noise when end game got fixed (tree paused till next scene)
++enemies now despawn when a bit further off screen (SPAWN_DISTANCE, DESPAWN_DISTANCE_ADD)
++enemie spawn / despawn works with infinity worlds
++no sounds from enemy only when despawned
++small fix with music in main menu 
++fixed wrong hitbox when player was big+ducked and then pushed
++added despawn timer to fireball
+
+
+16 Feb 2020
+
++added own instance for Background Nodes (still needs to adjust to Viewport) 
+
+
+23 Feb 2020
+
++huge background update
+	+Can set multiple images as layers
+	+can set individual scrolling speed (automatic and camera movement)
+	+Still has sky solid color as option
+	+Things like Clouds and bushes at different speed are therefore possible now
++player and needed nodes now get added automatically
++added a small error message into screen when spawns dont exist
++created Spawn nodes, spawn Node with ID 0 is needed in every level
++added Option to spawn players In good spacing OR at their own individual spawn position
++added new Level
+
+
+24 Feb 2020
+
++Fixed Paw/Pow bug where bullet would die without the pow beeing hit
++Bullet Bill now allways launches in the right x direction (towards player)
+
++switched most timers to physics
++Generator only activates in range
++Generator shoots in direction of player (x direction)
+
+
+06 Mar 2020
+
++fixed generators:
+can shoot in only one direction without breaks
+direction changing gen stops when very close (like in smb)
+shootingTileset now have a higher z-Index (better looking shooting)
+added cannon Tilesets for diagonal (also high z-index)
+Bullet bill has as alternative palette a ball
+even shells can spawn from gen properly now. Wow
++can now change palette in every enemy (But only works for bullet bill so far, might do rest with shaders)
+
+
+10 Mar 2020
+
++added stomp-swing Sound
++added little star appear animation (Lol)
++added stomp particles, adjusts to current size
++fixed pow/paw blocks, now beeing destroyable by mega stomp
+
+CHANGED ENGINE TO GODOT 3.2
+
++fixed several compability problems (timers, camera)
++fixed infinite stopm on ice block
++added cool 3D Mode (experimental)
++advanced 3D Mode to actually work pretty good! (thx for tutorial to https://www.reddit.com/user/jojo_3/)
+
+only thing missing in 3D: performance and actual working BG images in interactive blocks
+
+
+11 Mar 2020
+
++added option for 3d in menu
++fixed Block breaks, now also in infinity world
+
++added seamless approach to infinite world! NICE! (horizontal only as of now)
+
+next: Fix camera for seamless (Margin makes problems! Might try marginless with own, programmed margin ?)
+	...some objects still cut off when transfering
+	loading icon (scene which you can implement)
+	vertical infinity, infinity setable in tilemap
+	test vertical and horizontal infinity
+
++3D world and infinite world work together now (Huge loading times)
+
+goals:
+3d world toggle in menu
+infinte world
+items / star in wall should not be stuck
+stair level
+
+
+12 Mar 2020
+
++level repetition is now changeable in a Node called "LevelSettings" (ex LevelMusic Node, now they are combined)
++Camera Horizontally works fine now with repeating transition
++fixed Several camera problems
++changed level boundaries: now a rect2 is showing the area for the level. (even works < 0 !)
++added Infinite Vertical scrolling, with viewports, fixed Camera etc.
++fixed a few things in 3D Mode (way shorter loading times now)
++Camera Vertically works fine now with repeating transition
++fixed Platforms travelling above screen in infinite Vertical world
++fixed some stuff in Main Menu, added Picture for Ice Level
+
+
+
+13 Mar 2020
+
+CHANGED ENGINE TO GODOT 3.2.1
+
+
+16 Mar 2020
+
++Star Arrow Direction adjusted to infinite Worlds (Vertical and Horizontal)
++fixed enemy falling infinitely in infinite Y world
+
+
+Pipes (in tileset, entrance over pipe??? or just create a Pipe.tscn)
+triple jump???
+fix player input (method for input). like this, you might adapt to online mode faster
+
+
+21 Mar 2020
+
++added WallJump Explosion on Wall Jumping
++added WallSlide Particles on Wall Sliding
++fixed Coin from block not disappearing in 3d mode
++changed mini shroom grow sound
++fixed Backgrounds in infinite world: They now loop perfectly with a number of given repetitions
++level now can change the size of its boundaries with a given number of blocks (Top, Left, Buttom, Right)
++coin counter is now colorful when max coin count is reached
++coin in hud is now glowing
++adjusted physical hitbox of mario (little bit smaller now)
++updated snow level and a few other levels, 100% playable now
++added version number in menu
++created cool and changing loading icon
+
+22 Mar 2020
+
++added pole Sliding and climbing animation (yet unused)
++draw and added Hammer Powerup state (ALL Animations) and effects of the item
++added Hammer Powerup collectible
++added Hammer Powerup Projectile with effects
++Hammer Powerup can now spawn from Question Block
++Hammer Powerup can drop from Random Powerup Drop
++fixed sound bug from generator spawned enemies
+
+23 Mar 2020
+
++fixed using non-existent animations when shooting ("Run_Shot" for example)
++mega now spawns from block flawlessly
++fixed mega Mushroom music
++enemies only despawn completely when killed, only BigStar can call it back then (canRespawn will be set to false)
++enemies respawn when out of PlayerRange or dropped in pit IF re-entering spawn range (canRespawn will be set to true)
+
+
+24 Mar 2020
+
++Items and Star spawning in Wall now get solid at the right moment (with Wall Checker)
++Everything that gets stuck in wall (Star Spawns Blocks) has own method now:
+	+enemies despawn (with smoke)
+	+big Star and Player warp outside
+	+Items despawn (with smoke), cant stack anymore
+
+25 Mar 2020
+
++fixed some Enemies position relative to their hitboxes
++added option to spawned Generator
++fixed z_index in interactive blocks
++fixed enemies not properly despawning while inside a wall (checkIfSquished() function)
++small change in main Menu (when Music is initially disabled)
+
+26 Mar 2020
+
++added new Level, the Castle Level from Original NSMB
++added Node "Moving Solid Blocks"
+	+added into Node "SolidBlockMatrix"
++added "SaveItem" sound
+
+
+So mate, now only the tedious things are left. I suggest you also
+make some levels in between, to balance the workload.
+
+Define the goal of the project more closely now. (Levels, modes, credits, controllers etc...)
+Once you release the first version, you can try to make some individual and creative projects
+
+
+28 Mar 2020
+
++invincible blinking is now not 100% invisible (modulated alpha)
+
+
+29 Mar 2020
+
++Hitting enemies is now FIXED!!! (using areaShape_entered, not body_entered)
++fixed some cyclic dependencies
++deleted player stomp raycast
++completely reworked player behaviour under each other (P1 and P2 etc, now with areaShape_entered, not body)
++added Random colors for players (If the game ever gets more than 4 players, they will have random colors)
++created the Mega Grow and Shrink animation + Sounds
++fixed mega Mushroom mechanics
++level settings: mega not obtainable in level Option added
+
+
+30 Mar 2020
+
++fixed the behaviour between two star / mega Players
++added MegaGrowParticles
++addded SMBPipe node
++added Spinning & proper despawn in infinite Y world to SMBPipe
+
+01 Apr 2020
+
++added minimum motion for an run over pipe 
++added option to rotate the pipe 180 degrees & still beeing able to short it
+
+
+05 Apr 2020
+
++added Pipe destroy sound
++added WarpID to Pipe
++added Warp Functionality to Pipes (Works with SPAWNSNode, where you find SpawnID)
++every direction and animation stuff works now with Pipes
+
+
+06 Apr 2020
+
++fast pipes with their according length added
++fast pipes work vertically, even when shortened it warps the right distance
+-fast pipes dont work horizontally yet
+
+
+07 Apr 2020
+
++horizontal Pipes work now
++fixed a bug with the cam after comming out of a pipe
++fixed bug where you cold use pipe in a wrong direction
++sideways pipes can be shortened now
++out of bounds y fix, some objects did not despawn, but they do now
++added colors to pipes
+
+
+08 Apr 2020
+
++Pipes now work perfectly fine, any Size, any Direction, any Type, any item state
+-only have to do HUD Fade between pipe spawns
+
+
+10 Jul 2020
+
++added new Level (SidewaysDown CustomL)
++changed pause menu / win screen
+
+
+might do next:
+loading icon should move constantly (threads), tut on loading icons
+some cool and creative Levels.
+zustände implementieren (adjazenz listen, siehe AuDS 10, prüfe ob von einen zustand auf anderen geht)
+pause screen sound
+on/off switch with on/off blocks (GlobalGameState class, crazy level mit on & off und infinite vertical)
+p switch ? (zu aufwändig...)
+
+Problems:
+-Items dont despawn because of player position (for now). Might be better than checking every item every cycle like with enemies. Or: Despawn timer (like 100 seconds)
+
+-camera (y) is still off by a bit in levels with y scroll, camera should show more where youre going (x, addition to current movement)
+
+-big + crouched + jump in wall = uncrouch because of wallSlide and then glitches through wall... (Crouch jump into corner)
+
+-random item spawn (link in super mario war)
+
+-add shell item
+
+-menu stage select: small stages only, reihenfolge, random. Show level names
+
+-The Fireball Enemie doesnt jump to proper height (only destructible by mega, star or "hammer"), still not killable by those
+-star max shader might not work with intel processor
+-are platforms ok? they maybe want more movement modes
+-resizing windows messes up view (also, HUD player 1 still messed up. Try the 1/128 thing...)
+-no hud player 3 on big screen FFFFF!
+... not added Fun images after win yet (P1FunImage in Screen.tscn)
+
+level ideas:
+-cannon blast levels
+-moving platform level
+-shell level (buzzy), spikes
+-paw level
+-banzai bill or smth lol
+-crazy pipes ecks deh
+
+online:
+
+SOUND: when playing sound, check FOR WHO object is visible (with function checking player position) and
+then play sound for them. Pretty easy
+
+maybe only transfer position & input. Rest is handled by itself.

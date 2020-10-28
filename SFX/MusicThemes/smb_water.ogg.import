@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/smb_water.ogg-1d0b927d972bdc7b4258c7f93ccb27fa.oggstr"
+
+[deps]
+
+source_file="res://SFX/MusicThemes/smb_water.ogg"
+dest_files=[ "res://.import/smb_water.ogg-1d0b927d972bdc7b4258c7f93ccb27fa.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=2.198

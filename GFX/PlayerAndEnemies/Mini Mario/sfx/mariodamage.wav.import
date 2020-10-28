@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mariodamage.wav-9801cbb40f2aee3e0988246a347b932f.sample"
+
+[deps]
+
+source_file="res://GFX/PlayerAndEnemies/Mini Mario/sfx/mariodamage.wav"
+dest_files=[ "res://.import/mariodamage.wav-9801cbb40f2aee3e0988246a347b932f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

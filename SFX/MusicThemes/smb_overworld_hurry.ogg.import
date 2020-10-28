@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/smb_overworld_hurry.ogg-cebf5a02fa6f3d2387f9200ba2607817.oggstr"
+
+[deps]
+
+source_file="res://SFX/MusicThemes/smb_overworld_hurry.ogg"
+dest_files=[ "res://.import/smb_overworld_hurry.ogg-cebf5a02fa6f3d2387f9200ba2607817.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
