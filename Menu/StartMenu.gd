@@ -5,11 +5,15 @@ const RESULTS_THEME = preload("res://SFX/MusicThemes/nsmb_vsResults.ogg");
 const WIN_THEME = preload("res://SFX/NSMB/BGM_MATCH_WIN.ogg");
 const LOSE_THEME = preload("res://SFX/NSMB/BGM_MATCH_LOST.ogg");
 
+const SAVE_DIR = "user://saves/"
+var options_save_path = SAVE_DIR + "options.dat"
+
 var menu_db;
 
 func _ready():
 	get_tree().paused = false;
 	$VERSION/VersionNr.text = "v. " + Global.VERSION_NUMBER;
+	loadSave();
 	initSoundBus();
 	menu_db = $MenuMusic.get_volume_db();
 	get_tree().get_root().set_size_override(true, Vector2(455,256));
@@ -17,37 +21,51 @@ func _ready():
 	set_world_sites();
 	$MenuMusic.stream = MAIN_NSMB_THEME;
 	$MenuMusic.play();
-	var menu = Global.Start_menu_page;
-	if(menu == 0): #on launch up
-		$CenterContainer/StartingMenu/Splitscreen.grab_focus();
-	elif(menu == 1): #when coming from end game or something
-		$CenterContainer/SplitscreenMenu.visible = false;
-		$CenterContainer/VsLevelMenu.visible = false;
-		$CenterContainer/OnlineMenu.visible = false;
+	setMenu();
+	pass
+	
+func saveData():
+	var data_Options = [
+		Global.modern_movement,
+		Global.musicEnabled,
+		Global.player2LeftRight,
+		Global.player3BigScreen,
+		Global.inappropriate_mode,
+		Global.threeDMode
+	]
+	
+	var dir = Directory.new()
+	if !dir.dir_exists(SAVE_DIR):
+		dir.make_dir_recursive(SAVE_DIR)
 		
-		$FullscreenOverlay.show();
-		$FullscreenOverlay/OverlayAnimation.play("FadeIn");
-		yield($FullscreenOverlay/OverlayAnimation, "animation_finished");
-		$CenterContainer/StartingMenu/Splitscreen.grab_focus();
-	elif(menu == 2): #stage select screen
-		if(Global.world_selection):
-			$CenterContainer/StartingMenu.visible = false;
-			$CenterContainer/SplitscreenMenu.visible = false;
-			$CenterContainer/VsLevelMenu.visible = true;
-			$CenterContainer/OnlineMenu.visible = false;
-			$FullscreenOverlay.show();
-			$FullscreenOverlay/OverlayAnimation.play("FadeIn");
-			yield($FullscreenOverlay/OverlayAnimation, "animation_finished");
-			$FullscreenOverlay/OverlayAnimation.stop();
-			$CenterContainer/VsLevelMenu/WorldSet/World1/Level1.grab_focus();
-		else:
-			startRandomLevel();
-	elif(menu == 3): #Win Menu
-		setWinnerMenu();
+	var file = File.new()
+	var error = file.open_encrypted_with_pass(options_save_path, File.WRITE, "fmmcksnx9a01l")
+	if error == OK:
+		file.store_var(data_Options)
+		file.close()
+		print("data saved")
+	pass
+	
+func loadSave():
+	var file = File.new()
+	if file.file_exists(options_save_path):
+		var error = file.open_encrypted_with_pass(options_save_path, File.READ, "fmmcksnx9a01l")
+		if error == OK:
+			var save_data = file.get_var()
+			file.close()
+			Global.modern_movement = 	save_data[0];
+			Global.musicEnabled = 		save_data[1];
+			Global.player2LeftRight = 	save_data[2];
+			Global.player3BigScreen = 	save_data[3];
+			Global.inappropriate_mode = save_data[4];
+			Global.threeDMode = 		save_data[5];
+	else:
+		print("creating save file, cuz not existent yet")
+		saveData();
 	pass
 
 func initSoundBus():
-	
+		
 	var musicDB = Global.MUSIC_BUS_VOLUME;
 	var sfx_db = Global.SFX_BUS_VOLUME;
 	
@@ -63,10 +81,39 @@ func initSoundBus():
 		setMusic(false);
 	pass
 
+func setMenu():
+	var menuNr = Global.Start_menu_page;
+	if(menuNr == 0): #on launch up
+		$CenterContainer/StartingMenu/Splitscreen.grab_focus();
+	elif(menuNr == 1): #when coming from end game or something
+		$CenterContainer/SplitscreenMenu.visible = false;
+		$CenterContainer/VsLevelMenu.visible = false;
+		$CenterContainer/OnlineMenu.visible = false;
+		
+		$FullscreenOverlay.show();
+		$FullscreenOverlay/OverlayAnimation.play("FadeIn");
+		yield($FullscreenOverlay/OverlayAnimation, "animation_finished");
+		$CenterContainer/StartingMenu/Splitscreen.grab_focus();
+	elif(menuNr == 2): #stage select screen
+		if(Global.world_selection):
+			$CenterContainer/StartingMenu.visible = false;
+			$CenterContainer/SplitscreenMenu.visible = false;
+			$CenterContainer/VsLevelMenu.visible = true;
+			$CenterContainer/OnlineMenu.visible = false;
+			$FullscreenOverlay.show();
+			$FullscreenOverlay/OverlayAnimation.play("FadeIn");
+			yield($FullscreenOverlay/OverlayAnimation, "animation_finished");
+			$FullscreenOverlay/OverlayAnimation.stop();
+			$CenterContainer/VsLevelMenu/WorldSet/World1/Level1.grab_focus();
+		else: #instant start on Random
+			startRandomLevel();
+	elif(menuNr == 3): #Win Menu
+		setWinnerMenu();
+pass
+
 func _on_QuitGameButton_pressed():
 	get_tree().quit();
 	pass
-
 
 func _on_Splitscreen_pressed():
 	$CenterContainer/StartingMenu.visible = false;
@@ -74,13 +121,11 @@ func _on_Splitscreen_pressed():
 	$CenterContainer/SplitscreenMenu/PlayerAmount/PlayerCount.grab_focus();
 	pass
 
-
 func _on_StartGameButton_pressed():
 	$CenterContainer/StartingMenu.visible = false;
 	$CenterContainer/CoopSoloMenu.visible = true;
 	$CenterContainer/CoopSoloMenu/PlayerAmount/PlayerCountCoop.grab_focus();
 	pass
-
 
 func _on_Back_pressed():
 	$CenterContainer/StartingMenu.visible = true;
@@ -88,12 +133,10 @@ func _on_Back_pressed():
 	$CenterContainer/StartingMenu/Splitscreen.grab_focus();
 	pass
 
-
 func _on_BackToSplitscreenMenu_pressed():
 	$CenterContainer/VsLevelMenu.visible = false;
 	$CenterContainer/SplitscreenMenu.visible = true;
 	pass
-
 
 func _on_ConfirmSplitscreenGame_pressed():
 	splitscreen_set_global_variables();
@@ -123,7 +166,6 @@ func _on_DecreaseWorld_pressed():
 		$CenterContainer/SplitscreenMenu/World/WorldSelect.text = "Random";
 	pass
 
-
 func _on_IncreaseStars_pressed():
 	var num = int($CenterContainer/SplitscreenMenu/StarsToWin/StarCount.text);
 	num = num + 1;
@@ -131,7 +173,6 @@ func _on_IncreaseStars_pressed():
 		num = 3;
 	$CenterContainer/SplitscreenMenu/StarsToWin/StarCount.text = str(num);
 	pass
-
 
 func _on_DecreaseStars_pressed():
 	var num = int($CenterContainer/SplitscreenMenu/StarsToWin/StarCount.text);
@@ -141,7 +182,6 @@ func _on_DecreaseStars_pressed():
 	$CenterContainer/SplitscreenMenu/StarsToWin/StarCount.text = str(num);
 	pass
 
-
 func _on_IncreaseWins_pressed():
 	var num = int($CenterContainer/SplitscreenMenu/Wins/WinCount.text);
 	num = num + 1;
@@ -149,7 +189,6 @@ func _on_IncreaseWins_pressed():
 		num = 1;
 	$CenterContainer/SplitscreenMenu/Wins/WinCount.text = str(num);
 	pass
-
 
 func _on_DecreaseWins_pressed():
 	var num = int($CenterContainer/SplitscreenMenu/Wins/WinCount.text);
@@ -159,7 +198,6 @@ func _on_DecreaseWins_pressed():
 	$CenterContainer/SplitscreenMenu/Wins/WinCount.text = str(num);
 	pass
 
-
 func _on_IncreasePlayer_pressed():
 	var num = int($CenterContainer/SplitscreenMenu/PlayerAmount/PlayerCount.text);
 	num = num + 1;
@@ -167,7 +205,6 @@ func _on_IncreasePlayer_pressed():
 		num = 1;
 	$CenterContainer/SplitscreenMenu/PlayerAmount/PlayerCount.text = str(num);
 	pass
-
 
 func _on_DecreasePlayer_pressed():
 	var num = int($CenterContainer/SplitscreenMenu/PlayerAmount/PlayerCount.text);
@@ -274,7 +311,6 @@ func level_selected(level_name):
 	load_splitscreen_level(level_name);
 	pass
 
-
 func _on_BackSoloMenu_pressed():
 	$CenterContainer/StartingMenu.visible = true;
 	$CenterContainer/CoopSoloMenu.visible = false;
@@ -297,13 +333,11 @@ func _on_IncreasePlayerCoop_pressed():
 	$CenterContainer/CoopSoloMenu/PlayerAmount/PlayerCountCoop.text = str(num);
 	pass # Replace with function body.
 
-
 func _on_ConfirmCoopGame_pressed():
 	#$CenterContainer/StartingMenu.visible = true; game choose menu here
 	$CenterContainer/CoopSoloMenu.visible = false;
 	#$CenterContainer/StartingMenu/StartGameButton.grab_focus(); grab in gem menu
 	pass # Replace with function body.
-
 
 func setRandomBackground():
 	var backgrounds = [];
@@ -456,7 +490,8 @@ func _on_SaveBack_pressed():
 		Global.threeDMode = false;
 	else:
 		Global.threeDMode = true;
-		
+	
+	saveData();
 	printNotification("Settings saved.");
 	pass
 
@@ -467,7 +502,6 @@ func _on_DiscardOptions_pressed():
 	printNotification("Settings discarded.");
 	pass
 
-
 func _on_MusicBtn_pressed():
 	if($CenterContainer/OptionsMenu/Op1/MusicBtn.text == "OFF"):
 		$CenterContainer/OptionsMenu/Op1/MusicBtn.text = "ON"
@@ -475,14 +509,12 @@ func _on_MusicBtn_pressed():
 		$CenterContainer/OptionsMenu/Op1/MusicBtn.text = "OFF"
 	pass # Replace with function body.
 
-
 func _on_SplitscreenPlayer3_pressed():
 	if($CenterContainer/OptionsMenu/Op2/SplitscreenPlayer3.text == "OFF"):
 		$CenterContainer/OptionsMenu/Op2/SplitscreenPlayer3.text = "ON"
 	else:
 		$CenterContainer/OptionsMenu/Op2/SplitscreenPlayer3.text = "OFF"
 	pass # Replace with function body.
-
 
 func _on_InapropiateMode_pressed():
 	if($CenterContainer/OptionsMenu/Op3/InapropiateMode.text == "OFF"):
@@ -504,7 +536,6 @@ func _on_LeftRight2Player_pressed():
 	else:
 		$CenterContainer/OptionsMenu/Op4/LeftRight2Player.text = "OFF"
 	pass # Replace with function body.
-
 
 func _on_MovementBtn_pressed():
 

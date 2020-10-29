@@ -1,5 +1,5 @@
 extends Node
-#class_name Global
+class_name GlobalObj
 
 const VERSION_NUMBER = "0.8.7a"
 
@@ -43,11 +43,7 @@ var playerPositions = [null,null,null,null];
 #sound (Can be found in Screen -> setSoundChannels())
 const MUSIC_BUS_VOLUME = -10;
 const SFX_BUS_VOLUME = -11;
-
-var spawns_path = "";
-
 var musicC1_path = "";
-
 var sfxStar_path = ""; #Star Collect Sounds
 var sfxC0_path = ""; #all yet unbout sounds (Default) 
 var sfxC1_path = ""; #Block Break Sound
@@ -55,17 +51,18 @@ var sfxC2_path = ""; #Shells ricochet Sound (BUMP)
 var sfxC3_path = ""; #Opening of a Block with Items in it (In Item Base Class)
 var sfxC4_path = ""; #"other" enemy sounds (Not working????)
 
-#Option Menu
+#Options
 var modern_movement = true;
-var musicEnabled = false;
+var musicEnabled = true;
 var player2LeftRight = true;
 var player3BigScreen = true;
-var decimalStarCounter = false;
 var inappropriate_mode = false;
 var threeDMode = false;
+
+#Dev Options
+var decimalStarCounter = false;
 var infinite_vertical_all_levels = false;
+
+#etc
 var canvas3DPaths = [];
-
-
-func _ready():
-	pass # Replace with function body.
+var spawns_path = "";

@@ -5,13 +5,15 @@
 [ext_resource path="res://Misc/Coin/coin_spin1.png" type="Texture" id=3]
 [ext_resource path="res://Misc/Coin/coin_spin2.png" type="Texture" id=4]
 [ext_resource path="res://Misc/Coin/coin_spin3.png" type="Texture" id=5]
-[ext_resource path="res://Misc/coin/coin0.png" type="Texture" id=6]
-[ext_resource path="res://Misc/coin/coin1.png" type="Texture" id=7]
-[ext_resource path="res://Misc/coin/coin2.png" type="Texture" id=8]
-[ext_resource path="res://Misc/coin/coin_spin0.png" type="Texture" id=9]
-[ext_resource path="res://Misc/coin/coin_spin1.png" type="Texture" id=10]
-[ext_resource path="res://Misc/coin/coin_spin2.png" type="Texture" id=11]
-[ext_resource path="res://Misc/coin/coin_spin3.png" type="Texture" id=12]
+[ext_resource path="res://Misc/Coin/coin0.png" type="Texture" id=6]
+[ext_resource path="res://Misc/Coin/coin1.png" type="Texture" id=7]
+[ext_resource path="res://Misc/Coin/coin2.png" type="Texture" id=8]
+[ext_resource path="res://Misc/Coin/coin_spin0.png" type="Texture" id=9]
+[ext_resource path="res://Misc/Coin/coin_spin1.png" type="Texture" id=10]
+[ext_resource path="res://Misc/Coin/coin_spin2.png" type="Texture" id=11]
+[ext_resource path="res://Misc/Coin/coin_spin3.png" type="Texture" id=12]
+
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
