@@ -60,7 +60,7 @@ var inappropriate_mode = false;
 var threeDMode = false;
 
 #Dev Options
-var decimalStarCounter = false;
+var decimalStarCounter = true;
 var infinite_vertical_all_levels = false;
 
 #etc

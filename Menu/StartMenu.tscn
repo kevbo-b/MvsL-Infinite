@@ -1392,7 +1392,7 @@ bus = "Music"
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level1" to="." method="level_selected" binds= [ "NSMB_SquishCastle" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level2" to="." method="level_selected" binds= [ "default_level" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level3" to="." method="level_selected" binds= [ "CustomL_CloudsMontain" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level4" to="." method="level_selected" binds= [ "default_level" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level4" to="." method="level_selected" binds= [ "CustomL_ShortFun" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level1" to="." method="level_selected" binds= [ "Breakland" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level2" to="." method="level_selected" binds= [ "World" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level3" to="." method="level_selected" binds= [ "CustomL_World2-2" ]]

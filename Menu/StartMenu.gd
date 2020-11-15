@@ -165,11 +165,13 @@ func _on_DecreaseWorld_pressed():
 	else:
 		$CenterContainer/SplitscreenMenu/World/WorldSelect.text = "Random";
 	pass
+	
+var max_collectable_stars = 30;
 
 func _on_IncreaseStars_pressed():
 	var num = int($CenterContainer/SplitscreenMenu/StarsToWin/StarCount.text);
 	num = num + 1;
-	if(num > 10):
+	if(num > max_collectable_stars):
 		num = 3;
 	$CenterContainer/SplitscreenMenu/StarsToWin/StarCount.text = str(num);
 	pass
