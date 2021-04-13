@@ -1,0 +1,182 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Misc/SPAWNS.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Misc/SpawnWarp.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Blocks/Tileset/TileMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Misc/MovingPlatform.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Misc/BigStar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Misc/Background/LevelBackground.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Misc/LevelSettings.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Misc/SMBPipe.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Enemies/KoopaRed.tscn" type="PackedScene" id=10]
+
+[node name="World" type="Node2D"]
+
+[node name="LevelSettings" parent="." instance=ExtResource( 8 )]
+repeatingHorizontally = true
+
+[node name="SPAWNS" parent="." instance=ExtResource( 1 )]
+
+[node name="SpawnWarp" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 32, 168 )
+
+[node name="TileMap" parent="." instance=ExtResource( 3 )]
+tile_data = PoolIntArray( 131086, 20, 0, 131091, 20, 0, 196644, 132, 0, 196645, 135, 0, 196646, 136, 0, 196658, 132, 0, 196659, 135, 0, 196660, 135, 0, 196661, 136, 0, 262150, 132, 0, 262151, 135, 0, 262152, 136, 0, 262180, 133, 0, 262181, 134, 0, 262182, 137, 0, 262185, 132, 0, 262186, 135, 0, 262187, 135, 0, 262188, 135, 0, 262189, 136, 0, 262194, 133, 0, 262195, 134, 0, 262196, 134, 0, 262197, 137, 0, 327686, 133, 0, 327687, 134, 0, 327688, 137, 0, 327701, 5, 0, 327702, 5, 0, 327721, 133, 0, 327722, 134, 0, 327723, 134, 0, 327724, 134, 0, 327725, 137, 0, 393232, 5, 0, 393233, 5, 0, 393275, 5, 0, 458811, 5, 0, 524299, 5, 0, 524300, 5, 0, 524321, 19, 0, 524322, 1, 0, 524323, 1, 0, 524324, 19, 0, 524347, 5, 0, 524352, 132, 0, 524353, 135, 0, 524354, 136, 0, 589888, 133, 0, 589889, 134, 0, 589890, 137, 0, 720896, 59, 0, 720897, 59, 0, 720898, 59, 0, 720899, 59, 0, 720900, 59, 0, 720901, 59, 0, 720902, 59, 0, 720903, 59, 0, 720904, 59, 0, 720905, 59, 0, 720928, 20, 0, 720929, 1, 0, 720930, 1, 0, 720931, 1, 0, 720932, 1, 0, 720933, 1, 0, 720964, 59, 0, 720965, 59, 0, 786432, 59, 0, 786433, 59, 0, 786434, 59, 0, 786435, 59, 0, 786436, 59, 0, 786437, 59, 0, 786438, 59, 0, 786439, 59, 0, 786440, 59, 0, 786441, 59, 0, 786465, 99, 0, 786500, 59, 0, 786501, 59, 0, 851968, 59, 0, 851969, 59, 0, 851970, 59, 0, 851971, 59, 0, 851972, 59, 0, 851973, 59, 0, 851974, 59, 0, 851975, 59, 0, 851976, 59, 0, 851977, 59, 0, 851996, 111, 0, 851997, 111, 0, 851998, 111, 0, 852000, 97, 0, 852001, 98, 0, 852002, 101, 0, 852027, 111, 0, 852028, 103, 0, 852029, 104, 0, 852030, 105, 0, 852031, 111, 0, 852032, 111, 0, 852033, 111, 0, 852034, 111, 0, 852035, 111, 0, 852036, 59, 0, 852037, 59, 0, 917504, 59, 0, 917505, 59, 0, 917506, 59, 0, 917507, 59, 0, 917508, 59, 0, 917509, 59, 0, 917510, 59, 0, 917511, 59, 0, 917512, 59, 0, 917513, 59, 0, 917514, 139, 0, 917515, 139, 0, 917516, 139, 0, 917517, 139, 0, 917518, 59, 0, 917519, 139, 0, 917520, 139, 0, 917521, 139, 0, 917522, 139, 0, 917523, 59, 0, 917524, 139, 0, 917525, 139, 0, 917526, 139, 0, 917527, 139, 0, 917528, 139, 0, 917529, 139, 0, 917530, 139, 0, 917531, 59, 0, 917532, 60, 0, 917533, 60, 0, 917534, 60, 0, 917535, 59, 0, 917536, 59, 0, 917537, 59, 0, 917538, 59, 0, 917539, 59, 0, 917540, 59, 0, 917541, 59, 0, 917542, 59, 0, 917543, 59, 0, 917561, 59, 0, 917562, 59, 0, 917563, 60, 0, 917564, 59, 0, 917565, 59, 0, 917566, 59, 0, 917567, 60, 0, 917568, 60, 0, 917569, 60, 0, 917570, 60, 0, 917571, 60, 0, 917572, 59, 0, 917573, 59, 0, 983040, 59, 0, 983041, 59, 0, 983042, 59, 0, 983043, 59, 0, 983044, 59, 0, 983045, 59, 0, 983046, 59, 0, 983047, 59, 0, 983048, 59, 0, 983049, 59, 0, 983050, 138, 0, 983051, 138, 0, 983052, 138, 0, 983053, 138, 0, 983054, 59, 0, 983055, 138, 0, 983056, 138, 0, 983057, 138, 0, 983058, 138, 0, 983059, 59, 0, 983060, 138, 0, 983061, 138, 0, 983062, 138, 0, 983063, 138, 0, 983064, 138, 0, 983065, 138, 0, 983066, 138, 0, 983067, 59, 0, 983071, 59, 0, 983072, 59, 0, 983073, 59, 0, 983074, 59, 0, 983075, 59, 0, 983076, 59, 0, 983077, 59, 0, 983078, 59, 0, 983079, 59, 0, 983097, 59, 0, 983098, 59, 0, 983099, 139, 0, 983100, 59, 0, 983101, 59, 0, 983102, 59, 0, 983103, 139, 0, 983104, 139, 0, 983105, 139, 0, 983106, 139, 0, 983107, 139, 0, 983108, 59, 0, 983109, 59, 0 )
+palette = 2
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="KoopaRed" parent="Enemies" instance=ExtResource( 10 )]
+position = Vector2( 546, 216 )
+palette = 1
+
+[node name="BigStarPositions" type="Node2D" parent="."]
+
+[node name="BigStarPosition1" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 194, 157 )
+
+[node name="BigStarPosition2" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 498, 200 )
+
+[node name="BigStarPosition3" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 412, 138 )
+
+[node name="BigStarPosition4" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 800, 157 )
+
+[node name="BigStarPosition5" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 896, 192 )
+
+[node name="BigStarPosition6" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 515, 88 )
+
+[node name="BigStarPosition7" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 329, 168 )
+
+[node name="BigStarPosition8" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 194, 80 )
+
+[node name="BigStarPosition9" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 140.5, 128 )
+
+[node name="BigStar" parent="BigStarPositions" instance=ExtResource( 6 )]
+position = Vector2( 592, 92 )
+
+[node name="BigStarPosition10" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 735, 88 )
+
+[node name="BigStarPosition11" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 654, 45 )
+
+[node name="BigStarPosition12" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 1072, 200 )
+
+[node name="BigStarPosition17" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 952, 76 )
+
+[node name="BigStarPosition13" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 272, 157 )
+
+[node name="BigStarPosition14" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 272, 80 )
+
+[node name="BigStarPosition15" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 351, 157 )
+
+[node name="BigStarPosition16" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 351, 80 )
+
+[node name="LevelBackgrounds" type="Node2D" parent="."]
+
+[node name="LevelBackground" parent="LevelBackgrounds" instance=ExtResource( 7 )]
+BackgroundColor = Color( 0, 0, 0, 1 )
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="SMBPipe" parent="Blocks" instance=ExtResource( 9 )]
+position = Vector2( 400, 200 )
+pipeTileLength = 4
+
+[node name="SMBPipe2" parent="Blocks" instance=ExtResource( 9 )]
+position = Vector2( 880, 208 )
+pipeTileLength = 3
+
+[node name="MovingPlatform4" parent="." instance=ExtResource( 5 )]
+position = Vector2( 194, 32 )
+v_speed = -8
+platform_size = 2
+
+[node name="MovingPlatform5" parent="." instance=ExtResource( 5 )]
+position = Vector2( 194, 160 )
+v_speed = -8
+platform_size = 3
+
+[node name="MovingPlatform10" parent="." instance=ExtResource( 5 )]
+position = Vector2( 194, 224 )
+v_speed = -8
+platform_size = 4
+
+[node name="MovingPlatform6" parent="." instance=ExtResource( 5 )]
+position = Vector2( 194, 96 )
+v_speed = -8
+platform_size = 3
+
+[node name="MovingPlatform7" parent="." instance=ExtResource( 5 )]
+position = Vector2( 272, 32 )
+v_speed = 8
+platform_size = 3
+
+[node name="MovingPlatform8" parent="." instance=ExtResource( 5 )]
+position = Vector2( 272, 160 )
+v_speed = 8
+platform_size = 3
+
+[node name="MovingPlatform18" parent="." instance=ExtResource( 5 )]
+position = Vector2( 952, 212 )
+v_speed = 40
+platform_size = 2
+
+[node name="MovingPlatform19" parent="." instance=ExtResource( 5 )]
+position = Vector2( 952, 84 )
+v_speed = 40
+platform_size = 2
+
+[node name="MovingPlatform11" parent="." instance=ExtResource( 5 )]
+position = Vector2( 272, 224 )
+v_speed = 8
+platform_size = 3
+
+[node name="MovingPlatform9" parent="." instance=ExtResource( 5 )]
+position = Vector2( 272, 96 )
+v_speed = 8
+platform_size = 3
+
+[node name="MovingPlatform12" parent="." instance=ExtResource( 5 )]
+position = Vector2( 351, 32 )
+v_speed = -8
+platform_size = 3
+
+[node name="MovingPlatform13" parent="." instance=ExtResource( 5 )]
+position = Vector2( 351, 160 )
+v_speed = -8
+platform_size = 4
+
+[node name="MovingPlatform16" parent="." instance=ExtResource( 5 )]
+position = Vector2( 764, 134 )
+v_speed = -12
+platform_size = 22
+
+[node name="MovingPlatform17" parent="." instance=ExtResource( 5 )]
+position = Vector2( 764, 120 )
+v_speed = 12
+platform_size = 22
+
+[node name="MovingPlatform14" parent="." instance=ExtResource( 5 )]
+position = Vector2( 351, 224 )
+v_speed = -8
+platform_size = 3
+
+[node name="MovingPlatform15" parent="." instance=ExtResource( 5 )]
+position = Vector2( 351, 96 )
+v_speed = -8
+platform_size = 2

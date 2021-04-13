@@ -1398,7 +1398,7 @@ bus = "Music"
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level3" to="." method="level_selected" binds= [ "CustomL_World2-2" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level4" to="." method="level_selected" binds= [ "CustomL_CastleLike1" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level1" to="." method="level_selected" binds= [ "CustomL_SidewaysDown" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level2" to="." method="level_selected" binds= [ "default_level" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level2" to="." method="level_selected" binds= [ "CustomL_Unnamed1" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level3" to="." method="level_selected" binds= [ "default_level" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level4" to="." method="level_selected" binds= [ "default_level" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/ChangeWorldSet/SplitscreenSkipWorldSetLeft" to="." method="_on_SplitscreenSkipWorldSetLeft_pressed"]

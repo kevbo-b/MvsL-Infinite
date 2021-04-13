@@ -89,7 +89,7 @@ func setKinematicCollision(on):
 func check_if_out_of_bounds(infiniteY = false, allowAboveScreen = true):
 	motion.y = min(motion.y, MAXIMUM_FALLING_SPEED); #never too fast falling objects
 	if(position.y >= level_boundary_rect.end.y || position.y < level_boundary_rect.position.y):
-		if(!infinite_y_scroll && position.y >= level_boundary_rect.end.y):
+		if(!infinite_y_scroll && !infiniteY && position.y >= level_boundary_rect.end.y): #without !infiniteY
 			setOutOfBounds();
 			despawn();
 		elif(infinite_y_scroll || infiniteY):
