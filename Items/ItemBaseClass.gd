@@ -42,7 +42,7 @@ func spawn_as_drop(bodyy):
 func spawn_from_block(upwards = true):
 	z_index = -2;
 	
-	get_node(Global.sfxC3_path).playSound(SOUND_POWERUP_APPEARS);
+	playFromChannel(3, SOUND_POWERUP_APPEARS);
 	
 	initVariables();
 	set_all_collisions(false);

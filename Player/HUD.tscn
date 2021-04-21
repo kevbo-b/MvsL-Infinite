@@ -262,7 +262,7 @@ rect_min_size = Vector2( 40, 8 )
 
 [node name="CoinPNG" type="AnimatedSprite" parent="HBoxContainer/Bars/Bar2/CoinCount/Background"]
 frames = SubResource( 2 )
-frame = 1
+frame = 5
 playing = true
 centered = false
 

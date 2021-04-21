@@ -59,4 +59,5 @@ func resetRoundVariables():
 	Global.playerPositions = [null,null,null,null];
 	Global.splitscreen_current_player_hud = 1;
 	Global.level_spawns_mega_shroom = true;
+	Global.player_instances = []; 
 	pass

@@ -3,7 +3,8 @@ class_name SMBObjectBaseClass
 
 var level_boundary_rect;
 
-const SPAWN_DISTANCE = Vector2(256, 256);		#Mainly for enemies
+const SPAWN_DISTANCE = Vector2(256, 256);       #Mainly for enemies
+const SOUND_DISTANCE = Vector2(256, 256);       #Mainly for Player Sounds
 const DESPAWN_DISTANCE_ADD = Vector2(96, 96);
 
 const MASS_MULTIPLICATOR = 5;
@@ -179,23 +180,33 @@ func isInPlayerRaycast(player, body, length = 1.2):
 		return false;
 	pass
 	
-func playFromChannel(channel, sfx, db_add = 0):
+func playFromChannel(channel, sfx, db_add = 0, isGlobalSound = false):
+	if(isGlobalSound || localPlayerNearby(position)):
+		if(channel == -1):
+			get_node(Global.sfxStar_path).playSound(sfx, db_add);
+		elif(channel == 1):
+			get_node(Global.sfxC1_path).playSound(sfx, db_add);
+		elif(channel == 2):
+			get_node(Global.sfxC2_path).playSound(sfx, db_add);
+		elif(channel == 3):
+			get_node(Global.sfxC3_path).playSound(sfx, db_add);
+		elif(channel == 4):
+			get_node(Global.sfxC4_path).playSound(sfx, db_add);
+		else:
+			get_node(Global.sfxC0_path).playSound(sfx, db_add);
+		pass
 	
-	if(channel == -1):
-		get_node(Global.sfxStar_path).playSound(sfx, db_add);
-	elif(channel == 1):
-		get_node(Global.sfxC1_path).playSound(sfx, db_add);
-	elif(channel == 2):
-		get_node(Global.sfxC2_path).playSound(sfx, db_add);
-	elif(channel == 3):
-		get_node(Global.sfxC3_path).playSound(sfx, db_add);
-	elif(channel == 4):
-		get_node(Global.sfxC4_path).playSound(sfx, db_add);
-	else:
-		get_node(Global.sfxC0_path).playSound(sfx, db_add);
+func localPlayerNearby(pos):
+	var playSound = false;
+	for pl in Global.player_instances:
+		if(pl.is_local_player && checkIfBoxInReach(pos, pl.position, SOUND_DISTANCE)[0]):
+			return true;
+	return false;
 	pass
-	
+
+
 func checkIfBoxInReach(vecA, vecB, checkBoxSize, calculateInfiniteWorlds = true):
+	
 	var in_reach_x = false;
 	var in_reach_y = false;
 	var bLeftFromA = true;
@@ -214,6 +225,8 @@ func checkIfBoxInReach(vecA, vecB, checkBoxSize, calculateInfiniteWorlds = true)
 			if(vecA.x < reach_x):
 				in_reach_x = true
 				bLeftFromA = true
+				
+	
 			
 	if(vecA.y - checkBoxSize.y < vecB.y && vecA.y + checkBoxSize.y > vecB.y): #if y vecA is in range
 		in_reach_y = true;
@@ -226,7 +239,7 @@ func checkIfBoxInReach(vecA, vecB, checkBoxSize, calculateInfiniteWorlds = true)
 			var reach_y = (vecB.y + checkBoxSize.y) - level_boundary_rect.size.y;
 			if(vecA.y < reach_y):
 				in_reach_y = true
-				
+
 	if(in_reach_x && in_reach_y):
 		return [true, bLeftFromA];
 	else:

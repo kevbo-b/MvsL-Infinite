@@ -207,10 +207,12 @@ func addMissingNodes():
 	
 func link_scene_to_player():
 	for i in range(1, Global.player_amount + 1):
+		var player_str;
 		if(i == 1):
-			level.get_node("player").scene_path = self.get_path();
+			player_str = "player";
 		else:
-			level.get_node("player" + str(i)).scene_path = self.get_path();
+			player_str = "player" + str(i)
+		level.get_node(player_str).scene_path = self.get_path();
 	pass
 
 func link_huds():

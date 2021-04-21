@@ -131,7 +131,7 @@ func checkForSpawnablePosition():
 	var inDistance = false;
 	var walkLeft = false;
 	
-	for playerPosition in getPlayerPositions():		
+	for playerPosition in getPlayerPositions():
 		if(playerPosition != null):
 			
 			var reach = checkIfBoxInReach(position, playerPosition, SPAWN_DISTANCE);
@@ -163,7 +163,7 @@ func checkForDespawnablePosition():
 func playEnemySFX(sound, needsOnScreen = true):
 	if(canPlaySFX && (!needsOnScreen || isOnScreen)):
 		if(sound == SOUND_BUMP):
-			get_node(Global.sfxC2_path).playSound(SOUND_BUMP);
+			playFromChannel(2, SOUND_BUMP);
 			
 			canPlaySFX = false;
 			var t = Timer.new()
@@ -176,7 +176,7 @@ func playEnemySFX(sound, needsOnScreen = true):
 			
 			canPlaySFX = true;
 		else:
-			get_node(Global.sfxC0_path).playSound(sound);
+			playFromChannel(2, sound);
 	pass
 	
 func determineKick(body):

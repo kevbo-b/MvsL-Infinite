@@ -1,7 +1,7 @@
 extends Node
 class_name GlobalObj
 
-const VERSION_NUMBER = "0.8.7a"
+const VERSION_NUMBER = "0.9.1 alpha"
 
 #mode settings
 var playing_splitscreen = false;
@@ -38,6 +38,9 @@ var player_current_stars = [0,0,0,0];
 var current_max_stars = 0;
 
 var playerPositions = [null,null,null,null];
+
+
+var player_instances = [];
 
 
 #sound (Can be found in Screen -> setSoundChannels())

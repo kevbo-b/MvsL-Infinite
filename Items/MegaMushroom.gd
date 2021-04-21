@@ -67,7 +67,7 @@ func spawn_from_block(upwards = true):
 	$Area2D/MegaShroomSprite.set_animation("slideOutOfBox");
 	$Area2D/MegaShroomSprite.play()
 	
-	get_node(Global.sfxC3_path).playSound(MEGA_SPAWN_SOUND, -1);
+	playFromChannel(3, MEGA_SPAWN_SOUND, -1);
 	
 	spawn_from_block = true;
 	initVariables();

@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Menu/PauseScreen.gd" type="Script" id=1]
 [ext_resource path="res://Menu/menu_theme.tres" type="Theme" id=2]
+[ext_resource path="res://SFX/8bitSMB/smb_pause.wav" type="AudioStream" id=3]
 [ext_resource path="res://Menu/MenuSMB.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
@@ -29,6 +30,9 @@ grow_vertical = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PauseMenu" type="CenterContainer" parent="."]
 visible = false
@@ -208,6 +212,10 @@ anims/FadeOut = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
+
+[node name="PauseSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "IngameSFX"
 [connection signal="pressed" from="PauseMenu/VBoxContainer/HBoxContainer/VBoxContainer/Continue" to="." method="_on_Continue_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/HBoxContainer/VBoxContainer/End" to="." method="_on_End_pressed"]
 [connection signal="pressed" from="QuitMenu/VBoxContainer/HBoxContainer/VBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]

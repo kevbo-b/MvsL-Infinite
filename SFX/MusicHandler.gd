@@ -3,6 +3,7 @@ extends AudioStreamPlayer
 const MEGASHROOM_THEME = preload("res://SFX/NSMB/nsmb_MegaShroom.ogg");
 const STAR_THEME = preload("res://SFX/MusicThemes/smb_invincible.ogg");
 const WARNING_THEME = preload("res://SFX/8bitSMB/smb_warning.wav");
+const SOUND_DEAD = preload("res://SFX/8bitSMB/smb_mariodie.wav");
 
 var isEnabled = true;
 
@@ -11,6 +12,7 @@ var isHectic = false;
 var customFastTheme = false; #True when no fast theme avaiable. Then gets fasten up with Bus
 
 var deadPlayers = Global.player_amount;
+var initlocalPlayerAmount = false;
 
 var vs_hectic_players = 0;
 
@@ -60,7 +62,7 @@ func speedUp():
 			bus = "MusicFast";
 			#print(stream.get_mix_rate());
 			#stream.set_mix_rate(1.3 * stream.get_mix_rate());
-			pitch_scale = 1.3;
+			pitch_scale = 1.33333333;
 		else:
 			if(hurryExtension == ""): #so it doesnt reset when song is already fast
 				hurryExtension = "_hurry";
@@ -112,23 +114,41 @@ func setSong(fileName):
 			changeSpeed = false;
 	pass
 	
-func playerRespawned():
-	deadPlayers -= 1;
-	if(deadPlayers == 0):
-		playMusic();
+func playerRespawned(player):
+	if(!initlocalPlayerAmount):
+		getLocalPlayerAmount();
+		initlocalPlayerAmount = true;
+	if(player.is_local_player):
+		deadPlayers -= 1;
+		if(deadPlayers == 0):
+			playMusic();
 	pass
 	
-func playerDied():
-	deadPlayers += 1;
-	stopMusic();
+func playerDied(player):
+	if(player.is_local_player):
+		deadPlayers += 1;
+		stopMusic();
+		set_volume_db(0);
+		stream = SOUND_DEAD;
+		play();
 	pass
 	
-func playMegaShroomTheme():
-	stream = MEGASHROOM_THEME;
-	set_volume_db(10);
-	play();
+func playMegaShroomTheme(player):
+	if(player.is_local_player):
+		stream = MEGASHROOM_THEME;
+		set_volume_db(10);
+		play();
 	pass
 	
-func stopMegaShroomTheme():
-	stream = null;
+func stopMegaShroomTheme(player):
+	if(player.is_local_player):
+		stream = null;
+	pass
+	
+func getLocalPlayerAmount():
+	var localPlayerAmount = 0;
+	for pl in Global.player_instances:
+		if(pl.is_local_player):
+			localPlayerAmount += 1;
+	deadPlayers = localPlayerAmount;
 	pass

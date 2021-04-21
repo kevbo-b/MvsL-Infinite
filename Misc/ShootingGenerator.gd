@@ -1,7 +1,7 @@
 extends Position2D
 
 const SHOOTING_SOUND = preload("res://SFX/8bitSMB/smb_fireworks.wav"); 
-const GEN_SPAWN_DISTANCE = Vector2(208, 208);
+const GEN_SPAWN_DISTANCE = Vector2(256, 256);
 const OBJ_BASE_CLASS = preload("res://Classes/SMBObjectBaseClass.gd");
 
 export var is_enabled = true;
@@ -42,20 +42,18 @@ func initiateContent():
 func playerInReach():
 	var val = false;
 	var tempOBJ = OBJ_BASE_CLASS.new();
+	tempOBJ._ready()
 	for playerPosition in Global.playerPositions:
 		if(playerPosition != null):
-			val = tempOBJ.checkIfBoxInReach(position, playerPosition, GEN_SPAWN_DISTANCE, false)[0];
-			if(val):
-				if(playerPosition.x >= position.x):
-					shootRight = true;
-				else:
-					shootRight = false;
-					
+			val = tempOBJ.checkIfBoxInReach(position, playerPosition, GEN_SPAWN_DISTANCE);
+			if(val[0]):
+				shootRight = !val[1];
 				if(!oneWayShootDirection && position.x + 16 > playerPosition.x && position.x - 16 < playerPosition.x):
-					val = false;
-				break;
+					val[0] = false;
+				else:
+					break; #der spieler der am weitesten am shooter dran ist = shooting direction
 	tempOBJ.queue_free();
-	return val;
+	return val[0];
 	pass
 
 func start_shooting():
@@ -83,7 +81,7 @@ func _on_ShootingInterval_timeout():
 			get_parent().get_parent().get_node("Enemies").add_child(contentNode);
 		check_if_shell();
 		if(play_sound):
-			get_node(Global.sfxC0_path).playSound(SHOOTING_SOUND);
+			contentNode.playFromChannel(1, SHOOTING_SOUND);
 	start_shooting();
 	if(only_shoot_once):
 		is_enabled = false;

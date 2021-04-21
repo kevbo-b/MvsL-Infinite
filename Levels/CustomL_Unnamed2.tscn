@@ -15,7 +15,6 @@
 
 [node name="LevelSettings" parent="." instance=ExtResource( 8 )]
 repeatingHorizontally = true
-repeatingVertically = true
 
 [node name="SPAWNS" parent="." instance=ExtResource( 1 )]
 
@@ -35,43 +34,13 @@ palette = 1
 [node name="BigStarPositions" type="Node2D" parent="."]
 
 [node name="BigStarPosition1" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 232, 157 )
+position = Vector2( 984, 176 )
 
 [node name="BigStarPosition2" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 498, 200 )
-
-[node name="BigStarPosition3" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 412, 138 )
-
-[node name="BigStarPosition4" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 800, 157 )
-
-[node name="BigStarPosition5" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 899, 157 )
-
-[node name="BigStarPosition6" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 515, 88 )
-
-[node name="BigStarPosition7" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 329, 168 )
-
-[node name="BigStarPosition8" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 232, 80 )
-
-[node name="BigStarPosition9" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 140.5, 128 )
+position = Vector2( 1042, 209 )
 
 [node name="BigStar" parent="BigStarPositions" instance=ExtResource( 6 )]
 position = Vector2( 450, 122 )
-
-[node name="BigStarPosition10" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 735, 88 )
-
-[node name="BigStarPosition11" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 654, 45 )
-
-[node name="BigStarPosition12" type="Position2D" parent="BigStarPositions"]
-position = Vector2( 1047, 172 )
 
 [node name="LevelBackgrounds" type="Node2D" parent="."]
 

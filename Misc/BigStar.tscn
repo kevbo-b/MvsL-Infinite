@@ -33,6 +33,7 @@ collision_mask = 2
 z_index = 1
 z_as_relative = false
 frames = SubResource( 1 )
+frame = 1
 playing = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="Area2D"]

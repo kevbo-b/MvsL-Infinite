@@ -5,7 +5,9 @@ func _ready():
 	
 var lookingViewports = 0;
 
-#Currently not in use. Consider to re-use with Online-Mode
+#Currently not in use. Using checkIfInPlayerReach() instead.
+
+# Consider to re-use with Online-Mode
 
 func _on_EnemyVisibilityNotifier_viewport_entered(viewport):
 	#lookingViewports += 1;

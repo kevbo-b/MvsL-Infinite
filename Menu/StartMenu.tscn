@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Menu/menu_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Menu/StartMenu.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://Levels/Textures/NSMB_IceLevel.png" type="Texture" id=13]
 [ext_resource path="res://Levels/Textures/NSMB_Castle.png" type="Texture" id=14]
 [ext_resource path="res://Levels/Textures/CustomL_SidewaysDown.png" type="Texture" id=15]
+[ext_resource path="res://Levels/Textures/CustomL_Unnamed1.png" type="Texture" id=16]
 
 [sub_resource type="Animation" id=1]
 length = 0.5
@@ -674,7 +675,7 @@ margin_top = 2.0
 margin_right = 58.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
-texture = ExtResource( 6 )
+texture = ExtResource( 16 )
 expand = true
 
 [node name="Level3" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World4"]
@@ -1399,8 +1400,8 @@ bus = "Music"
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level4" to="." method="level_selected" binds= [ "CustomL_CastleLike1" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level1" to="." method="level_selected" binds= [ "CustomL_SidewaysDown" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level2" to="." method="level_selected" binds= [ "CustomL_Unnamed1" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level3" to="." method="level_selected" binds= [ "default_level" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level4" to="." method="level_selected" binds= [ "default_level" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level3" to="." method="level_selected" binds= [ "CustomL_Unnamed2" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level4" to="." method="level_selected" binds= [ "CustomL_Unnamed3" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/ChangeWorldSet/SplitscreenSkipWorldSetLeft" to="." method="_on_SplitscreenSkipWorldSetLeft_pressed"]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/ChangeWorldSet/SplitscreenSkipWorldSetRight" to="." method="_on_SplitscreenSkipWorldSetRight_pressed"]
 [connection signal="pressed" from="CenterContainer/OnlineMenu/BackBar/Back" to="." method="_on_Back_pressed"]

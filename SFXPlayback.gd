@@ -6,7 +6,8 @@ func _ready():
 	standardDB = get_volume_db();
 	pass # Replace with function body.
 
-func playSound(soundFile, db_add = 0):
+#never use directly, use the playFromChannel Function in SMBObjectBase Class instead
+func playSound(soundFile, db_add = 0):  
 	set_volume_db(db_add + standardDB);
 	stream = soundFile;
 	play();

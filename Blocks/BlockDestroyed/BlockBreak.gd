@@ -4,7 +4,7 @@ class_name BlockBreak
 const SOUND_BLOCKBREAK = preload("res://SFX/8bitSMB/smb_breakblock.wav");
 
 func _ready():
-	get_node(Global.sfxC1_path).playSound(SOUND_BLOCKBREAK);
+	playFromChannel(1, SOUND_BLOCKBREAK);
 	initialize();
 	pass # Replace with function body.
 

@@ -5,7 +5,7 @@ resource_name = "Panner"
 
 [sub_resource type="AudioEffectPitchShift" id=2]
 resource_name = "PitchShift"
-pitch_scale = 0.77
+pitch_scale = 0.75
 
 [resource]
 bus/1/name = "LeftRight"

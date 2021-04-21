@@ -162,10 +162,13 @@ var randomColors : Array;
 var anim_extension = "";
 
 var personal_name;
+#for online
+var is_local_player = true;
 
 func _ready():
 	defaultUp = DEFAULT_UP;
 	old_position = position;
+	Global.player_instances.append(self);
 	save_default_collisions();
 	save_area2d_default_collisions($player_hitbox);
 	deleteNonexistentPlayers();
@@ -646,19 +649,28 @@ func dead_from_pit():
 		$MegaShroomGlowTimer.stop();
 		$AnimPlayer.stop();
 		isMega = false;
-	if(Global.musicEnabled):
-		setSFXAtChannel(1, SOUND_DEAD);
-	else:
-		setSFXAtChannel(1, SOUND_DEAD_SHORT);
-	startSFXAtChannel(1);
 	is_dead = true;
 	loose_star(1);
 	dead_gravity_disabled = true;
 	set_all_collisions(false);
 	motion.x = 0;
 	$FullDeathTimer.start();
-	if(Global.is_vs_mode):
-		get_node(Global.musicC1_path).playerDied();
+	play_dead_sound();
+	pass
+	
+func play_dead_sound():
+	if(!is_local_player || !Global.musicEnabled):
+		setSFXAtChannel(2, SOUND_DEAD_SHORT);
+		startSFXAtChannel(2);
+	else:
+	#if(Global.is_vs_mode):
+		get_node(Global.musicC1_path).playerDied(self);
+		
+		#if(Global.musicEnabled): //now in global music node.
+	#	setSFXAtChannel(2, SOUND_DEAD);
+	#else:
+	#	setSFXAtChannel(2, SOUND_DEAD_SHORT);
+	#startSFXAtChannel(2);
 	pass
 
 func switchIfSideways(mot):
@@ -842,8 +854,8 @@ func _on_RespawnAfterPipeSpawn_timeout():
 		t.start()
 	
 		yield(t, "timeout")
-		t.queue_free();	
-		get_node(Global.musicC1_path).playerRespawned();
+		t.queue_free();
+		get_node(Global.musicC1_path).playerRespawned(self);
 	pass
 	
 func shootProjectile():
@@ -892,7 +904,7 @@ func setDestructiveMode(param):
 		isMega = true;
 		$player_hitbox.set_collision_mask_bit(0, true);
 		if(!Global.is_vs_mode):
-			get_node(Global.musicC1_path).playMegaShroomTheme();
+			get_node(Global.musicC1_path).playMegaShroomTheme(self);
 	else:
 		isMega = false;
 		$player_hitbox.set_collision_mask_bit(0, false);
@@ -1016,7 +1028,8 @@ func drop_powerup(item):
 	pass
 	
 func playSFXAtChannel(channel, sound, db_add = 0):
-	getAudioByChannel(channel).playSound(sound, db_add);
+	if(is_local_player || localPlayerNearby(position)):
+		getAudioByChannel(channel).playSound(sound, db_add);
 	pass
 	
 func setSFXAtChannel(channel, sound, db_add = 0):
@@ -1024,7 +1037,8 @@ func setSFXAtChannel(channel, sound, db_add = 0):
 	pass
 	
 func startSFXAtChannel(channel):
-	getAudioByChannel(channel).play();
+	if(is_local_player || localPlayerNearby(position)):
+		getAudioByChannel(channel).play();
 	pass
 	
 func getAudioByChannel(channel):
@@ -1256,17 +1270,13 @@ func dead():
 	get_node(cam_path).stopCamera();
 	if(isMega):
 		if(!Global.is_vs_mode):
-			get_node(Global.musicC1_path).stopMegaShroomTheme();
+			get_node(Global.musicC1_path).stopMegaShroomTheme(self);
 		$MegaShroomTimer.stop();
 		$MegaShroomGlowTimer.stop();
 		$AnimPlayer.stop();
 		isMega = false;
 		#$player_hitbox.set_collision_mask(area_2d_collision_mask);
-	if(Global.musicEnabled):
-		setSFXAtChannel(2, SOUND_DEAD);
-	else:
-		setSFXAtChannel(2, SOUND_DEAD_SHORT);
-	startSFXAtChannel(2);
+			
 	set_all_collisions(false);
 	$PlayerSprite.set_animation("Dead");
 	is_dead = true;
@@ -1277,8 +1287,8 @@ func dead():
 	$DeathMoment.start();
 	$FullDeathTimer.start();
 	setPlayerShader();
-	if(Global.is_vs_mode):
-		get_node(Global.musicC1_path).playerDied();
+
+	play_dead_sound();
 	pass
 	
 func setPlayerInvincible():
@@ -1544,6 +1554,7 @@ func setPlayerShader():
 		if("2" in self.name):
 			set_controls_for_player(2);
 			playerShader = LUIGI_SHADER;
+			is_local_player = false; ###########################################UPS
 		elif("3" in self.name):
 			set_controls_for_player(3);
 			playerShader = PLAYER3_SHADER;
@@ -1728,6 +1739,7 @@ func _on_ChangeBetweenAnimations_timeout():
 	pass
 	
 func growToMega():
+	$ChangeBetweenAnimations.stop();
 	$PlayerSprite.speed_scale = 1;
 	$PlayerSprite.play("MegaShroomGrow");
 	$AnimPlayer.play("MegaGrow");

@@ -7,6 +7,7 @@ func _ready():
 var timeToKill = 1;
 
 func playSFX(obj, sfx):
+	print("Outdated audio usage, use fixed Audio Channels instead!")
 	stream = sfx;
 	obj.add_child(self);
 	play();

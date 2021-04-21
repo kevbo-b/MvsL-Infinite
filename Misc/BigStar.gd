@@ -19,12 +19,15 @@ var bouncing = false;
 var firstTime = true;
 var flip = true;
 
+var spawnTime = 12; #12 is default
+
 var default_collision_layer_kinematic = 0;
 var default_collision_layer_hitbox = 0;
 var default_collision_mask_kinematic = 0;
 var default_collision_mask_hitbox = 0;
 
 func _ready():
+	$RespawnTimer.wait_time = spawnTime;
 	save_area2d_default_collisions($Area2D);
 	save_default_collisions();
 	if(!spawned_from_player):
@@ -57,7 +60,7 @@ func _physics_process(delta):
 	pass
 	
 func spawn_star_from_player(flipStar):
-	playFromChannel(-1, SOUND_STAR_APPEAR, 2);
+	playFromChannel(-1, SOUND_STAR_APPEAR, 2, true);
 	
 	$CollisionShape.disabled = false;
 	save_area2d_default_collisions($Area2D);
@@ -76,25 +79,30 @@ func spawn_star_from_player(flipStar):
 	$DisabledCollisionTime.start();
 	pass
 
-func get_number_of_spawning_positions():
-	return get_parent().get_child_count() - 1;
-	pass
+#func get_number_of_spawning_positions(): #Unused?
+#	return get_parent().get_child_count() - 1;
+#	pass
 
 func spawn():
 	
 	call_deferred("showDirectionToPlayers");
 	
 	if(!firstTime):
-		playFromChannel(-1, SOUND_STAR_APPEAR, 2);
-		
-	var amount_pos = get_number_of_spawning_positions();
+		playFromChannel(-1, SOUND_STAR_APPEAR, 2, true);
 	
+	var parentNodes = get_parent().get_children();
+	
+	var spawns = [];
+	
+	for obj in parentNodes:
+		if(obj is Position2D):
+			spawns.append(obj);
+
 	randomize();
-	var random_pos = rand_range(1.0, amount_pos + 0.99);
-	random_pos = int(random_pos);
-	
-	var path_star = get_parent().get_path();
-	var spawn_point = get_node(str(path_star) + "/BigStarPosition" + str(random_pos))
+	var random_spawn_index = rand_range(0.0, spawns.size());
+	random_spawn_index = int(random_spawn_index);
+
+	var spawn_point = spawns[random_spawn_index];
 	position.x = spawn_point.position.x;
 	position.y = spawn_point.position.y;
 	show();
@@ -113,13 +121,13 @@ func _on_Area2D_body_entered(body):
 		if(collected == false):
 			collected = true;
 			spawnParticle();
-			if(bouncing):
-				playFromChannel(-1, SOUND_STAR_DENIED, 2);
+			if(bouncing): # ----------------------------------------------------------- w0t
+				playFromChannel(-1, SOUND_STAR_DENIED, 2, true);
 				
 				body.big_star_collected();
 				queue_free();
 			else:
-				playFromChannel(-1, SOUND_STAR_GET, 2);
+				playFromChannel(-1, SOUND_STAR_GET, 2, true);
 				
 				set_all_collisions(false);
 				hide();

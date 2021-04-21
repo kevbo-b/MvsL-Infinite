@@ -1,6 +1,8 @@
 extends Control
 class_name PauseScreen
 
+const SOUND_PAUSE = preload("res://SFX/8bitSMB/smb_pause.wav");
+
 var pauser;
 var next_round = true;
 var screen;
@@ -15,6 +17,8 @@ func set_pause(player, used_screen):
 		set_inappropriate_text();
 	$PauseMenu.visible = true;
 	$PauseMenu/VBoxContainer/HBoxContainer/VBoxContainer/Continue.grab_focus();
+	$PauseSFX.play()
+	
 	
 func exit_game():
 	Global.Start_menu_page = 1;
@@ -28,6 +32,7 @@ func exit_game():
 	pass
 
 func _on_Continue_pressed():
+	$PauseSFX.play()
 	get_tree().paused = false;
 	$PauseMenu.visible = false;
 	pass
