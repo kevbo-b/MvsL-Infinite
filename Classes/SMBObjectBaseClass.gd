@@ -210,6 +210,7 @@ func checkIfBoxInReach(vecA, vecB, checkBoxSize, calculateInfiniteWorlds = true)
 	var in_reach_x = false;
 	var in_reach_y = false;
 	var bLeftFromA = true;
+	var bBelowFromA = true;
 	
 	if(vecA.x - checkBoxSize.x < vecB.x && vecA.x + checkBoxSize.x > vecB.x): #if x vecA is in range
 		in_reach_x = true;
@@ -226,24 +227,59 @@ func checkIfBoxInReach(vecA, vecB, checkBoxSize, calculateInfiniteWorlds = true)
 				in_reach_x = true
 				bLeftFromA = true
 				
-	
-			
 	if(vecA.y - checkBoxSize.y < vecB.y && vecA.y + checkBoxSize.y > vecB.y): #if y vecA is in range
 		in_reach_y = true;
+		bBelowFromA = (vecB.y > vecA.y);
 	elif(infinite_y_scroll && calculateInfiniteWorlds):
 		if(vecB.y - checkBoxSize.y < 0):
 			var reach_y = level_boundary_rect.size.y + (vecB.y - checkBoxSize.y);
 			if(vecA.y > reach_y):
 				in_reach_y = true
+				bBelowFromA = false
 		if(vecB.y + checkBoxSize.y > level_boundary_rect.end.y):
 			var reach_y = (vecB.y + checkBoxSize.y) - level_boundary_rect.size.y;
 			if(vecA.y < reach_y):
 				in_reach_y = true
+				bBelowFromA = true
 
 	if(in_reach_x && in_reach_y):
-		return [true, bLeftFromA];
+		return [true, bLeftFromA, bBelowFromA];
 	else:
-		return [false, bLeftFromA];
+		return [false, bLeftFromA, bBelowFromA];
+	pass
+	
+func measureDistance(vecA, vecB, calculateInfiniteWorlds = true):
+	var distVec = calcDistanceVector(vecA, vecB, calculateInfiniteWorlds);
+	
+	var distance = sqrt(pow(distVec.x, 2) + pow(distVec.y, 2));
+	return distance;
+	pass
+
+func calcDistanceVector(vecA, vecB, calculateInfiniteWorlds = true):
+	if(infinite_x_scroll && calculateInfiniteWorlds):
+		var switchPoint;
+		if(vecA.x < Global.level_boundary_rect.position.x + 0.5 * Global.level_boundary_rect.size.x):
+			switchPoint = vecA.x + 0.5 * Global.level_boundary_rect.size.x;
+			if(vecB.x > switchPoint):
+				vecA.x = vecA.x + Global.level_boundary_rect.size.x;
+		else:
+			switchPoint = vecA.x - 0.5 * Global.level_boundary_rect.size.x;
+			if(vecB.x < switchPoint):
+				vecA.x = vecA.x - Global.level_boundary_rect.size.x;
+	
+	if(infinite_y_scroll && calculateInfiniteWorlds):
+		var switchPoint;
+		if(vecA.y < Global.level_boundary_rect.position.y + 0.5 * Global.level_boundary_rect.size.y):
+			switchPoint = vecA.y + 0.5 * Global.level_boundary_rect.size.y;
+			if(vecB.y > switchPoint):
+				vecA.y = vecA.y + Global.level_boundary_rect.size.y;
+		else:
+			switchPoint = vecA.y - 0.5 * Global.level_boundary_rect.size.y;
+			if(vecB.y < switchPoint):
+				vecA.y = vecA.y - Global.level_boundary_rect.size.y;
+	
+	var distVec = vecA - vecB;
+	return distVec;
 	pass
 	
 func getPlayerPositions():

@@ -91,6 +91,7 @@ func squished(body):
 
 func changeDirection(extraChecks = true):
 	motion_horizontally = motion_horizontally * -1;
+	motion_vertically = motion_vertically * -1;
 	set_sprite_direction();
 	pass
 	

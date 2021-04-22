@@ -1,5 +1,7 @@
 extends Node2D
 
+const OBJ_BASE_CLASS = preload("res://Classes/SMBObjectBaseClass.gd");
+
 var starNode;
 var distance = 0;
 export var showDistance = false;
@@ -26,30 +28,12 @@ func calculateDistanceToStar():
 	var arrowVector = $VBoxContainer/Arrow.get_global_transform()[2];
 
 	var starVec = starNode.position;
+
+	var tempOBJ = OBJ_BASE_CLASS.new();
+	tempOBJ._ready()
+	var distVec = tempOBJ.calcDistanceVector(starVec, arrowVector);
+	tempOBJ.queue_free();
 	
-	if(Global.level_infinite_horizontal_scroll):
-		var switchPoint;
-		if(starVec.x < Global.level_boundary_rect.position.x + 0.5 * Global.level_boundary_rect.size.x):
-			switchPoint = starVec.x + 0.5 * Global.level_boundary_rect.size.x;
-			if(arrowVector.x > switchPoint):
-				starVec.x = starVec.x + Global.level_boundary_rect.size.x;
-		else:
-			switchPoint = starVec.x - 0.5 * Global.level_boundary_rect.size.x;
-			if(arrowVector.x < switchPoint):
-				starVec.x = starVec.x - Global.level_boundary_rect.size.x;
-				
-	if(Global.level_infinite_vertical_scroll):
-		var switchPoint;
-		if(starVec.y < Global.level_boundary_rect.position.y + 0.5 * Global.level_boundary_rect.size.y):
-			switchPoint = starVec.y + 0.5 * Global.level_boundary_rect.size.y;
-			if(arrowVector.y > switchPoint):
-				starVec.y = starVec.y + Global.level_boundary_rect.size.y;
-		else:
-			switchPoint = starVec.y - 0.5 * Global.level_boundary_rect.size.y;
-			if(arrowVector.y < switchPoint):
-				starVec.y = starVec.y - Global.level_boundary_rect.size.y;
-	
-	var distVec = starVec - arrowVector;
 	distance = sqrt(pow(distVec.x, 2) + pow(distVec.y, 2));
 	var angle = (atan2(distVec.y, distVec.x)) * (180.0 / PI);
 

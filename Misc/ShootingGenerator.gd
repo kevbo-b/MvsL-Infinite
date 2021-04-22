@@ -2,6 +2,8 @@ extends Position2D
 
 const SHOOTING_SOUND = preload("res://SFX/8bitSMB/smb_fireworks.wav"); 
 const GEN_SPAWN_DISTANCE = Vector2(256, 256);
+const SAFE_DISTANCE_X = 16; #Only shoot if further than ... units. (X Axis)
+const SAFE_DISTANCE_XY = 32; #measurement on direct line
 const OBJ_BASE_CLASS = preload("res://Classes/SMBObjectBaseClass.gd");
 
 export var is_enabled = true;
@@ -13,8 +15,9 @@ var content_file;
 var shootRight = false;
 
 export var oneWayShootDirection = false;
-export var motion_horizontally = 1.0;
-export var motion_vertically = 0.0;
+export var motion_horizontally = 1;
+export var motion_vertically = 0;
+export var motion_multiplier = 1.0;
 
 export var palette = 0;
 export var play_sound = true;
@@ -39,20 +42,37 @@ func initiateContent():
 		content_file = load("res://Enemies/BuzzyBeetle.tscn");
 	pass
 	
-func playerInReach():
-	var val = false;
+func playerInReach(): #Good example of overcomplicating simple stuff
+	var val = [false, false];
 	var tempOBJ = OBJ_BASE_CLASS.new();
+	var shootRightVar = true;
+	var nearestDist = GEN_SPAWN_DISTANCE.x;
 	tempOBJ._ready()
+	print(Global.playerPositions)
 	for playerPosition in Global.playerPositions:
 		if(playerPosition != null):
-			val = tempOBJ.checkIfBoxInReach(position, playerPosition, GEN_SPAWN_DISTANCE);
-			if(val[0]):
-				shootRight = !val[1];
-				if(!oneWayShootDirection && position.x + 16 > playerPosition.x && position.x - 16 < playerPosition.x):
-					val[0] = false;
+			var tempVal = tempOBJ.checkIfBoxInReach(position, playerPosition, GEN_SPAWN_DISTANCE);
+			if(tempVal[0]):
+				var distance = 0;
+				var shootDirection = true;
+				var safe_distance = SAFE_DISTANCE_X;
+				if(motion_vertically == 0):
+					distance = tempOBJ.measureDistance(Vector2(position.x, 0),Vector2(playerPosition.x, 0));
+					shootDirection = !tempVal[1];
+				elif(motion_horizontally == 0):
+					distance = tempOBJ.measureDistance(position, playerPosition);
+					shootDirection = tempVal[2];
+					safe_distance = SAFE_DISTANCE_XY;
 				else:
-					break; #der spieler der am weitesten am shooter dran ist = shooting direction
+					distance = tempOBJ.measureDistance(position, playerPosition); #not determining diagonal shoot directions, those are fixed
+				if(!oneWayShootDirection && distance < safe_distance):
+					continue;
+				elif(distance < nearestDist):
+					val[0] = true;
+					shootRightVar = shootDirection;
+					nearestDist = distance;
 	tempOBJ.queue_free();
+	shootRight = shootRightVar;
 	return val[0];
 	pass
 
@@ -60,8 +80,8 @@ func start_shooting():
 	if(is_enabled):
 		contentNode = content_file.instance();
 		if(content == 0):
-			contentNode.motion_horizontally = motion_horizontally;
-			contentNode.motion_vertically = motion_vertically;
+			contentNode.motion_horizontally = motion_horizontally * motion_multiplier;
+			contentNode.motion_vertically = motion_vertically * motion_multiplier;
 		$ShootingInterval.start();
 	pass
 
