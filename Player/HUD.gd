@@ -10,6 +10,9 @@ var coins = 0;
 var stars = 0;
 
 func _ready():
+	if(!Global.is_vs_mode):
+		var musicNode = get_node(Global.musicC1_path);
+		musicNode.playSpeedupSound = true;
 	$Transition/Black.show();
 	resetHUDStars();
 	if(!Global.decimalStarCounter):
@@ -122,16 +125,14 @@ func resetHUDStars():
 	pass
 	
 func checkForMatchball(prevStarNum, currentStarNum):
+	var musicNode = get_node(Global.musicC1_path);
 	if(currentStarNum == Global.stars_to_collect - 1):
-		get_node(Global.musicC1_path).speedUp();
-		get_node(Global.musicC1_path).vs_hectic_players += 1;
 		setStarHUDShader(true);
+		musicNode.addMatchballPlayer();
 	else:
 		setStarHUDShader(false);
-		if(get_node(Global.musicC1_path).isHectic && prevStarNum == Global.stars_to_collect - 1 && currentStarNum == prevStarNum - 1):
-			get_node(Global.musicC1_path).vs_hectic_players -= 1;
-			if(get_node(Global.musicC1_path).vs_hectic_players == 0):
-				get_node(Global.musicC1_path).normalizeSpeed();
+		if(prevStarNum == Global.stars_to_collect - 1 && currentStarNum == prevStarNum - 1):
+			musicNode.subMatchballPlayer();
 	pass
 	
 func setHighestStarNum():

@@ -7,111 +7,114 @@ const SOUND_DEAD = preload("res://SFX/8bitSMB/smb_mariodie.wav");
 
 var isEnabled = true;
 
-var changeSpeed = true;
-var isHectic = false;
-var customFastTheme = false; #True when no fast theme avaiable. Then gets fasten up with Bus
+var randomSongIsGenerated = false;
 
-var deadPlayers = Global.player_amount;
+var speedChangable = true;
+var isFast = false;
+var hasHurryFile = true; #True when fast theme avaiable. Then gets fasten up with Bus
+
+var deadPlayers = Global.player_amount_local;
 var initlocalPlayerAmount = false;
 
-var vs_hectic_players = 0;
+var matchballPlayers = 0;
+var playSpeedupSound = false;
 
 var songPath = "res://SFX/MusicThemes/";
-var choosenSongFile = null;
+var songFileName = "";
 var hurryExtension = "";
 var fileExtension = ".ogg";
+var fileArr= [];
 
 func _ready():
 	isEnabled = Global.musicEnabled;
-	chooseRandomVSSong();
 	pass
 
-func playMusic(hecticCheck = true):
-	if(isEnabled && choosenSongFile != null):
-		#var a = AudioStreamSample.new();
-		#a.set_data =;
-		stream = load(songPath + choosenSongFile + hurryExtension + fileExtension);
-		if("vs_theme_8bit" in choosenSongFile):
-			set_volume_db(-1);
-		elif("vs_nsmb_theme_2" in choosenSongFile):
-			set_volume_db(6);
-		elif("vs_nsmb_theme_1" in choosenSongFile):
-			set_volume_db(5);
-		else:
-			set_volume_db(7);
+func playMusic(fastCheck = true):
+	if(fastCheck):
+		initializeSpeed();
+	if(isEnabled && fileArr!= null):
+		loadSong();
 		play();
-		if(isHectic && hecticCheck):
-			speedUp();
 	pass
 	
+func loadSong():
+	if("vs_random" in songFileName):
+		chooseRandomVSSong();
+		
+	if("vs_theme_8bit" in songFileName):
+		set_volume_db(-1);
+	elif("vs_nsmb_theme_2" in songFileName):
+		set_volume_db(6);
+	elif("vs_nsmb_theme_1" in songFileName):
+		set_volume_db(5);
+	else:
+		set_volume_db(7);
+	print(hurryExtension)
+	stream = load(songPath + songFileName+ hurryExtension + fileExtension);
+	pass
+
 func stopMusic():
 	stop();
 	pass
 	
 func speedUp():
-	if(changeSpeed && choosenSongFile != null):
-		if(!isHectic && !Global.is_vs_mode):
+	if(speedChangable && fileArr!= null):
+		if(playSpeedupSound):
 			set_volume_db(4);
 			stream = WARNING_THEME;
 			play();
 			yield(self,"finished");
-			playMusic(false);
-			#TimeAlmostUp sound with yield
-		
-		if(customFastTheme):
-			bus = "MusicFast";
-			#print(stream.get_mix_rate());
-			#stream.set_mix_rate(1.3 * stream.get_mix_rate());
-			pitch_scale = 1.33333333;
-		else:
-			if(hurryExtension == ""): #so it doesnt reset when song is already fast
-				hurryExtension = "_hurry";
-				playMusic(false);
-		
-		isHectic = true;
+			playMusic(fileArr);
+
+		if(stream != SOUND_DEAD):
+
+			if(!hasHurryFile):
+				bus = "MusicFast";
+				pitch_scale = 1.33333333;
+			else:
+				if(hurryExtension == ""): #so it doesnt reset when song is already fast
+					hurryExtension = "_hurry";
+					playMusic(false); #risky for circular dependency
 	pass
 	
 func normalizeSpeed():
-	if(changeSpeed && choosenSongFile != null):
-		if(customFastTheme):
+	if(speedChangable && fileArr!= null):
+		if(!hasHurryFile):
 			bus = "Music";
 			pitch_scale = 1.0;
 		else:
 			hurryExtension = "";
-			playMusic(false);
-	
-		isHectic = false;
+			if(deadPlayers == 0):
+				playMusic(false); #risky for circular dependency
 	pass
 	
 func chooseRandomVSSong():
-	customFastTheme = true;
-	
-	var songs = [];
-	songs += ["vs_nsmb_theme_1"];
-	songs += ["vs_nsmb_theme_2"];
-	songs += ["vs_theme_8bit"];
-	
-	randomize();
-	var number = randi()%songs.size();
-	
-	choosenSongFile = songs[number];
+	if(!randomSongIsGenerated):
+		hasHurryFile = false;
+		
+		var songs = [];
+		songs += ["vs_nsmb_theme_1"];
+		songs += ["vs_nsmb_theme_2"];
+		songs += ["vs_theme_8bit"];
+		
+		randomize();
+		var number = randi()%songs.size();
+		
+		songFileName= songs[number];
+		randomSongIsGenerated = true;
 	pass
 	
-func setSong(fileName):
-
-	if(fileName == null):
-		choosenSongFile = null;
-	else:
-		if(fileName[0] == "vs_random"):
-			chooseRandomVSSong();
-		else:
-			choosenSongFile = fileName[0];
-			
-		customFastTheme = fileName[2];
-		
-		if(!fileName[1]):
-			choosenSongFile = fileName[0];
-			changeSpeed = false;
+	# [0] songFileName
+	# [1] canMakeFaster (if you can change the speed of the songFile), false for _hurry files
+	# [2] hasFasterMusicFile (if true, upgrades with _hurry, if not, with bus) ([1] has to be true)
+	
+func setSong(fileArray):
+	
+	fileArr = fileArray;
+	
+	songFileName = fileArray[0];
+	hasHurryFile = fileArray[2];
+	speedChangable = fileArray[1];
 	pass
 	
 func playerRespawned(player):
@@ -121,6 +124,8 @@ func playerRespawned(player):
 	if(player.is_local_player):
 		deadPlayers -= 1;
 		if(deadPlayers == 0):
+			stream = null;
+			decideIfFast();
 			playMusic();
 	pass
 	
@@ -130,13 +135,51 @@ func playerDied(player):
 		stopMusic();
 		set_volume_db(0);
 		stream = SOUND_DEAD;
+		normalizeSpeed();
 		play();
+	pass
+	
+func initializeSpeed():
+	if(isFast):
+		speedUp();
+	else:
+		normalizeSpeed();
+	pass
+	
+func addMatchballPlayer():
+	matchballPlayers+=1;
+	decideIfFast();
+	initializeSpeed();
+	pass
+	
+func subMatchballPlayer():
+	matchballPlayers-=1;
+	decideIfFast();
+	initializeSpeed();
+	pass
+	
+func decideIfFast():
+	if(matchballPlayers <= 0):
+		isFast = false
+	else: 
+		isFast = true
+	pass
+
+func setFast():
+	isFast = true;
+	initializeSpeed();
+	pass
+	
+func setSlow():
+	isFast = true;
+	initializeSpeed();
 	pass
 	
 func playMegaShroomTheme(player):
 	if(player.is_local_player):
 		stream = MEGASHROOM_THEME;
 		set_volume_db(10);
+		normalizeSpeed();
 		play();
 	pass
 	

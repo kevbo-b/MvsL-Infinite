@@ -13,7 +13,12 @@ func _ready():
 		setPlayerNumber(Global.player_amount);
 		$Fade.show();
 		fadeIn();
-	pass # Replace with function body.
+		
+	else: #Yet to be done, loading screen like the original SMB
+		setPlayerNumber(Global.player_amount);
+		$Fade.show();
+		fadeIn();
+	pass
 	
 func setPlayerNumber(players):
 	if(players == 2 && !Global.player2LeftRight):
@@ -60,4 +65,5 @@ func resetRoundVariables():
 	Global.splitscreen_current_player_hud = 1;
 	Global.level_spawns_mega_shroom = true;
 	Global.player_instances = []; 
+	Global.player_amount_local = 0;
 	pass

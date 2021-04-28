@@ -35,37 +35,37 @@ func getSongFile():
 	var i = musicTheme;
 	
 	# [0] songFileName
-	# [1] changeableSpeed (if you can change the speed of the songFile), false for _hurry files
-	# [2] only if [1] T: change Songspeed with bus? (if false, it will search for _hurry file!)
+	# [1] canMakeFaster (if you can change the speed of the songFile), false for _hurry files
+	# [2] hasFasterMusicFile (if true, upgrades with _hurry, if not, with bus) ([1] has to be true)
 	
 	if(i == 1):
-		return ["vs_random", true, true];
+		return ["vs_random", true, false];
 	elif(i == 2):
-		return ["smb_overworld", true, false];
+		return ["smb_overworld", true, true];
 	elif(i == 3):
 		return ["smb_overworld_hurry", false, false];
 	elif(i == 4):
-		return ["smb_underground", true, false];
+		return ["smb_underground", true, true];
 	elif(i == 5):
 		return ["smb_underground_hurry", false, false];
 	elif(i == 6):
-		return ["smb_water", true, false];
+		return ["smb_water", true, true];
 	elif(i == 7):
 		return ["smb_water_hurry", false, false];
 	elif(i == 8):
-		return ["smb_castle", true, false];
+		return ["smb_castle", true, true];
 	elif(i == 9):
 		return ["smb_castle_hurry", false, false];
 	elif(i == 10):
-		return ["smb_invincible", true, false];
+		return ["smb_invincible", true, true];
 	elif(i == 11):
 		return ["smb_invincible_hurry", false, false];
 	elif(i == 12):
-		return ["vs_nsmb_theme_1", true, true];
+		return ["vs_nsmb_theme_1", true, false];
 	elif(i == 13):
-		return ["vs_nsmb_theme_2", true, true];
+		return ["vs_nsmb_theme_2", true, false];
 	elif(i == 14):
-		return ["vs_theme_8bit", true, true];
+		return ["vs_theme_8bit", true, false];
 	else:
 		return null;
 	pass

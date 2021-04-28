@@ -1247,6 +1247,12 @@ func toggle_animation_on_off():
 
 func conserve_item(item):
 	pass;
+	
+func setLocalPlayer(val):
+	is_local_player = val;
+	if(is_local_player):
+		Global.player_amount_local+=1;
+	pass
 
 func damaged(enemy):
 	if(have_star || isMega):
@@ -1554,7 +1560,8 @@ func setPlayerShader():
 		if("2" in self.name):
 			set_controls_for_player(2);
 			playerShader = LUIGI_SHADER;
-			is_local_player = false; ###########################################UPS
+			if(Global.DEBUG_LUIGI_NON_LOCAL):
+				setLocalPlayer(false); ###########################################UPS
 		elif("3" in self.name):
 			set_controls_for_player(3);
 			playerShader = PLAYER3_SHADER;

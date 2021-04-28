@@ -121,17 +121,17 @@ func _on_Area2D_body_entered(body):
 		if(collected == false):
 			collected = true;
 			spawnParticle();
-			if(bouncing): # ----------------------------------------------------------- w0t
+			body.big_star_collected();
+			if(body.is_local_player):
+				playFromChannel(-1, SOUND_STAR_GET, 2, true);
+			else:
 				playFromChannel(-1, SOUND_STAR_DENIED, 2, true);
-				
-				body.big_star_collected();
+			if(bouncing):
 				queue_free();
 			else:
-				playFromChannel(-1, SOUND_STAR_GET, 2, true);
-				
 				set_all_collisions(false);
 				hide();
-				body.big_star_collected();
+				
 				rebuild_world();
 				$RespawnTimer.start();
 	pass

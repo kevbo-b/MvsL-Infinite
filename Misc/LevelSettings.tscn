@@ -2,7 +2,5 @@
 
 [ext_resource path="res://Misc/LevelSettings.gd" type="Script" id=1]
 
-
-
 [node name="LevelSettings" type="Node2D"]
 script = ExtResource( 1 )

@@ -14,6 +14,7 @@
 [node name="World" type="Node2D"]
 
 [node name="LevelSettings" parent="." instance=ExtResource( 8 )]
+musicTheme = 4
 repeatingHorizontally = true
 
 [node name="SPAWNS" parent="." instance=ExtResource( 1 )]
@@ -65,14 +66,12 @@ v_speed = 6
 
 [node name="ShootingGenerator" parent="." instance=ExtResource( 4 )]
 position = Vector2( 968, 169 )
-shooting_interval = 4.0
 motion_vertically = 1
 motion_multiplier = 0.707
 palette = 1
 
 [node name="ShootingGenerator2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 952, 169 )
-shooting_interval = 4.0
 motion_horizontally = -1
 motion_vertically = 1
 motion_multiplier = 0.707
@@ -80,7 +79,6 @@ palette = 1
 
 [node name="ShootingGenerator3" parent="." instance=ExtResource( 4 )]
 position = Vector2( 952, 153 )
-shooting_interval = 4.0
 motion_horizontally = -1
 motion_vertically = -1
 motion_multiplier = 0.707
@@ -88,7 +86,6 @@ palette = 1
 
 [node name="ShootingGenerator4" parent="." instance=ExtResource( 4 )]
 position = Vector2( 968, 153 )
-shooting_interval = 4.0
 motion_vertically = -1
 motion_multiplier = 0.707
 palette = 1

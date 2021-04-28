@@ -1,16 +1,21 @@
 extends Node
 class_name GlobalObj
 
-const VERSION_NUMBER = "0.9.1 alpha"
+const VERSION_NUMBER = "0.9.2 alpha"
+
+const DEBUG_LUIGI_NON_LOCAL = true;
 
 #mode settings
 var playing_splitscreen = false;
-var is_vs_mode = true;
+var is_vs_mode = true;			#false if game is not in vs mode (i.e. coop)
 var player_amount = 2;
 var stars_to_collect = 5;
 var wins_to_collect = 3;
 var world_selection = true;
 var Start_menu_page = 0;
+
+# Network
+var player_amount_local = 0;
 
 #level settings
 var world_to_load = "res://World.tscn";
