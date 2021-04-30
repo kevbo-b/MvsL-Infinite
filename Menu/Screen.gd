@@ -525,8 +525,9 @@ func setSoundChannels():
 	
 	#Set the proper level Song (If no Settings node there -> Random VS Song)
 	if(level.has_node("LevelSettings")):
-		var songFile = level.get_node("LevelSettings").getSongFile();
-		$MusicChannel1.setSong(songFile);
+		var songtrackFile = level.get_node("LevelSettings").getSongtrackFile();
+		$MusicChannel1.setSongtrack(songtrackFile);
+		#$MusicChannel1.allowSpeedupSound(true);
 		level.get_node("LevelSettings").setScrollProperties();
 	else:
 		Global.level_infinite_horizontal_scroll = false;

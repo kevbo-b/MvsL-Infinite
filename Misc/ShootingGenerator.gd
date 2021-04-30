@@ -48,7 +48,6 @@ func playerInReach(): #Good example of overcomplicating simple stuff
 	var shootRightVar = true;
 	var nearestDist = GEN_SPAWN_DISTANCE.x;
 	tempOBJ._ready()
-	print(Global.playerPositions)
 	for playerPosition in Global.playerPositions:
 		if(playerPosition != null):
 			var tempVal = tempOBJ.checkIfBoxInReach(position, playerPosition, GEN_SPAWN_DISTANCE);

@@ -49,7 +49,6 @@ func loadSong():
 		set_volume_db(5);
 	else:
 		set_volume_db(7);
-	print(hurryExtension)
 	stream = load(songPath + songFileName+ hurryExtension + fileExtension);
 	pass
 
@@ -60,11 +59,7 @@ func stopMusic():
 func speedUp():
 	if(speedChangable && fileArr!= null):
 		if(playSpeedupSound):
-			set_volume_db(4);
-			stream = WARNING_THEME;
-			play();
-			yield(self,"finished");
-			playMusic(fileArr);
+			playSpeedupTheme();
 
 		if(stream != SOUND_DEAD):
 
@@ -108,7 +103,7 @@ func chooseRandomVSSong():
 	# [1] canMakeFaster (if you can change the speed of the songFile), false for _hurry files
 	# [2] hasFasterMusicFile (if true, upgrades with _hurry, if not, with bus) ([1] has to be true)
 	
-func setSong(fileArray):
+func setSongtrack(fileArray):
 	
 	fileArr = fileArray;
 	
@@ -181,6 +176,21 @@ func playMegaShroomTheme(player):
 		set_volume_db(10);
 		normalizeSpeed();
 		play();
+	pass
+	
+func allowSpeedupSound(val):
+	if(val == true):
+		playSpeedupSound = true;
+	else:
+		playSpeedupSound = false;
+	pass
+	
+func playSpeedupTheme(): #Doesnt work very well because of yield. Should do the same as with SOUND_DEAD. (Sound dead has trigger, respawn, but speed up not?)
+	set_volume_db(4);
+	stream = WARNING_THEME;
+	play();
+	yield(self,"finished");
+	playMusic(fileArr);
 	pass
 	
 func stopMegaShroomTheme(player):

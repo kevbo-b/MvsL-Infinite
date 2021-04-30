@@ -30,7 +30,7 @@ export var canSpawnMegaInLevel = true;
 func _ready():
 	pass
 
-func getSongFile(): 
+func getSongtrackFile(): 
 
 	var i = musicTheme;
 	
