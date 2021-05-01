@@ -27,7 +27,10 @@ export var blocksSpaceRight = 0;
 
 export var canSpawnMegaInLevel = true;
 
+export var time = 300;
+
 func _ready():
+	Global.current_level_settings_node = self;
 	pass
 
 func getSongtrackFile(): 

@@ -94,18 +94,23 @@ func despawn():
 	pass
 
 func add_to_coin_counter():
-	var count = c_counter.instance();
-	
-	if(!hit_by_neutral):
+	if(Global.is_vs_mode):
+		var count = c_counter.instance();
+		if(!hit_by_neutral):
+			hit_player.coin_collected();
+			count.position.x = position.x + 4;
+			count.position.y = position.y - 8;
+			if(hit_player.coin_count == 0):
+				count.set_count(Global.max_coins);
+			else:
+				count.set_count(hit_player.coin_count);
+		else:
+			count.position.x = position.x + 4;
+			count.position.y = position.y - 8;
+			count.set_count(0);
+		get_parent().get_parent().call_deferred("add_child", count);
+	elif(!hit_by_neutral):
 		hit_player.coin_collected();
-		count.position.x = position.x + 4;
-		count.position.y = position.y - 8;
-		count.set_count(hit_player.coin_count + 1);
-	else:
-		count.position.x = position.x + 4;
-		count.position.y = position.y - 8;
-		count.set_count(0);
-	get_parent().get_parent().call_deferred("add_child", count);
 	pass
 	
 func droppedFromEnemy(pos):

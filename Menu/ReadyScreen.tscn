@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Menu/ReadyScreen.gd" type="Script" id=1]
 [ext_resource path="res://Menu/hud_theme.tres" type="Theme" id=2]
@@ -59,6 +59,22 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
 
+[sub_resource type="Animation" id=6]
+resource_name = "black"
+length = 0.02
+tracks/0/type = "value"
+tracks/0/path = NodePath("BG2:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.02 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ) ]
+}
+
 [node name="Screen" type="Node"]
 script = ExtResource( 1 )
 
@@ -83,30 +99,31 @@ __meta__ = {
 }
 
 [node name="UpperScreen" type="HBoxContainer" parent="WholeScreen"]
+visible = false
 margin_right = 256.0
-margin_bottom = 127.0
+margin_bottom = 178.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 1
 
 [node name="P1" type="VBoxContainer" parent="WholeScreen/UpperScreen"]
 margin_right = 127.0
-margin_bottom = 127.0
+margin_bottom = 178.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Label" type="Label" parent="WholeScreen/UpperScreen/P1"]
-margin_top = 49.0
+margin_top = 75.0
 margin_right = 127.0
-margin_bottom = 57.0
+margin_bottom = 83.0
 text = "Ready!"
 align = 1
 
 [node name="PlayerBox" type="HBoxContainer" parent="WholeScreen/UpperScreen/P1"]
-margin_top = 61.0
+margin_top = 87.0
 margin_right = 127.0
-margin_bottom = 77.0
+margin_bottom = 103.0
 alignment = 1
 
 [node name="READY" type="TextureRect" parent="WholeScreen/UpperScreen/P1/PlayerBox"]
@@ -118,22 +135,22 @@ texture = ExtResource( 3 )
 [node name="P2" type="VBoxContainer" parent="WholeScreen/UpperScreen"]
 margin_left = 128.0
 margin_right = 256.0
-margin_bottom = 127.0
+margin_bottom = 178.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Label" type="Label" parent="WholeScreen/UpperScreen/P2"]
-margin_top = 49.0
+margin_top = 75.0
 margin_right = 128.0
-margin_bottom = 57.0
+margin_bottom = 83.0
 text = "Ready!"
 align = 1
 
 [node name="PlayerBox2" type="HBoxContainer" parent="WholeScreen/UpperScreen/P2"]
-margin_top = 61.0
+margin_top = 87.0
 margin_right = 128.0
-margin_bottom = 77.0
+margin_bottom = 103.0
 alignment = 1
 
 [node name="READY" type="TextureRect" parent="WholeScreen/UpperScreen/P2/PlayerBox2"]
@@ -144,31 +161,32 @@ margin_bottom = 16.0
 texture = ExtResource( 3 )
 
 [node name="LowerScreen" type="HBoxContainer" parent="WholeScreen"]
-margin_top = 129.0
+visible = false
+margin_top = 90.0
 margin_right = 256.0
-margin_bottom = 256.0
+margin_bottom = 178.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 1
 
 [node name="P3" type="VBoxContainer" parent="WholeScreen/LowerScreen"]
 margin_right = 127.0
-margin_bottom = 127.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Label" type="Label" parent="WholeScreen/LowerScreen/P3"]
-margin_top = 49.0
+margin_top = 30.0
 margin_right = 127.0
-margin_bottom = 57.0
+margin_bottom = 38.0
 text = "Ready!"
 align = 1
 
 [node name="PlayerBox3" type="HBoxContainer" parent="WholeScreen/LowerScreen/P3"]
-margin_top = 61.0
+margin_top = 42.0
 margin_right = 127.0
-margin_bottom = 77.0
+margin_bottom = 58.0
 alignment = 1
 
 [node name="READY" type="TextureRect" parent="WholeScreen/LowerScreen/P3/PlayerBox3"]
@@ -181,22 +199,22 @@ texture = ExtResource( 3 )
 [node name="P4" type="VBoxContainer" parent="WholeScreen/LowerScreen"]
 margin_left = 128.0
 margin_right = 256.0
-margin_bottom = 127.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
 [node name="Label" type="Label" parent="WholeScreen/LowerScreen/P4"]
-margin_top = 49.0
+margin_top = 30.0
 margin_right = 128.0
-margin_bottom = 57.0
+margin_bottom = 38.0
 text = "Ready!"
 align = 1
 
 [node name="PlayerBox4" type="HBoxContainer" parent="WholeScreen/LowerScreen/P4"]
-margin_top = 61.0
+margin_top = 42.0
 margin_right = 128.0
-margin_bottom = 77.0
+margin_bottom = 58.0
 alignment = 1
 
 [node name="READY" type="TextureRect" parent="WholeScreen/LowerScreen/P4/PlayerBox4"]
@@ -206,12 +224,112 @@ margin_right = 72.0
 margin_bottom = 16.0
 texture = ExtResource( 3 )
 
+[node name="CoopScreen" type="VBoxContainer" parent="WholeScreen"]
+margin_right = 256.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 0, 256 )
+
+[node name="SPACE" type="HBoxContainer" parent="WholeScreen/CoopScreen"]
+margin_right = 256.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 0, 48 )
+alignment = 1
+
+[node name="worldEntity" type="HBoxContainer" parent="WholeScreen/CoopScreen"]
+margin_top = 52.0
+margin_right = 256.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 48 )
+alignment = 1
+
+[node name="txt" type="Label" parent="WholeScreen/CoopScreen/worldEntity"]
+margin_left = 83.0
+margin_top = 16.0
+margin_right = 127.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 44, 16 )
+text = "WORLD"
+valign = 2
+uppercase = true
+
+[node name="world" type="Label" parent="WholeScreen/CoopScreen/worldEntity"]
+margin_left = 131.0
+margin_top = 16.0
+margin_right = 173.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 42, 16 )
+text = "1-1"
+valign = 2
+uppercase = true
+
+[node name="playerEntity" type="HBoxContainer" parent="WholeScreen/CoopScreen"]
+margin_top = 104.0
+margin_right = 256.0
+margin_bottom = 121.0
+rect_min_size = Vector2( 0, 16 )
+alignment = 1
+
+[node name="player" type="TextureRect" parent="WholeScreen/CoopScreen/playerEntity"]
+margin_left = 87.0
+margin_right = 111.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 24, 17 )
+texture = ExtResource( 3 )
+
+[node name="cross" type="Label" parent="WholeScreen/CoopScreen/playerEntity"]
+margin_left = 115.0
+margin_right = 135.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 20, 16 )
+text = "x"
+valign = 2
+
+[node name="lives" type="Label" parent="WholeScreen/CoopScreen/playerEntity"]
+margin_left = 139.0
+margin_right = 169.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 30, 16 )
+text = "3"
+valign = 2
+uppercase = true
+
+[node name="startingTimer" type="Timer" parent="WholeScreen/CoopScreen"]
+wait_time = 3.0
+
+[node name="TimeUp" type="VBoxContainer" parent="WholeScreen"]
+visible = false
+margin_right = 256.0
+margin_bottom = 256.0
+rect_min_size = Vector2( 0, 256 )
+alignment = 1
+
+[node name="txt" type="HBoxContainer" parent="WholeScreen/TimeUp"]
+margin_top = 120.0
+margin_right = 256.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 0, 16 )
+alignment = 1
+
+[node name="tu" type="Label" parent="WholeScreen/TimeUp/txt"]
+margin_left = 100.0
+margin_top = 4.0
+margin_right = 156.0
+margin_bottom = 12.0
+text = "TIME UP"
+valign = 2
+uppercase = true
+
+[node name="timeUp" type="Timer" parent="WholeScreen/TimeUp"]
+process_mode = 0
+wait_time = 3.0
+
 [node name="Fade" type="Control" parent="."]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="BG2" type="ColorRect" parent="Fade"]
+modulate = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
@@ -219,6 +337,7 @@ color = Color( 0, 0, 0, 1 )
 [node name="FadeAnimationPlayer" type="AnimationPlayer" parent="Fade"]
 anims/FadeIn = SubResource( 4 )
 anims/FadeOut = SubResource( 5 )
+anims/black = SubResource( 6 )
 
 [node name="TimeTillFadeOut" type="Timer" parent="."]
 wait_time = 2.0
@@ -230,4 +349,6 @@ margin_left = -256.0
 margin_top = -13.0
 margin_right = 0.0
 margin_bottom = 0.0
+[connection signal="timeout" from="WholeScreen/CoopScreen/startingTimer" to="." method="_on_startingTimer_timeout"]
+[connection signal="timeout" from="WholeScreen/TimeUp/timeUp" to="." method="_on_timeUp_timeout"]
 [connection signal="timeout" from="TimeTillFadeOut" to="." method="_on_TimeTillFadeOut_timeout"]

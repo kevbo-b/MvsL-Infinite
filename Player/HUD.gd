@@ -9,10 +9,13 @@ var size;
 var coins = 0;
 var stars = 0;
 
+var ingameTime = -1;
+
+var playerName = "MARIO";
+
 func _ready():
-	if(!Global.is_vs_mode):
-		var musicNode = get_node(Global.musicC1_path);
-		musicNode.playSpeedupSound = true;
+	if(Global.DEBUG_MODE):
+		setTimeLength(0.02)
 	$Transition/Black.show();
 	resetHUDStars();
 	if(!Global.decimalStarCounter):
@@ -48,6 +51,13 @@ func hideElementsForSplitscreenVS():
 func setScreenBorders():
 	
 	var childs = $HBoxContainer/Bars/Bar2/Count/Background.get_children();
+	childs.append($HBoxContainer/Bars/Bar1/Count/Background/Name);
+	childs.append($HBoxContainer/Bars/Bar1/Count2/Background/Coins);
+	childs.append($HBoxContainer/Bars/Bar1/Count4/Background/Coins);
+	childs.append($HBoxContainer/Bars/Bar1/Count3/Background/Coins)
+	
+	childs += $HBoxContainer/Bars/Bar3/LiveCount/Background.get_children();
+	childs += $HBoxContainer/Bars/Bar3/LiveEnemyCount/Background.get_children();
 	
 	for child in childs:
 		child.rect_position = Vector2(child.rect_position.x + 10, child.rect_position.y);
@@ -57,8 +67,6 @@ func only_keep_one_HUD():
 		set_deferred("visible",false);
 	#rect_scale.x = 4;
 	#rect_scale.y = 4;
-	#if(Global.is_vs_mode):
-		#$HBoxContainer/Bars/Bar1/Count/Background/Name.text = "COOP";
 	pass
 
 func scale_proper_size():
@@ -78,15 +86,6 @@ func scale_proper_size():
 		print(str(Global.splitscreen_current_player_hud) + " single");
 		rect_scale = Vector2(4, 4);
 	pass
-		
-func coin_collected():
-	coins = coins + 1;
-	
-	if(coins >= Global.max_coins):
-		coins = 0;
-		
-	$HBoxContainer/Bars/Bar2/CoinCount/Background/Coins.text = str(coins);
-	pass
 	
 func star_collected():
 	var old_stars = stars;
@@ -105,9 +104,11 @@ func star_lost():
 	pass
 	
 func setStarsAtHUD(star_count):
-	if(Global.decimalStarCounter):
+	if(Global.decimalStarCounter || stars > 10):
 		$HBoxContainer/Bars/Bar2/Count/Background/Stars.text = str(star_count);
+		resetHUDStars();
 	else:
+		$HBoxContainer/Bars/Bar2/Count/Background/Stars.text = "";
 		resetHUDStars();
 		var fiveStars = 0;
 		if(star_count >= 5 && Global.stars_to_collect > 5):
@@ -122,6 +123,11 @@ func setStarsAtHUD(star_count):
 func resetHUDStars():
 	for i in range(0,6):
 		$HBoxContainer/Bars/Bar2/Count/Background.get_children()[i].set_texture(null);
+	pass
+	
+func resetHUDStarsEnemy():
+	for i in range(0,6):
+		$HBoxContainer/Bars/Bar2/EnemyCount/Background.get_children()[i].set_texture(null);
 	pass
 	
 func checkForMatchball(prevStarNum, currentStarNum):
@@ -149,7 +155,12 @@ func setStarHUDShader(param):
 	if(param):
 		starShader = HUD_MAX_STARS_SHADER;	
 		starMaterial.shader = starShader;
-	$HBoxContainer/Bars/Bar2/Count/Background.material = starMaterial;
+		
+	if(stars > 10):
+		$HBoxContainer/Bars/Bar2/Count/Background/Stars.material = starMaterial;
+	else:
+		$HBoxContainer/Bars/Bar2/Count/Background.material = starMaterial;
+		
 	pass
 	
 func setBoxToStarNumber():
@@ -163,5 +174,92 @@ func transitionRespawn():
 func transitionDead():
 	$Transition/FadeAnimationPlayer.play("Transition");
 	pass
+	
+func initCoop():
+	
+	$HBoxContainer/Bars/Bar3.hide()
+	
+	if(!Global.music_coop_initiated):
+		var musicNode = get_node(Global.musicC1_path);
+		musicNode.allowSpeedupSound(true);
+		musicNode.playMusic();
+		Global.music_coop_initiated = true;
+		
+	ingameTime = Global.current_level_settings_node.time;
+
+	resetHUDStarsEnemy();
+	$HBoxContainer/Bars/Bar2/EnemyCount.show();
+	$HBoxContainer/Bars/Bar2/Count/Background/Stars.text = str("00000000")
+	$HBoxContainer/Bars/Bar2/EnemyCount/Background/Stars.text = str(ingameTime);
+	
+	$HBoxContainer/Bars/Bar1.show();
+	$HBoxContainer/Bars/Bar1/Count/Background/Name.text = playerName;
+	
+	$timeSubsctraction.start();
+	pass
+	#if(!Global.is_vs_mode):
 #func _process(delta):
 #	pass
+
+
+func _on_timeSubsctraction_timeout():
+	$timeSubsctraction.stop();
+	ingameTime -= 1;
+	
+	$HBoxContainer/Bars/Bar2/EnemyCount/Background/Stars.text = str(ingameTime);
+	
+	if(ingameTime == 99):
+		var musicNode = get_node(Global.musicC1_path);
+		musicNode.setFastPlayback(true);
+		
+	if(ingameTime == 0 && !Global.deadByTimeUp):
+		Global.deadByTimeUp = true;
+		timeUp();
+	else:
+		if(!Global.deadByTimeUp):		
+			$timeSubsctraction.start();
+	pass # Replace with function body.
+
+
+func timeUp():
+	killAllPlayers();
+	$initTimeUp.start();
+	pass
+	
+func killAllPlayers():
+	for pl in Global.player_instances:
+		pl.dead(false);
+	pass
+
+func _on_initTimeUp_timeout():
+	timeUpExitToMenu();
+	pass
+
+func timeUpExitToMenu():
+	get_tree().change_scene("Menu/ReadyScreen.tscn");
+	pass
+
+func setTimeLength(sec):
+	$timeSubsctraction.wait_time = sec;
+	pass
+
+func getTimeLength():
+	return $timeSubsctraction.wait_time;
+	pass
+	
+func getCoinCount():
+	return coins;
+	pass
+	
+func setCoinCount(a):
+	coins = a;	
+	$HBoxContainer/Bars/Bar2/CoinCount/Background/Coins.text = str(coins);
+	pass
+
+func decrementLive(amount = 1):
+	#...
+	pass
+	
+func incrementLive(amount = 1):
+	#...
+	pass

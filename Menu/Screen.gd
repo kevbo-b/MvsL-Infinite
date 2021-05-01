@@ -17,6 +17,7 @@ onready var cam_4 = $WholeScreen/LowerScreen/ViewPlayer4/Viewport4/SplitscreenCa
 
 const PIXEL_SEPARATION = 4;
 
+
 const PLAYER_INSTANCE = preload("res://Player/player.tscn");
 
 const CANVAS_3D_PACK = preload("res://Misc/3DCanvasPack.tscn");
@@ -527,7 +528,6 @@ func setSoundChannels():
 	if(level.has_node("LevelSettings")):
 		var songtrackFile = level.get_node("LevelSettings").getSongtrackFile();
 		$MusicChannel1.setSongtrack(songtrackFile);
-		#$MusicChannel1.allowSpeedupSound(true);
 		level.get_node("LevelSettings").setScrollProperties();
 	else:
 		Global.level_infinite_horizontal_scroll = false;

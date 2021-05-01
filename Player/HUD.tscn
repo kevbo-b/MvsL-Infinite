@@ -1,24 +1,25 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Player/HUD.gd" type="Script" id=1]
+[ext_resource path="res://Player/HudIcons/starHUD.png" type="Texture" id=1]
 [ext_resource path="res://Menu/hud_theme.tres" type="Theme" id=2]
-[ext_resource path="res://Player/HudIcons/starHUD.png" type="Texture" id=3]
-[ext_resource path="res://Player/HudIcons/coinHUD0.png" type="Texture" id=4]
+[ext_resource path="res://Player/HudIcons/coinHUD0.png" type="Texture" id=3]
+[ext_resource path="res://Player/HudIcons/coinHUD2.png" type="Texture" id=4]
 [ext_resource path="res://Player/HudIcons/coinHUD1.png" type="Texture" id=5]
-[ext_resource path="res://Player/HudIcons/coinHUD2.png" type="Texture" id=6]
+[ext_resource path="res://Player/HUD.gd" type="Script" id=6]
+[ext_resource path="res://Player/HudIcons/headHUD.png" type="Texture" id=7]
 
 [sub_resource type="ShaderMaterial" id=1]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "default",
 "speed": 7.5
 } ]
 
 [sub_resource type="Animation" id=3]
-length = 0.01
+length = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("Black:modulate")
 tracks/0/interp = 1
@@ -26,10 +27,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PoolRealArray( 0, 0.02, 0.03 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0, 0, 0, 0 ) ]
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -50,7 +51,7 @@ tracks/0/keys = {
 [node name="HUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -77,29 +78,30 @@ alignment = 1
 margin_top = 8.0
 margin_right = 256.0
 margin_bottom = 16.0
-alignment = 1
+grow_horizontal = 2
 
 [node name="Count" type="MarginContainer" parent="HBoxContainer/Bars/Bar1"]
-margin_left = 22.0
-margin_right = 62.0
+margin_right = 84.0
 margin_bottom = 8.0
+rect_min_size = Vector2( 84, 0 )
 
 [node name="Background" type="NinePatchRect" parent="HBoxContainer/Bars/Bar1/Count"]
-margin_right = 40.0
+margin_right = 84.0
 margin_bottom = 8.0
 rect_min_size = Vector2( 40, 8 )
 
 [node name="Name" type="Label" parent="HBoxContainer/Bars/Bar1/Count/Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -4.0
+margin_right = 80.0
+margin_bottom = 8.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "STARS"
-max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Count2" type="MarginContainer" parent="HBoxContainer/Bars/Bar1"]
-margin_left = 66.0
-margin_right = 106.0
+margin_left = 88.0
+margin_right = 128.0
 margin_bottom = 8.0
 
 [node name="Background" type="NinePatchRect" parent="HBoxContainer/Bars/Bar1/Count2"]
@@ -113,35 +115,13 @@ anchor_bottom = 1.0
 margin_right = -36.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-text = "COINS"
-valign = 1
-
-[node name="Count3" type="MarginContainer" parent="HBoxContainer/Bars/Bar1"]
-margin_left = 110.0
-margin_right = 190.0
-margin_bottom = 8.0
-
-[node name="Background" type="NinePatchRect" parent="HBoxContainer/Bars/Bar1/Count3"]
-margin_right = 80.0
-margin_bottom = 8.0
-rect_min_size = Vector2( 80, 8 )
-
-[node name="Coins" type="Label" parent="HBoxContainer/Bars/Bar1/Count3/Background"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -20.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-text = "WORLD"
-align = 1
-valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Count4" type="MarginContainer" parent="HBoxContainer/Bars/Bar1"]
-margin_left = 194.0
-margin_right = 234.0
+margin_left = 132.0
+margin_right = 172.0
 margin_bottom = 8.0
 
 [node name="Background" type="NinePatchRect" parent="HBoxContainer/Bars/Bar1/Count4"]
@@ -152,12 +132,33 @@ rect_min_size = Vector2( 40, 8 )
 [node name="Coins" type="Label" parent="HBoxContainer/Bars/Bar1/Count4/Background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -20.0
+margin_left = 16.0
+margin_right = 16.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+text = "WORLD"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Count3" type="MarginContainer" parent="HBoxContainer/Bars/Bar1"]
+margin_left = 176.0
+margin_right = 256.0
+margin_bottom = 8.0
+
+[node name="Background" type="NinePatchRect" parent="HBoxContainer/Bars/Bar1/Count3"]
+margin_right = 80.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 80, 8 )
+
+[node name="Coins" type="Label" parent="HBoxContainer/Bars/Bar1/Count3/Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_right = 12.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 text = "TIME"
-align = 2
-valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -185,7 +186,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -87.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -198,7 +199,7 @@ margin_left = 8.0
 margin_right = -72.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="3" type="TextureRect" parent="HBoxContainer/Bars/Bar2/Count/Background"]
 use_parent_material = true
@@ -208,7 +209,7 @@ margin_left = 16.0
 margin_right = -64.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -221,7 +222,7 @@ margin_left = 24.0
 margin_right = -56.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="5" type="TextureRect" parent="HBoxContainer/Bars/Bar2/Count/Background"]
 use_parent_material = true
@@ -231,7 +232,7 @@ margin_left = 32.0
 margin_right = -48.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="6" type="TextureRect" parent="HBoxContainer/Bars/Bar2/Count/Background"]
 use_parent_material = true
@@ -241,12 +242,15 @@ margin_left = 40.0
 margin_right = -40.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="Stars" type="Label" parent="HBoxContainer/Bars/Bar2/Count/Background"]
-margin_right = 72.0
+margin_right = 80.0
 margin_bottom = 8.0
 text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CoinCount" type="MarginContainer" parent="HBoxContainer/Bars/Bar2"]
 margin_left = 104.0
@@ -262,7 +266,7 @@ rect_min_size = Vector2( 40, 8 )
 
 [node name="CoinPNG" type="AnimatedSprite" parent="HBoxContainer/Bars/Bar2/CoinCount/Background"]
 frames = SubResource( 2 )
-frame = 5
+frame = 4
 playing = true
 centered = false
 
@@ -308,7 +312,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -87.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="2" type="TextureRect" parent="HBoxContainer/Bars/Bar2/EnemyCount/Background"]
 use_parent_material = true
@@ -318,7 +325,7 @@ margin_left = 8.0
 margin_right = -72.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="3" type="TextureRect" parent="HBoxContainer/Bars/Bar2/EnemyCount/Background"]
 use_parent_material = true
@@ -328,7 +335,7 @@ margin_left = 16.0
 margin_right = -64.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="4" type="TextureRect" parent="HBoxContainer/Bars/Bar2/EnemyCount/Background"]
 use_parent_material = true
@@ -338,7 +345,7 @@ margin_left = 24.0
 margin_right = -56.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="5" type="TextureRect" parent="HBoxContainer/Bars/Bar2/EnemyCount/Background"]
 use_parent_material = true
@@ -348,7 +355,7 @@ margin_left = 32.0
 margin_right = -48.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="6" type="TextureRect" parent="HBoxContainer/Bars/Bar2/EnemyCount/Background"]
 use_parent_material = true
@@ -358,12 +365,177 @@ margin_left = 40.0
 margin_right = -40.0
 margin_bottom = 8.0
 rect_scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+texture = ExtResource( 1 )
 
 [node name="Stars" type="Label" parent="HBoxContainer/Bars/Bar2/EnemyCount/Background"]
 margin_right = 72.0
 margin_bottom = 8.0
 text = "0"
+
+[node name="Bar3" type="HBoxContainer" parent="HBoxContainer/Bars"]
+margin_top = 32.0
+margin_right = 256.0
+margin_bottom = 40.0
+grow_horizontal = 2
+
+[node name="LiveCount" type="MarginContainer" parent="HBoxContainer/Bars/Bar3"]
+margin_right = 48.0
+margin_bottom = 8.0
+size_flags_horizontal = 2
+
+[node name="Background" type="NinePatchRect" parent="HBoxContainer/Bars/Bar3/LiveCount"]
+material = SubResource( 1 )
+margin_right = 48.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 48, 8 )
+
+[node name="1" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -87.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_right = -24.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_right = -16.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="4" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_right = -8.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="5" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lives" type="Label" parent="HBoxContainer/Bars/Bar3/LiveCount/Background"]
+margin_right = 80.0
+margin_bottom = 8.0
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LiveEnemyCount" type="MarginContainer" parent="HBoxContainer/Bars/Bar3"]
+margin_left = 208.0
+margin_right = 256.0
+margin_bottom = 8.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 0
+
+[node name="Background" type="NinePatchRect" parent="HBoxContainer/Bars/Bar3/LiveEnemyCount"]
+material = SubResource( 1 )
+margin_right = 48.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 48, 8 )
+
+[node name="1" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveEnemyCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -87.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveEnemyCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_right = -72.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+flip_h = true
+
+[node name="3" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveEnemyCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_right = -64.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+flip_h = true
+
+[node name="4" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveEnemyCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_right = -56.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+flip_h = true
+
+[node name="5" type="TextureRect" parent="HBoxContainer/Bars/Bar3/LiveEnemyCount/Background"]
+use_parent_material = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_right = -48.0
+margin_bottom = 8.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 7 )
+flip_h = true
+
+[node name="Lives" type="Label" parent="HBoxContainer/Bars/Bar3/LiveEnemyCount/Background"]
+margin_right = 72.0
+margin_bottom = 8.0
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Counters" type="HBoxContainer" parent="HBoxContainer"]
 margin_right = 256.0
@@ -384,7 +556,18 @@ anchor_bottom = 1.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FadeAnimationPlayer" type="AnimationPlayer" parent="Transition"]
 anims/Nothing = SubResource( 3 )
 anims/Transition = SubResource( 4 )
+
+[node name="timeSubsctraction" type="Timer" parent="."]
+process_mode = 0
+
+[node name="initTimeUp" type="Timer" parent="."]
+wait_time = 4.0
+[connection signal="timeout" from="timeSubsctraction" to="." method="_on_timeSubsctraction_timeout"]
+[connection signal="timeout" from="initTimeUp" to="." method="_on_initTimeUp_timeout"]

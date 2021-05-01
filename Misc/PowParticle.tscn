@@ -2,6 +2,8 @@
 
 [ext_resource path="res://Player/BouncedParticle.gd" type="Script" id=1]
 
+
+
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.865914, 0.925781, 0.336319, 1, 1, 1, 1, 1 )
 

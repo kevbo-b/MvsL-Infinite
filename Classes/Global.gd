@@ -4,20 +4,24 @@ class_name GlobalObj
 const VERSION_NUMBER = "0.9.2 alpha"
 
 const DEBUG_LUIGI_NON_LOCAL = true;
+const DEBUG_MODE = true;
 
 #mode settings
 var playing_splitscreen = false;
-var is_vs_mode = true;			#false if game is not in vs mode (i.e. coop)
+var is_vs_mode = false	#false if game is not in vs mode (i.e. coop), What about Mega Mushroom lol?
 var player_amount = 2;
 var stars_to_collect = 5;
 var wins_to_collect = 3;
 var world_selection = true;
 var Start_menu_page = 0;
 
+var initialLives = 5;
+
 # Network
 var player_amount_local = 0;
 
 #level settings
+var current_level_settings_node = null;
 var world_to_load = "res://World.tscn";
 var level_spawns_mega_shroom = true;
 var level_boundary_rect = Rect2(Vector2(0,0),Vector2(9000,280));
@@ -42,11 +46,12 @@ var winnerName = "";
 var player_current_stars = [0,0,0,0];
 var current_max_stars = 0;
 
+var playerLives = [4, 5, 4, 6];
+
 var playerPositions = [null,null,null,null];
-
-
 var player_instances = [];
 
+var	deadByTimeUp = false;
 
 #sound (Can be found in Screen -> setSoundChannels())
 const MUSIC_BUS_VOLUME = -10;
@@ -59,6 +64,14 @@ var sfxC2_path = ""; #Shells ricochet Sound (BUMP)
 var sfxC3_path = ""; #Opening of a Block with Items in it (In Item Base Class)
 var sfxC4_path = ""; #"other" enemy sounds (Not working????)
 
+
+#coop
+var world_name = 'I-J'
+var music_coop_initiated = false;
+
+
+
+
 #Options
 var modern_movement = true;
 var musicEnabled = true;
@@ -68,7 +81,7 @@ var inappropriate_mode = false;
 var threeDMode = false;
 
 #Dev Options
-var decimalStarCounter = true;
+var decimalStarCounter = false;
 var infinite_vertical_all_levels = false;
 
 #etc

@@ -27,6 +27,10 @@ var default_collision_mask_kinematic = 0;
 var default_collision_mask_hitbox = 0;
 
 func _ready():
+	if(Global.DEBUG_MODE):
+		spawnTime = 0.05;
+	if(!Global.is_vs_mode):
+		queue_free()
 	$RespawnTimer.wait_time = spawnTime;
 	save_area2d_default_collisions($Area2D);
 	save_default_collisions();

@@ -84,7 +84,6 @@ var setInvincibleAfterPipe = true;
 
 #motion for all tasks of the Player
 var flip_sprite = false;
-var coin_reward_num = 1;
 var win_num_stars;
 var playerNr;
 
@@ -142,7 +141,6 @@ const growAnimationChanges = 12;
 var growAnimationCount = 0;
 
 var controls_off = false;
-var coin_count = 0;
 var stars = 0;
 
 var idle_anim = "Idle";
@@ -175,7 +173,6 @@ func _ready():
 	setPlayerNumber();
 	setPlayerShader();
 	win_num_stars = Global.stars_to_collect;
-	coin_reward_num = Global.max_coins;
 	
 	var t = Timer.new() #so components can initiate before respawn, like HUD...
 	t.set_wait_time(0.01)
@@ -190,9 +187,8 @@ func _ready():
 	if(Global.is_vs_mode):
 		respawn();
 	else:
-		get_node(Global.musicC1_path).play();
-
 		is_dead = false;
+		get_node(hud_path).initCoop();
 		get_node(hud_path + "/Transition/FadeAnimationPlayer").play("Nothing");
 	pass
 
@@ -644,7 +640,7 @@ func getPipeEntranceHeight(state, direction):
 func dead_from_pit():
 	if(isMega):
 		if(!Global.is_vs_mode):
-			get_node(Global.musicC1_path).stopMegaShroomTheme();
+			get_node(Global.musicC1_path).stopMegaShroomTheme(self);
 		$MegaShroomTimer.stop();
 		$MegaShroomGlowTimer.stop();
 		$AnimPlayer.stop();
@@ -655,6 +651,7 @@ func dead_from_pit():
 	set_all_collisions(false);
 	motion.x = 0;
 	$FullDeathTimer.start();
+	decrementLive();
 	play_dead_sound();
 	pass
 	
@@ -663,7 +660,7 @@ func play_dead_sound():
 		setSFXAtChannel(2, SOUND_DEAD_SHORT);
 		startSFXAtChannel(2);
 	else:
-	#if(Global.is_vs_mode):
+	#if(Global.is_vs_moe):
 		get_node(Global.musicC1_path).playerDied(self);
 		
 		#if(Global.musicEnabled): //now in global music node.
@@ -1048,14 +1045,27 @@ func getAudioByChannel(channel):
 		return $Audio0;
 	pass
 	
+var coin_count = 0;
+
 func coin_collected():
-	var coins = get_node(hud_path).coins
-	get_node(hud_path).coin_collected();
+	var coins = get_node(hud_path).getCoinCount() + 1;
+	
+	if(Global.is_vs_mode):
+		if(coins >= Global.max_coins):
+			drop_random_powerup();
+			coins = 0;
+	elif(coins == 100):
+		coins = 0;
+		increaseLives();
+		
 	coin_count = coins;
 	
-	if(coins >= coin_reward_num - 1):
-		drop_random_powerup();
-		coins = 0;
+	get_node(hud_path).setCoinCount(coins);
+	pass
+	
+func increaseLives(amount = 1):
+	playSFXAtChannel(0, SOUND_ONE_UP);
+	get_node(hud_path).incrementLive(amount);
 	pass
 	
 func resetVariables():
@@ -1271,7 +1281,7 @@ func damaged(enemy):
 				set_item_state(item_state - 1);
 	pass
 
-func dead():
+func dead(respawn = true):
 	resetVariables();
 	get_node(cam_path).stopCamera();
 	if(isMega):
@@ -1291,10 +1301,17 @@ func dead():
 	motion.x = 0;
 	motion.y = 0;
 	$DeathMoment.start();
-	$FullDeathTimer.start();
+	if(respawn):
+		$FullDeathTimer.start();
 	setPlayerShader();
-
+	
+	decrementLive();
 	play_dead_sound();
+	pass
+	
+func decrementLive(amount = 1):
+	Global.playerLives[playerNr - 1] -= amount;
+	get_node(hud_path).decrementLive(amount);
 	pass
 	
 func setPlayerInvincible():
@@ -1560,7 +1577,7 @@ func setPlayerShader():
 		if("2" in self.name):
 			set_controls_for_player(2);
 			playerShader = LUIGI_SHADER;
-			if(Global.DEBUG_LUIGI_NON_LOCAL):
+			if(Global.DEBUG_MODE):
 				setLocalPlayer(false); ###########################################UPS
 		elif("3" in self.name):
 			set_controls_for_player(3);
@@ -1757,6 +1774,7 @@ func growToMega():
 	
 	item_state = 54
 	is_dead = true;
+	dead_gravity_disabled = true;
 	motion.y = 0;
 	motion.x = 0;
 	set_all_collisions(false);
@@ -1764,6 +1782,7 @@ func growToMega():
 	yield($AnimPlayer,"animation_finished");
 	
 	is_dead = false;
+	dead_gravity_disabled = false; 
 	set_all_collisions(true);
 	setItemStateEffect(5);
 	setItemAnimation(5);

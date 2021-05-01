@@ -2,11 +2,12 @@
 
 [ext_resource path="res://Player/DirectionArrowBigStar.gd" type="Script" id=1]
 [ext_resource path="res://Player/arrow.png" type="Texture" id=2]
-[ext_resource path="res://Player/HudIcons/starHUD.png" type="Texture" id=3]
 [ext_resource path="res://Menu/hud_theme.tres" type="Theme" id=4]
 
-[sub_resource type="Animation" id=1]
-resource_name = "FadeOut"
+[sub_resource type="StreamTexture" id=1]
+load_path = "res://.import/starHUD.png-ba2c06559f365231e23322d3bb973d8f.stex"
+
+[sub_resource type="Animation" id=2]
 length = 4.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -38,7 +39,7 @@ scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 
 [node name="StarSprite" type="Sprite" parent="VBoxContainer"]
-texture = ExtResource( 3 )
+texture = SubResource( 1 )
 centered = false
 
 [node name="Display" type="Label" parent="VBoxContainer"]
@@ -49,4 +50,4 @@ theme = ExtResource( 4 )
 text = "xd"
 
 [node name="AnimPlayer" type="AnimationPlayer" parent="."]
-anims/FadeOut = SubResource( 1 )
+anims/FadeOut = SubResource( 2 )

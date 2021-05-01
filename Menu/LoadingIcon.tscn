@@ -9,6 +9,8 @@
 [ext_resource path="res://Player/gfxNesMario/walk1_big.png" type="Texture" id=7]
 [ext_resource path="res://Player/gfxNesMario/walk2_big.png" type="Texture" id=8]
 
+
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ) ],

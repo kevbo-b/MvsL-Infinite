@@ -59,17 +59,23 @@ func stopMusic():
 func speedUp():
 	if(speedChangable && fileArr!= null):
 		if(playSpeedupSound):
-			playSpeedupTheme();
+			set_volume_db(4);
+			stream = WARNING_THEME;
+			play();
+			yield(self,"finished");
 
 		if(stream != SOUND_DEAD):
 
 			if(!hasHurryFile):
 				bus = "MusicFast";
 				pitch_scale = 1.33333333;
+				if(playSpeedupSound):
+					playMusic(false); #risky for circular dependency
 			else:
 				if(hurryExtension == ""): #so it doesnt reset when song is already fast
 					hurryExtension = "_hurry";
 					playMusic(false); #risky for circular dependency
+
 	pass
 	
 func normalizeSpeed():
@@ -160,13 +166,11 @@ func decideIfFast():
 		isFast = true
 	pass
 
-func setFast():
-	isFast = true;
-	initializeSpeed();
-	pass
-	
-func setSlow():
-	isFast = true;
+func setFastPlayback(val):
+	if(val == true):
+		isFast = true;
+	else:
+		isFast = false;
 	initializeSpeed();
 	pass
 	
@@ -190,7 +194,7 @@ func playSpeedupTheme(): #Doesnt work very well because of yield. Should do the 
 	stream = WARNING_THEME;
 	play();
 	yield(self,"finished");
-	playMusic(fileArr);
+	playMusic();
 	pass
 	
 func stopMegaShroomTheme(player):
