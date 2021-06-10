@@ -92,8 +92,10 @@ position = Vector2( 1448, 136 )
 barSize = 7
 
 [node name="ShootingGenerator" parent="." instance=ExtResource( 11 )]
-position = Vector2( 1840, 192 )
+position = Vector2( 1848, 200 )
 content = 2
+oneWayShootDirection = true
+motion_horizontally = -1
 
 [node name="Firebar2" parent="." instance=ExtResource( 10 )]
 position = Vector2( 632, 152 )

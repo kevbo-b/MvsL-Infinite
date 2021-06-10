@@ -1,5 +1,11 @@
 extends Position2D
 
+# negative horizontal speed with oneWayShoot off means reverse shooting (away from nearest player)
+
+# could have been implemented better:
+# -Bills could be rotated by degrees, not just diagonal, vertical and horizontal
+# -could have added normal to shoot directions (Whatever degree), shoots onto which side you are from the normal
+
 const SHOOTING_SOUND = preload("res://SFX/8bitSMB/smb_fireworks.wav"); 
 const GEN_SPAWN_DISTANCE = Vector2(256, 256);
 const SAFE_DISTANCE_X = 16; #Only shoot if further than ... units. (X Axis)
@@ -23,7 +29,7 @@ export var palette = 0;
 export var play_sound = true;
 export var only_shoot_once = false;
 
-export var solidSpawnTile = true; #so the direction for shells is still right
+#export var solidSpawnTile = true; #so the direction for shells is still right (??? unused?)
 
 func _ready():
 	initiateContent();
@@ -71,7 +77,9 @@ func playerInReach(): #Good example of overcomplicating simple stuff
 					shootRightVar = shootDirection;
 					nearestDist = distance;
 	tempOBJ.queue_free();
+	
 	shootRight = shootRightVar;
+	
 	return val[0];
 	pass
 
@@ -90,8 +98,19 @@ func _on_ShootingInterval_timeout():
 		contentNode.setGenSpawned();
 		contentNode.isOnScreen = true;
 		contentNode.palette = palette;
+		
+		if(oneWayShootDirection):
+			if(motion_horizontally > 0):
+				shootRight = true
+			else:
+				shootRight = false;
+			contentNode.changeDirection(false); # only works that way
+
+		#print(shootRight)
+
 		if(shootRight && !oneWayShootDirection):
 			contentNode.changeDirection(false);
+		
 		if(gen_fixed):
 			contentNode.position = position;
 			get_parent().get_node("Enemies").add_child(contentNode);
@@ -101,6 +120,8 @@ func _on_ShootingInterval_timeout():
 		check_if_shell();
 		if(play_sound):
 			contentNode.playFromChannel(1, SHOOTING_SOUND);
+	else:
+		contentNode.queue_free();
 	start_shooting();
 	if(only_shoot_once):
 		is_enabled = false;
@@ -109,11 +130,16 @@ func _on_ShootingInterval_timeout():
 func check_if_shell():
 	var n = contentNode.get_class();
 	if(n == "KoopaGreen" || n == "KoopaRed" || n == "BuzzyBeetle"):
-		if(!solidSpawnTile):
-			contentNode.kick(shootRight, self);
-		else:
-			contentNode.kick(!shootRight, self);
-		print(shootRight)
+
+	#	if(!solidSpawnTile):
+	#		contentNode.kick(shootRight, self);
+	#	else:
+	#		contentNode.kick(!shootRight, self);
+
+
+				
+		contentNode.kick(shootRight, self);
+		
 		if(shootRight):
 			contentNode.position.x = position.x + 8;
 		else:

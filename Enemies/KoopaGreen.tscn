@@ -15,6 +15,16 @@
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "wakeUp",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "kicked",
+"speed": 13.0
+}, {
 "frames": [ ExtResource( 3 ) ],
 "loop": false,
 "name": "dead",
@@ -29,16 +39,6 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "wakeUp",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "kicked",
-"speed": 13.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -57,6 +57,7 @@ shape = SubResource( 1 )
 position = Vector2( 0, -4 )
 frames = SubResource( 2 )
 animation = "walk"
+frame = 1
 playing = true
 
 [node name="enemie_hitbox" type="Area2D" parent="."]

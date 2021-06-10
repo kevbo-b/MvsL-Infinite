@@ -3,16 +3,18 @@ class_name GlobalObj
 
 const VERSION_NUMBER = "0.9.2 alpha"
 
-const DEBUG_LUIGI_NON_LOCAL = true;
-const DEBUG_MODE = true;
+const DEBUG_LUIGI_NON_LOCAL = false; #For pseudo-online tests
+const DEBUG_MODE = true; #faster timer (coop), bigStar fast spawn, fast loading screen, fast win screen
 
 #mode settings
 var playing_splitscreen = false;
-var is_vs_mode = false	#false if game is not in vs mode (i.e. coop), What about Mega Mushroom lol?
+var is_vs_mode = true	#false if game is not in vs mode (i.e. coop)
 var player_amount = 2;
 var stars_to_collect = 5;
 var wins_to_collect = 3;
 var world_selection = true;
+var livesWithVS = false; #unused except hud so far
+
 var Start_menu_page = 0;
 
 var initialLives = 5;

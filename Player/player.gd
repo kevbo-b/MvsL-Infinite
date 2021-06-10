@@ -1577,7 +1577,7 @@ func setPlayerShader():
 		if("2" in self.name):
 			set_controls_for_player(2);
 			playerShader = LUIGI_SHADER;
-			if(Global.DEBUG_MODE):
+			if(Global.DEBUG_LUIGI_NON_LOCAL):
 				setLocalPlayer(false); ###########################################UPS
 		elif("3" in self.name):
 			set_controls_for_player(3);

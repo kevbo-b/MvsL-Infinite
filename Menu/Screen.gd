@@ -488,7 +488,7 @@ func set_screen_separation():
 func toggle_pause(player):
 	if(!game_won):
 		pause.set_pause(player, self);
-		get_tree().paused = true;
+		#get_tree().paused = true;
 	pass
 
 func won_game(player):

@@ -24,6 +24,9 @@ func _ready():
 		fadeIn();
 	else: #loading screen like the original SMB
 		setPlayerNumberCoop(Global.player_amount);
+		
+	if(Global.DEBUG_MODE):
+		get_tree().change_scene("Menu/Screen.tscn");
 	pass
 
 func setTimeUp():

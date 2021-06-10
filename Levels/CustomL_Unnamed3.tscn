@@ -67,6 +67,7 @@ v_speed = 6
 
 [node name="ShootingGenerator" parent="." instance=ExtResource( 4 )]
 position = Vector2( 968, 169 )
+oneWayShootDirection = true
 motion_vertically = 1
 motion_multiplier = 0.707
 palette = 1

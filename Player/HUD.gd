@@ -16,6 +16,11 @@ var playerName = "MARIO";
 func _ready():
 	if(Global.DEBUG_MODE):
 		setTimeLength(0.02)
+	
+	if(!Global.livesWithVS):
+		$HBoxContainer/Bars/Bar3/LiveCount/Background.hide();
+		$HBoxContainer/Bars/Bar3/LiveEnemyCount/Background.hide();
+	
 	$Transition/Black.show();
 	resetHUDStars();
 	if(!Global.decimalStarCounter):
@@ -25,7 +30,8 @@ func _ready():
 
 	scale_proper_size();
 	
-	$HBoxContainer/Bars/Bar2/EnemyCount.hide()
+	if(true):
+		$HBoxContainer/Bars/Bar2/EnemyCount.hide()   #Top Player here? (In online for example). Use in splitscreen doesnt make so much sense?
 	
 	setScreenBorders();
 	#IDK for 1 player..

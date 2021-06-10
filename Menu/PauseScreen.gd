@@ -7,17 +7,21 @@ var pauser;
 var next_round = true;
 var screen;
 
+var can_pause = true;
+
 func _ready():
 	pass # Replace with function body.
 
 func set_pause(player, used_screen):
-	pauser = player;
-	screen = used_screen;
-	if(Global.inappropriate_mode):
-		set_inappropriate_text();
-	$PauseMenu.visible = true;
-	$PauseMenu/VBoxContainer/HBoxContainer/VBoxContainer/Continue.grab_focus();
-	$PauseSFX.play()
+	if(can_pause):
+		get_tree().paused = true;
+		pauser = player;
+		screen = used_screen;
+		if(Global.inappropriate_mode):
+			set_inappropriate_text();
+		$PauseMenu.visible = true;
+		$PauseMenu/VBoxContainer/HBoxContainer/VBoxContainer/Continue.grab_focus();
+		$PauseSFX.play()
 	
 	
 func exit_game():
@@ -32,6 +36,9 @@ func exit_game():
 	pass
 
 func _on_Continue_pressed():
+	can_pause = false;
+	$PauseBuffer.start();
+	
 	$PauseSFX.play()
 	get_tree().paused = false;
 	$PauseMenu.visible = false;
@@ -62,3 +69,9 @@ func set_inappropriate_text():
 	$QuitMenu/VBoxContainer/HBoxContainer/VBoxContainer/Cancel.text = "nah";
 	$QuitMenu/VBoxContainer/HBoxContainer/VBoxContainer/ConfirmEnd.text = "fuck off mate";
 	pass
+
+
+func _on_PauseBuffer_timeout():
+	$PauseBuffer.stop();
+	can_pause = true;
+	pass # Replace with function body.

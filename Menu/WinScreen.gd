@@ -7,6 +7,10 @@ var screen;
 var winner_string;
 
 func _ready():
+	if(Global.DEBUG_MODE):
+		$WinMoment.wait_time = 0.05;
+		$WinMoment.start()
+		$ContinuePopUp.wait_time = 0.1;
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
