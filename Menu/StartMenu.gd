@@ -121,12 +121,6 @@ func _on_Splitscreen_pressed():
 	$CenterContainer/SplitscreenMenu/PlayerAmount/PlayerCount.grab_focus();
 	pass
 
-func _on_StartGameButton_pressed():
-	$CenterContainer/StartingMenu.visible = false;
-	$CenterContainer/CoopSoloMenu.visible = true;
-	$CenterContainer/CoopSoloMenu/PlayerAmount/PlayerCountCoop.grab_focus();
-	pass
-
 func _on_Back_pressed():
 	$CenterContainer/StartingMenu.visible = true;
 	$CenterContainer/SplitscreenMenu.visible = false;
@@ -569,4 +563,114 @@ func _on_WinSoundMoment_timeout():
 	$MenuMusic.set_volume_db(3);
 	$MenuMusic.stream = RESULTS_THEME;
 	$MenuMusic.play();
+	pass
+
+
+func _on_OnlineVS_pressed():
+	$CenterContainer/StartingMenu.hide();
+	$CenterContainer/OnlineMenu.show();
+	$CenterContainer/OnlineMenu/ChooseNetwork/Host/SelectHost.grab_focus();
+	pass
+
+
+func _on_BackFromOnline_pressed():
+	$CenterContainer/OnlineMenu.hide();
+	$CenterContainer/StartingMenu.show();
+	$CenterContainer/StartingMenu/OnlineVS.grab_focus();
+	pass # Replace with function body.
+
+
+func _on_CoopButton_pressed(): # UNUSED, coop was once planned.
+	$CenterContainer/StartingMenu.visible = false;
+	$CenterContainer/CoopSoloMenu.visible = true;
+	$CenterContainer/CoopSoloMenu/PlayerAmount/PlayerCountCoop.grab_focus();
+	pass
+
+
+func _on_SelectHost_pressed():
+	initializeHost()
+	$CenterContainer/OnlineMenu/ChooseNetwork.hide()
+	$CenterContainer/OnlineMenu/Lobby.show()
+	$CenterContainer/OnlineMenu/Lobby/StartGame/StartGame.grab_focus()
+	
+	$CenterContainer/OnlineMenu/Lobby/infos/HostStats/PortNumber.text = str(Network.DEFAULT_PORT);
+	
+	$CenterContainer/OnlineMenu/Lobby/ConnectedPlayers/Player1/playerName.text = Network.players[1].name
+	pass # Replace with function body.
+
+
+func _on_SelectClient_pressed():
+	$CenterContainer/OnlineMenu/ChooseNetwork.hide()
+	$CenterContainer/OnlineMenu/connectingScreen.show()
+	$CenterContainer/OnlineMenu/connectingScreen/BackBar/AbordConnection.grab_focus()
+	pass # Replace with function body.
+
+func initializeHost():
+	var playerName = $CenterContainer/OnlineMenu/ChooseNetwork/playerNameField.text;
+	if(playerName == ""):
+		printNotification("Invalid Name.")
+	else:
+		Network.create_server(playerName);
+	
+	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.start()
+	#start game here ?
+	pass
+	
+	
+func initializeClient():
+	var playerName = $CenterContainer/OnlineMenu/ChooseNetwork/playerNameField.text;
+	if(playerName == ""):
+		printNotification("Invalid Name.")
+	else:
+		Network.connect_to_server(playerName);
+	
+	#start game here ?
+	pass
+
+
+func _on_CloseLobby_pressed():
+	$CenterContainer/OnlineMenu/Lobby.hide()
+	$CenterContainer/OnlineMenu/ChooseNetwork.show()
+	$CenterContainer/OnlineMenu/ChooseNetwork/Host/SelectHost.grab_focus();
+	
+	# closing server
+	get_tree().network_peer = null
+	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.stop()
+	pass
+
+
+func _on_AbordConnection_pressed():
+	$CenterContainer/OnlineMenu/connectingScreen.hide()
+	$CenterContainer/OnlineMenu/ChooseNetwork.show()
+	$CenterContainer/OnlineMenu/ChooseNetwork/Host/SelectHost.grab_focus();
+	get_tree().network_peer = null
+	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.stop()
+	pass
+
+
+func _on_ConnectToHost_pressed():
+	printNotification("Connecting to Host...")
+	initializeClient()
+	pass # Replace with function body.
+
+
+
+func _on_updateLobbyPlayerinfo_timeout():
+	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.stop()
+
+	#print(Network.players)
+	
+	#reset fist
+	
+	for row in $CenterContainer/OnlineMenu/Lobby/ConnectedPlayers.get_children():
+		row.get_node("playerName").text = "..."; 
+	
+	
+	var i = 1;
+	for id in Network.players:
+		var playerInfo = Network.players[id]
+		get_node("CenterContainer/OnlineMenu/Lobby/ConnectedPlayers/Player" + str(i) + "/playerName").text = playerInfo.name;
+		i += 1;
+	
+	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.start()
 	pass

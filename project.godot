@@ -275,6 +275,7 @@ config/icon="res://GFX/ProjectIcon.png"
 [autoload]
 
 Global="*res://Classes/Global.gd"
+Network="*res://Classes/Network.gd"
 
 [display]
 
