@@ -343,6 +343,7 @@ anims/black = SubResource( 6 )
 wait_time = 2.0
 
 [node name="LoadingIcon" parent="." instance=ExtResource( 7 )]
+visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 margin_left = -256.0

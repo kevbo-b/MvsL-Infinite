@@ -29,3 +29,4 @@ first Rule: keep it simple!
 
 
 
+fix: vertical item spawning always in same y

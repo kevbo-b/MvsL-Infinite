@@ -1,10 +1,12 @@
 extends Node
 class_name GlobalObj
 
-const VERSION_NUMBER = "0.9.2 alpha"
+const VERSION_NUMBER = "0.9.3.1 alpha"
 
 const DEBUG_LUIGI_NON_LOCAL = false; #For pseudo-online tests
-const DEBUG_MODE = true; #faster timer (coop), bigStar fast spawn, fast loading screen, fast win screen
+const DEBUG_MODE = false; #faster timer (coop), bigStar fast spawn, fast loading screen, fast win screen
+
+var is_online_mode = false;
 
 #mode settings
 var playing_splitscreen = false;

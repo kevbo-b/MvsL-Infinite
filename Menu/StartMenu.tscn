@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Menu/menu_theme.tres" type="Theme" id=1]
 [ext_resource path="res://Menu/StartMenu.gd" type="Script" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://Levels/Textures/NSMB_Castle.png" type="Texture" id=14]
 [ext_resource path="res://Levels/Textures/CustomL_SidewaysDown.png" type="Texture" id=15]
 [ext_resource path="res://Levels/Textures/CustomL_Unnamed1.png" type="Texture" id=16]
+[ext_resource path="res://Levels/Textures/CustomL_ShortFun.png" type="Texture" id=17]
+[ext_resource path="res://Levels/Textures/CustomL_Vertical.png" type="Texture" id=18]
 
 [sub_resource type="Animation" id=1]
 length = 0.5
@@ -82,11 +84,9 @@ __meta__ = {
 }
 
 [node name="StartingMenu" type="VBoxContainer" parent="CenterContainer"]
-visible = false
-margin_left = -13.0
-margin_top = 16.0
-margin_right = 269.0
-margin_bottom = 240.0
+margin_top = 27.0
+margin_right = 282.0
+margin_bottom = 228.0
 theme = ExtResource( 1 )
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/StartingMenu"]
@@ -103,6 +103,7 @@ theme = ExtResource( 1 )
 text = "LOCAL VS."
 
 [node name="OnlineVS" type="Button" parent="CenterContainer/StartingMenu"]
+visible = false
 margin_top = 159.0
 margin_right = 282.0
 margin_bottom = 178.0
@@ -117,22 +118,22 @@ margin_bottom = 201.0
 text = "SOLO / CO-OP (unused)"
 
 [node name="OptionsButton" type="Button" parent="CenterContainer/StartingMenu"]
-margin_top = 182.0
+margin_top = 159.0
 margin_right = 282.0
-margin_bottom = 201.0
+margin_bottom = 178.0
 text = "OPTIONS"
 
 [node name="QuitGameButton" type="Button" parent="CenterContainer/StartingMenu"]
-margin_top = 205.0
+margin_top = 182.0
 margin_right = 282.0
-margin_bottom = 224.0
+margin_bottom = 201.0
 text = "QUIT"
 
 [node name="CoopSoloMenu" type="VBoxContainer" parent="CenterContainer"]
 visible = false
-margin_left = -52.0
+margin_left = -39.0
 margin_top = 66.0
-margin_right = 308.0
+margin_right = 321.0
 margin_bottom = 189.0
 theme = ExtResource( 1 )
 
@@ -211,9 +212,9 @@ text = "OK"
 
 [node name="SplitscreenMenu" type="VBoxContainer" parent="CenterContainer"]
 visible = false
-margin_left = -52.0
+margin_left = -39.0
 margin_top = 32.0
-margin_right = 308.0
+margin_right = 321.0
 margin_bottom = 224.0
 theme = ExtResource( 1 )
 
@@ -407,9 +408,9 @@ text = "OK"
 
 [node name="VsLevelMenu" type="VBoxContainer" parent="CenterContainer"]
 visible = false
-margin_left = -28.0
+margin_left = -15.0
 margin_top = 6.0
-margin_right = 284.0
+margin_right = 297.0
 margin_bottom = 249.0
 size_flags_vertical = 0
 theme = ExtResource( 1 )
@@ -463,6 +464,9 @@ margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
 texture = ExtResource( 4 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Level2" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World1"]
 margin_left = 79.0
@@ -478,6 +482,9 @@ margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
 texture = ExtResource( 5 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Level3" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World1"]
 margin_left = 158.0
@@ -508,6 +515,9 @@ margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
 texture = ExtResource( 6 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="World2" type="HBoxContainer" parent="CenterContainer/VsLevelMenu/WorldSet"]
 margin_top = 64.0
@@ -530,6 +540,9 @@ margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
 texture = ExtResource( 14 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Level2" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World2"]
 margin_left = 79.0
@@ -543,8 +556,11 @@ margin_top = 2.0
 margin_right = 58.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Level3" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World2"]
 margin_left = 158.0
@@ -573,8 +589,11 @@ margin_top = 2.0
 margin_right = 73.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
-texture = ExtResource( 7 )
+texture = ExtResource( 17 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="World3" type="HBoxContainer" parent="CenterContainer/VsLevelMenu/WorldSet"]
 margin_top = 128.0
@@ -595,7 +614,7 @@ margin_top = 2.0
 margin_right = 58.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
-texture = ExtResource( 7 )
+texture = ExtResource( 15 )
 expand = true
 
 [node name="Level2" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World3"]
@@ -610,7 +629,7 @@ margin_top = 2.0
 margin_right = 58.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
-texture = ExtResource( 7 )
+texture = ExtResource( 16 )
 expand = true
 
 [node name="Level3" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World3"]
@@ -627,6 +646,9 @@ margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
 texture = ExtResource( 9 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Level4" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World3"]
 margin_left = 237.0
@@ -642,12 +664,15 @@ margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
 texture = ExtResource( 10 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="World4" type="HBoxContainer" parent="CenterContainer/VsLevelMenu/WorldSet"]
 visible = false
-margin_top = 252.0
+margin_top = 192.0
 margin_right = 312.0
-margin_bottom = 312.0
+margin_bottom = 252.0
 rect_min_size = Vector2( 0, 60 )
 custom_constants/separation = 4
 alignment = 1
@@ -663,8 +688,11 @@ margin_top = 2.0
 margin_right = 58.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
-texture = ExtResource( 15 )
+texture = ExtResource( 6 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Level2" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World4"]
 margin_left = 79.0
@@ -678,8 +706,11 @@ margin_top = 2.0
 margin_right = 58.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
-texture = ExtResource( 16 )
+texture = ExtResource( 6 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Level3" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World4"]
 margin_left = 158.0
@@ -690,11 +721,14 @@ rect_min_size = Vector2( 75, 60 )
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/VsLevelMenu/WorldSet/World4/Level3"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 73.0
+margin_right = 58.0
 margin_bottom = 58.0
 rect_min_size = Vector2( 71, 56 )
 texture = ExtResource( 6 )
 expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Level4" type="Button" parent="CenterContainer/VsLevelMenu/WorldSet/World4"]
 margin_left = 237.0
@@ -703,6 +737,86 @@ margin_bottom = 60.0
 rect_min_size = Vector2( 75, 60 )
 
 [node name="TextureRect" type="TextureRect" parent="CenterContainer/VsLevelMenu/WorldSet/World4/Level4"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 58.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 71, 56 )
+texture = ExtResource( 18 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="World5_DEBUGWORLD" type="HBoxContainer" parent="CenterContainer/VsLevelMenu"]
+visible = false
+margin_top = 221.0
+margin_right = 312.0
+margin_bottom = 281.0
+rect_min_size = Vector2( 0, 60 )
+custom_constants/separation = 4
+alignment = 1
+
+[node name="Level1" type="Button" parent="CenterContainer/VsLevelMenu/World5_DEBUGWORLD"]
+margin_right = 75.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 75, 60 )
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VsLevelMenu/World5_DEBUGWORLD/Level1"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 58.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 71, 56 )
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level2" type="Button" parent="CenterContainer/VsLevelMenu/World5_DEBUGWORLD"]
+margin_left = 79.0
+margin_right = 154.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 75, 60 )
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VsLevelMenu/World5_DEBUGWORLD/Level2"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 58.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 71, 56 )
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level3" type="Button" parent="CenterContainer/VsLevelMenu/World5_DEBUGWORLD"]
+margin_left = 158.0
+margin_right = 233.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 75, 60 )
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VsLevelMenu/World5_DEBUGWORLD/Level3"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 73.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 71, 56 )
+texture = ExtResource( 6 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level4" type="Button" parent="CenterContainer/VsLevelMenu/World5_DEBUGWORLD"]
+margin_left = 237.0
+margin_right = 312.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 75, 60 )
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VsLevelMenu/World5_DEBUGWORLD/Level4"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 73.0
@@ -762,18 +876,16 @@ align = 2
 valign = 1
 
 [node name="OnlineMenu" type="CenterContainer" parent="CenterContainer"]
-margin_left = 6.0
-margin_top = 7.0
-margin_right = 249.0
-margin_bottom = 248.0
+visible = false
+margin_left = -35.0
+margin_top = 23.0
+margin_right = 316.0
+margin_bottom = 233.0
 theme = ExtResource( 1 )
 
 [node name="ChooseNetwork" type="VBoxContainer" parent="CenterContainer/OnlineMenu"]
-visible = false
-margin_left = -54.0
-margin_top = 15.0
-margin_right = 297.0
-margin_bottom = 225.0
+margin_right = 351.0
+margin_bottom = 210.0
 theme = ExtResource( 1 )
 
 [node name="BackBar" type="HBoxContainer" parent="CenterContainer/OnlineMenu/ChooseNetwork"]
@@ -854,10 +966,10 @@ rect_min_size = Vector2( 0, 25 )
 
 [node name="connectingScreen" type="VBoxContainer" parent="CenterContainer/OnlineMenu"]
 visible = false
-margin_left = -12.0
-margin_top = 39.0
-margin_right = 255.0
-margin_bottom = 202.0
+margin_left = 42.0
+margin_top = 23.0
+margin_right = 309.0
+margin_bottom = 186.0
 theme = ExtResource( 1 )
 
 [node name="Seperator3" type="Label" parent="CenterContainer/OnlineMenu/connectingScreen"]
@@ -895,9 +1007,9 @@ margin_bottom = 106.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="Seperator2" type="Label" parent="CenterContainer/OnlineMenu/connectingScreen"]
-margin_top = 109.0
+margin_top = 110.0
 margin_right = 267.0
-margin_bottom = 139.0
+margin_bottom = 140.0
 rect_min_size = Vector2( 0, 30 )
 
 [node name="BackBar" type="HBoxContainer" parent="CenterContainer/OnlineMenu/connectingScreen"]
@@ -917,9 +1029,15 @@ margin_right = 267.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 155, 13 )
 
+[node name="checkIfConnectedAsClient" type="Timer" parent="CenterContainer/OnlineMenu/connectingScreen"]
+wait_time = 0.3
+
 [node name="Lobby" type="VBoxContainer" parent="CenterContainer/OnlineMenu"]
-margin_right = 243.0
-margin_bottom = 241.0
+visible = false
+margin_left = 54.0
+margin_top = -16.0
+margin_right = 297.0
+margin_bottom = 225.0
 theme = ExtResource( 1 )
 
 [node name="Seperator3" type="Label" parent="CenterContainer/OnlineMenu/Lobby"]
@@ -1071,9 +1189,9 @@ wait_time = 0.3
 
 [node name="WinnerMenu" type="VBoxContainer" parent="CenterContainer"]
 visible = false
-margin_left = 9.0
+margin_left = 22.0
 margin_top = 10.0
-margin_right = 247.0
+margin_right = 260.0
 margin_bottom = 245.0
 theme = ExtResource( 1 )
 
@@ -1278,9 +1396,9 @@ wait_time = 3.5
 
 [node name="OptionsMenu" type="VBoxContainer" parent="CenterContainer"]
 visible = false
-margin_left = -24.0
+margin_left = -11.0
 margin_top = 1.0
-margin_right = 280.0
+margin_right = 293.0
 margin_bottom = 254.0
 theme = ExtResource( 1 )
 
@@ -1528,21 +1646,25 @@ bus = "Music"
 [connection signal="pressed" from="CenterContainer/SplitscreenMenu/Start/ConfirmSplitscreenGame" to="." method="_on_ConfirmSplitscreenGame_pressed"]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/BackBar/BackToSplitscreenMenu" to="." method="_on_BackToSplitscreenMenu_pressed"]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level1" to="." method="level_selected" binds= [ "NSMB_GreenLand" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level2" to="." method="level_selected" binds= [ "NSMB_Underground" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level2" to="." method="level_selected" binds= [ "default_level" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level3" to="." method="level_selected" binds= [ "NSMB_SnowLand" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level4" to="." method="level_selected" binds= [ "NSMB_Underground" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level4" to="." method="level_selected" binds= [ "default_level" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level1" to="." method="level_selected" binds= [ "NSMB_SquishCastle" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level2" to="." method="level_selected" binds= [ "default_level" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level3" to="." method="level_selected" binds= [ "CustomL_CloudsMontain" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level4" to="." method="level_selected" binds= [ "CustomL_ShortFun" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level1" to="." method="level_selected" binds= [ "Breakland" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level2" to="." method="level_selected" binds= [ "World" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level1" to="." method="level_selected" binds= [ "CustomL_SidewaysDown" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level2" to="." method="level_selected" binds= [ "CustomL_Unnamed1" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level3" to="." method="level_selected" binds= [ "CustomL_World2-2" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World3/Level4" to="." method="level_selected" binds= [ "CustomL_CastleLike1" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level1" to="." method="level_selected" binds= [ "CustomL_SidewaysDown" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level2" to="." method="level_selected" binds= [ "CustomL_Unnamed1" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level3" to="." method="level_selected" binds= [ "CustomL_Unnamed2" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level4" to="." method="level_selected" binds= [ "CustomL_Unnamed3" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level1" to="." method="level_selected" binds= [ "default_level" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level2" to="." method="level_selected" binds= [ "default_level" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level3" to="." method="level_selected" binds= [ "default_level" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World4/Level4" to="." method="level_selected" binds= [ "CustomL_Vertical" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/World5_DEBUGWORLD/Level1" to="." method="level_selected" binds= [ "Breakland" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/World5_DEBUGWORLD/Level2" to="." method="level_selected" binds= [ "World" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/World5_DEBUGWORLD/Level3" to="." method="level_selected" binds= [ "CustomL_Unnamed2" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/World5_DEBUGWORLD/Level4" to="." method="level_selected" binds= [ "CustomL_Unnamed3" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/ChangeWorldSet/SplitscreenSkipWorldSetLeft" to="." method="_on_SplitscreenSkipWorldSetLeft_pressed"]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/ChangeWorldSet/SplitscreenSkipWorldSetRight" to="." method="_on_SplitscreenSkipWorldSetRight_pressed"]
 [connection signal="pressed" from="CenterContainer/OnlineMenu/ChooseNetwork/BackBar/BackFromOnline" to="." method="_on_BackFromOnline_pressed"]
@@ -1550,7 +1672,8 @@ bus = "Music"
 [connection signal="pressed" from="CenterContainer/OnlineMenu/ChooseNetwork/Client/SelectClient" to="." method="_on_SelectClient_pressed"]
 [connection signal="pressed" from="CenterContainer/OnlineMenu/connectingScreen/ConnectToHost" to="." method="_on_ConnectToHost_pressed"]
 [connection signal="pressed" from="CenterContainer/OnlineMenu/connectingScreen/BackBar/AbordConnection" to="." method="_on_AbordConnection_pressed"]
-[connection signal="pressed" from="CenterContainer/OnlineMenu/Lobby/StartGame/StartGame" to="." method="_on_SelectClient_pressed"]
+[connection signal="timeout" from="CenterContainer/OnlineMenu/connectingScreen/checkIfConnectedAsClient" to="." method="_on_checkIfConnectedAsClient_timeout"]
+[connection signal="pressed" from="CenterContainer/OnlineMenu/Lobby/StartGame/StartGame" to="." method="_on_OnlineStartGame_pressed"]
 [connection signal="pressed" from="CenterContainer/OnlineMenu/Lobby/BackBar/CloseLobby" to="." method="_on_CloseLobby_pressed"]
 [connection signal="timeout" from="CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo" to="." method="_on_updateLobbyPlayerinfo_timeout"]
 [connection signal="pressed" from="CenterContainer/WinnerMenu/Start/MainMenuAfterWin" to="." method="_on_MainMenuAfterWin_pressed"]

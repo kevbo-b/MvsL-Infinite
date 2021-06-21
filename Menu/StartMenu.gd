@@ -6,7 +6,7 @@ const WIN_THEME = preload("res://SFX/NSMB/BGM_MATCH_WIN.ogg");
 const LOSE_THEME = preload("res://SFX/NSMB/BGM_MATCH_LOST.ogg");
 
 const SAVE_DIR = "user://saves/"
-var options_save_path = SAVE_DIR + "options.dat"
+var options_save_path = SAVE_DIR + "saveData.dat"
 
 var menu_db;
 
@@ -25,13 +25,15 @@ func _ready():
 	pass
 	
 func saveData():
-	var data_Options = [
+	var save_data = [
 		Global.modern_movement,
 		Global.musicEnabled,
 		Global.player2LeftRight,
 		Global.player3BigScreen,
 		Global.inappropriate_mode,
-		Global.threeDMode
+		Global.threeDMode,
+		
+		$CenterContainer/OnlineMenu/ChooseNetwork/playerNameField.text
 	]
 	
 	var dir = Directory.new()
@@ -41,7 +43,7 @@ func saveData():
 	var file = File.new()
 	var error = file.open_encrypted_with_pass(options_save_path, File.WRITE, "fmmcksnx9a01l")
 	if error == OK:
-		file.store_var(data_Options)
+		file.store_var(save_data)
 		file.close()
 		print("data saved")
 	pass
@@ -59,6 +61,8 @@ func loadSave():
 			Global.player3BigScreen = 	save_data[3];
 			Global.inappropriate_mode = save_data[4];
 			Global.threeDMode = 		save_data[5];
+			
+			$CenterContainer/OnlineMenu/ChooseNetwork/playerNameField.text = save_data[6];
 	else:
 		print("creating save file, cuz not existent yet")
 		saveData();
@@ -269,6 +273,8 @@ func load_splitscreen_level(level):
 		$FullscreenOverlay/OverlayAnimation.play("FadeOut");
 		$FullscreenOverlay.show();
 		yield($FullscreenOverlay/OverlayAnimation, "animation_finished")
+	Global.player_amount_local = Global.player_amount;
+	Global.is_online_mode  = false;
 	Global.playing_splitscreen = true;
 	Global.current_max_stars = 0;
 	Global.player_current_stars = [0,0,0,0];
@@ -303,8 +309,13 @@ func splitscreen_set_global_variables():
 		Global.max_coins = 8;
 	pass
 	
-func level_selected(level_name):
-	load_splitscreen_level(level_name);
+# Should change to Array of levels, rather than taking them from Main-Menu configurations.
+# Main Menu should only load this Array rather than beeing the save for it itself
+func level_selected(level_name): 
+	if(!Global.DEBUG_MODE && level_name == "default_level"):
+		startRandomLevel();
+	else:
+		load_splitscreen_level(level_name);
 	pass
 
 func _on_BackSoloMenu_pressed():
@@ -588,18 +599,22 @@ func _on_CoopButton_pressed(): # UNUSED, coop was once planned.
 
 
 func _on_SelectHost_pressed():
+	saveData() #for name
+	
 	initializeHost()
 	$CenterContainer/OnlineMenu/ChooseNetwork.hide()
+	setHostLobby()
 	$CenterContainer/OnlineMenu/Lobby.show()
-	$CenterContainer/OnlineMenu/Lobby/StartGame/StartGame.grab_focus()
 	
 	$CenterContainer/OnlineMenu/Lobby/infos/HostStats/PortNumber.text = str(Network.DEFAULT_PORT);
 	
-	$CenterContainer/OnlineMenu/Lobby/ConnectedPlayers/Player1/playerName.text = Network.players[1].name
+	refreshLobbyList()
 	pass # Replace with function body.
 
 
 func _on_SelectClient_pressed():
+	saveData() #for name
+	
 	$CenterContainer/OnlineMenu/ChooseNetwork.hide()
 	$CenterContainer/OnlineMenu/connectingScreen.show()
 	$CenterContainer/OnlineMenu/connectingScreen/BackBar/AbordConnection.grab_focus()
@@ -633,9 +648,17 @@ func _on_CloseLobby_pressed():
 	$CenterContainer/OnlineMenu/ChooseNetwork.show()
 	$CenterContainer/OnlineMenu/ChooseNetwork/Host/SelectHost.grab_focus();
 	
+	# set client as disconnected
+
+	if(!get_tree().is_network_server()):
+		Network.clientConnected = -1;
+
 	# closing server
 	get_tree().network_peer = null
+	Network.players = {};
+
 	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.stop()
+	$CenterContainer/OnlineMenu/connectingScreen/checkIfConnectedAsClient.stop() # needed ?
 	pass
 
 
@@ -644,6 +667,8 @@ func _on_AbordConnection_pressed():
 	$CenterContainer/OnlineMenu/ChooseNetwork.show()
 	$CenterContainer/OnlineMenu/ChooseNetwork/Host/SelectHost.grab_focus();
 	get_tree().network_peer = null
+	Network.players = {};
+	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.stop() # needed? 
 	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.stop()
 	pass
 
@@ -651,7 +676,8 @@ func _on_AbordConnection_pressed():
 func _on_ConnectToHost_pressed():
 	printNotification("Connecting to Host...")
 	initializeClient()
-	pass # Replace with function body.
+	$CenterContainer/OnlineMenu/connectingScreen/checkIfConnectedAsClient.start()
+	pass
 
 
 
@@ -659,18 +685,79 @@ func _on_updateLobbyPlayerinfo_timeout():
 	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.stop()
 
 	#print(Network.players)
-	
 	#reset fist
 	
+	if(get_tree().is_network_server()): # when HOST
+		
+		refreshLobbyList()
+		$CenterContainer/OnlineMenu/Lobby/StartGame/StartGame.disabled = !(Network.players.size() > 1);
+		
+		#Network.syncData()
+		$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.start()
+	
+	else:
+		if(Network.clientConnected != 1):
+			get_tree().network_peer = null
+			if(Network.clientConnected == -2):
+				printNotification("Server disconnected.");
+			else:
+				printNotification("Disconnected")
+			$CenterContainer/OnlineMenu/Lobby.hide()
+			$CenterContainer/OnlineMenu/ChooseNetwork.show()
+			$CenterContainer/OnlineMenu/ChooseNetwork/Client/SelectClient.grab_focus();
+		else:
+			refreshLobbyList()
+			$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.start()	
+	
+
+	pass
+
+func refreshLobbyList():
 	for row in $CenterContainer/OnlineMenu/Lobby/ConnectedPlayers.get_children():
 		row.get_node("playerName").text = "..."; 
-	
 	
 	var i = 1;
 	for id in Network.players:
 		var playerInfo = Network.players[id]
 		get_node("CenterContainer/OnlineMenu/Lobby/ConnectedPlayers/Player" + str(i) + "/playerName").text = playerInfo.name;
 		i += 1;
+	pass
+
+func _on_checkIfConnectedAsClient_timeout():
+	$CenterContainer/OnlineMenu/connectingScreen/checkIfConnectedAsClient.stop()
 	
-	$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.start()
+	if(Network.clientConnected == 1):
+		printNotification("Connection successfull!")
+		$CenterContainer/OnlineMenu/Lobby/updateLobbyPlayerinfo.start()
+		
+		#initiate menu"
+		$CenterContainer/OnlineMenu/connectingScreen.hide()
+		setClientLobby()
+		$CenterContainer/OnlineMenu/Lobby.show()
+	elif(Network.clientConnected == 0):
+		printNotification("Connection failed!")
+	else:
+		$CenterContainer/OnlineMenu/connectingScreen/checkIfConnectedAsClient.start()
+	pass
+
+
+func setClientLobby():
+	$CenterContainer/OnlineMenu/Lobby/StartGame.hide()
+	$CenterContainer/OnlineMenu/Lobby/BackBar/CloseLobby.grab_focus()
+	$CenterContainer/OnlineMenu/Lobby/BackBar/CloseLobby.text = "<- Leave Lobby"
+	pass
+	
+func setHostLobby():
+	$CenterContainer/OnlineMenu/Lobby/StartGame.show()
+	$CenterContainer/OnlineMenu/Lobby/StartGame/StartGame.grab_focus()
+	$CenterContainer/OnlineMenu/Lobby/BackBar/CloseLobby.text = "<- Close Lobby"
+	pass
+
+
+func _on_OnlineStartGame_pressed():
+
+	var level = "NSMB_Underground";
+	
+	Network.startLevel(level);
+	
 	pass

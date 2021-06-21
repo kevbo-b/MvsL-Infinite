@@ -677,6 +677,10 @@ func switchIfSideways(mot):
 		mot.y = save * sidewaysDirection;
 	return mot;
 	pass
+	
+func setLocal(val):
+	is_local_player = val;
+	pass
 
 func check_if_out_of_bounds(infiniteY = true, allowAboveScreen = true):
 	
@@ -1018,7 +1022,13 @@ func drop_random_powerup():
 	pass
 	
 func drop_powerup(item):
-	item.position = Vector2(position.x, 72);
+	
+	var v_alignment = 72;
+	
+	if(Global.level_infinite_vertical_scroll):
+		v_alignment = self.position.y - 64;
+	
+	item.position = Vector2(position.x, v_alignment);
 	item.spawn_as_drop(self);
 	
 	get_parent().call_deferred("add_child", item);

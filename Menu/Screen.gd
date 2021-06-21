@@ -81,9 +81,15 @@ func fit_to_player_count():
 		viewport3.call_deferred("add_child", level.get_node("LevelBackgrounds").duplicate());
 		viewport4.call_deferred("add_child", level.get_node("LevelBackgrounds").duplicate());
 	
+	call_deferred("setup_local_and_online")
 	call_deferred("link_scene_to_player");
 	call_deferred("link_huds");
 	call_deferred("set_screen_separation");
+	pass
+	
+func setup_local_and_online():
+	if(Global.is_online_mode):
+		pass
 	pass
 	
 func set_screens_and_cams(players):
@@ -91,26 +97,26 @@ func set_screens_and_cams(players):
 	cam_1.target = level.get_node("player");
 	level.get_node("player").cam_path = cam_1.get_path();
 
-	if(players == 2 && !Global.player2LeftRight):
+	if(Global.player_amount_local == 2 && !Global.player2LeftRight):
 		cam_3.target = level.get_node("player2");
 		level.get_node("player2").cam_path = cam_3.get_path();
-	elif(players > 1):
+	elif(Global.player_amount_local > 1):
 		cam_2.target = level.get_node("player2");
 		level.get_node("player2").cam_path = cam_2.get_path();
 	
-	if(players > 2):	
+	if(Global.player_amount_local > 2):	
 		cam_3.target = level.get_node("player3");
 		level.get_node("player3").cam_path = cam_3.get_path();
-		if(players > 3):
+		if(Global.player_amount_local > 3):
 			cam_4.target = level.get_node("player4");
 			level.get_node("player4").cam_path = cam_4.get_path();
 
-	if(players == 1): #if online mode? But online mode may also have 2 player splitscreen...
+	if(Global.player_amount_local == 1): #if online mode? But online mode may also have 2 player splitscreen (but not for now)
 		$WholeScreen/LowerScreen.queue_free();
 		$WholeScreen/UpperScreen/ViewPlayer2.queue_free();
 		cams = [cam_1];
 		cam_scale_factor = 4;
-	elif(players == 2): #Players now delete themselves
+	elif(Global.player_amount_local  == 2): #Players now delete themselves
 		if(Global.player2LeftRight):
 			cams = [cam_1, cam_2];
 			cam_scale_factor = 4;
@@ -120,7 +126,7 @@ func set_screens_and_cams(players):
 			cam_scale_factor = 4;
 			$WholeScreen/UpperScreen/ViewPlayer2.queue_free();
 			$WholeScreen/LowerScreen/ViewPlayer4.queue_free();
-	elif(players == 3):
+	elif(Global.player_amount_local  == 3):
 		if(Global.player3BigScreen):
 			$WholeScreen/LowerScreen/ViewPlayer4.queue_free();
 		else:
@@ -173,6 +179,10 @@ func initialSpawnAllPlayers():
 				player.set_name("player" + str(i));
 			else:
 				player.set_name("player");
+			
+			if(Global.is_online_mode && i != 1):
+				player.setLocal(false);
+				
 			level.call_deferred("add_child", player);
 		else:
 			if(i == 1):
@@ -530,9 +540,11 @@ func setSoundChannels():
 		$MusicChannel1.setSongtrack(songtrackFile);
 		level.get_node("LevelSettings").setScrollProperties();
 	else:
+		print("No Level Settings found!") #Shouldnt happen
 		Global.level_infinite_horizontal_scroll = false;
 		Global.level_infinite_vertical_scroll = false;
-		Global.world_spacing_in_blocks = Vector2(0,0);
+		Global.world_spacing_position = Vector2(0,0);
+		Global.world_spacing_end = Vector2(0,0);
 	pass
 	
 func setError(message, status):

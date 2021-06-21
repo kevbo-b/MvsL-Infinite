@@ -123,7 +123,8 @@ func resetRoundVariables():
 	Global.splitscreen_current_player_hud = 1;
 	Global.level_spawns_mega_shroom = true;
 	Global.player_instances = []; 
-	Global.player_amount_local = 0;
+	if(!Global.is_online_mode):
+		Global.player_amount_local = Global.player_amount;
 	Global.music_coop_initiated = false;
 	if(Global.is_vs_mode):
 		for i in Global.playerLives:
