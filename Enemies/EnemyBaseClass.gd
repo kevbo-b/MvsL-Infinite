@@ -4,6 +4,8 @@ class_name EnemyBaseClass
 export var palette = 0;
 var enemySprite;
 
+const MAX_Y_FALL_SPEED = 64;
+
 const SOUND_KICKED = preload("res://SFX/8bitSMB/smb_kick.wav");
 const SOUND_BUMP = preload("res://SFX/8bitSMB/smb_bump.wav");
 const DESPAWN_SMOKE = preload("res://Player/WallSlideParticle.tscn");

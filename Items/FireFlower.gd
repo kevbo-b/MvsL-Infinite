@@ -16,12 +16,7 @@ func initVariables():
 
 func _physics_process(delta):
 	
-	if(!spawning):
-		if(!spawn_from_block):
-			motion.y += GRAVITY;
-			motion.y = min(motion.y, MAX_Y_SPEED * MASS_MULTIPLICATOR);
-	else:
-		position.x = player.position.x;
+	calcMotionAndPosition()
 	
 	motion = move_and_slide(motion, DEFAULT_UP);
 	
@@ -36,6 +31,11 @@ func _physics_process(delta):
 	
 	checkIfSquished();
 	
+	pass
+	
+func calcMotion():
+	motion.y += GRAVITY;
+	motion.y = min(motion.y, MAX_Y_SPEED * MASS_MULTIPLICATOR);
 	pass
 
 func checkIfSquished():

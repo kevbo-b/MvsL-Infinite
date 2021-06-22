@@ -31,13 +31,7 @@ func _physics_process(delta):
 			sprite.flip_h = false;
 		checkIfInsideWall();
 	
-	if(!spawning):
-		if(!spawn_from_block):
-			motion.x = SHROOM_SPEED * MASS_MULTIPLICATOR * direction;
-			motion.y += GRAVITY;
-			motion.y = min(motion.y, MAX_Y_SPEED * MASS_MULTIPLICATOR);
-	else:
-		position.x = player.position.x;
+	calcMotionAndPosition()
 	
 	motion = move_and_slide(motion, DEFAULT_UP);
 	
@@ -52,6 +46,12 @@ func _physics_process(delta):
 	check_if_out_of_bounds();
 	
 	pass
+	
+#func calcMotion():
+#	motion.x = SHROOM_SPEED * MASS_MULTIPLICATOR * direction;
+#	motion.y += GRAVITY;
+#	motion.y = min(motion.y, MAX_Y_SPEED * MASS_MULTIPLICATOR);
+#	pass
 	
 func checkIfSquished():
 	if(is_on_floor() || is_on_ceiling()):

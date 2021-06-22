@@ -1646,7 +1646,7 @@ bus = "Music"
 [connection signal="pressed" from="CenterContainer/SplitscreenMenu/Start/ConfirmSplitscreenGame" to="." method="_on_ConfirmSplitscreenGame_pressed"]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/BackBar/BackToSplitscreenMenu" to="." method="_on_BackToSplitscreenMenu_pressed"]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level1" to="." method="level_selected" binds= [ "NSMB_GreenLand" ]]
-[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level2" to="." method="level_selected" binds= [ "default_level" ]]
+[connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level2" to="." method="level_selected" binds= [ "NSMB_Underground" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level3" to="." method="level_selected" binds= [ "NSMB_SnowLand" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World1/Level4" to="." method="level_selected" binds= [ "default_level" ]]
 [connection signal="pressed" from="CenterContainer/VsLevelMenu/WorldSet/World2/Level1" to="." method="level_selected" binds= [ "NSMB_SquishCastle" ]]

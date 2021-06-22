@@ -3,6 +3,10 @@ class_name ItemBaseClass
 
 const SPAWN_MOTION = -14;
 const MAX_Y_SPEED = 64;
+const DEFAULT_X_SPEED = 16; #will get multiplied with mass
+const COINSPAWN_HEIGHT_FLAT_LEVEL = 72;
+const COINSPAWN_HEIGHT = 64;
+const COINSPAWN_Y_MARGIN = 16;
 
 const SOUND_POWERUP_APPEARS = preload("res://SFX/8bitSMB/smb_powerup_appears.wav");
 const IN_WALL_CHECKER = preload("res://Misc/InWallChecker.tscn");
@@ -37,6 +41,7 @@ func spawn_as_drop(bodyy):
 	direction = 0;
 	spawningIn = true;
 	#dropTimer.start();
+	setPositionAbovePlayer();
 	pass
 	
 func spawn_from_block(upwards = true):
@@ -105,4 +110,31 @@ func useWallChecker(yPosMovement, scanLength, useDoubleChecker, doubleCheckerSpa
 		checker.setDoubleChecker(doubleCheckerSpacing);
 	checker.setScanLength(scanLength);
 	call_deferred("add_child",checker);
+	pass
+	
+func calcMotionAndPosition():
+	if(!spawning):
+		if(!spawn_from_block):
+			calcMotion();
+	else:
+		setPositionAbovePlayer();
+	pass
+	
+func calcMotion(): #mostly overridden
+	motion.x = DEFAULT_X_SPEED * MASS_MULTIPLICATOR * direction;
+	motion.y += GRAVITY;
+	motion.y = min(motion.y, MAX_Y_SPEED * MASS_MULTIPLICATOR);
+	pass
+	
+func setPositionAbovePlayer():
+	position.x = player.position.x;
+	
+	if(Global.level_infinite_vertical_scroll):
+		position.y = player.position.y - COINSPAWN_HEIGHT;
+		if(position.y < Global.level_boundary_rect.position.y):
+			position.y = position.y + Global.level_boundary_rect.size.y;
+	elif(Global.level_boundary_rect.size.y > 256):
+		position.y = max(player.position.y - COINSPAWN_HEIGHT, Global.level_boundary_rect.position.y + COINSPAWN_Y_MARGIN);
+	else:
+		position.y = COINSPAWN_HEIGHT_FLAT_LEVEL;
 	pass

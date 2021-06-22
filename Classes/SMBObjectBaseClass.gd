@@ -9,7 +9,7 @@ const DESPAWN_DISTANCE_ADD = Vector2(96, 96);
 
 const MASS_MULTIPLICATOR = 5;
 const GRAVITY = 13;
-const MAXIMUM_FALLING_SPEED = 200 * MASS_MULTIPLICATOR;
+const MAXIMUM_FALLING_SPEED = 200 * MASS_MULTIPLICATOR; #Max Limit. Also limited in each class itself (Enemy, Items etc.)
 
 const DEFAULT_UP = Vector2(0,-1);
 var motion = Vector2();

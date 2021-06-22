@@ -34,13 +34,7 @@ func _physics_process(delta):
 	if(is_on_floor()):
 		motion.y = V_JUMP * -1 * MASS_MULTIPLICATOR;
 	
-	if(!spawning):
-		if(!spawn_from_block):
-			motion.x = H_SPEED * MASS_MULTIPLICATOR * direction;
-			motion.y += GRAVITY;
-			motion.y = min(motion.y, MAX_Y_SPEED * MASS_MULTIPLICATOR);
-	else:
-		position.x = player.position.x;
+	calcMotionAndPosition()
 	
 	motion = move_and_slide(motion, DEFAULT_UP);
 	

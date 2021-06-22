@@ -30,6 +30,7 @@ func _physics_process(delta):
 		motion.x = SPEED * speed_multiplier * MASS_MULTIPLICATOR * direction;
 
 	motion.y += GRAVITY;
+	motion.y = min(motion.y, MAX_Y_FALL_SPEED * MASS_MULTIPLICATOR);
 	
 	if(!despawned):
 		motion = move_and_slide(motion, DEFAULT_UP);

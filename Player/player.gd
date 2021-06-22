@@ -291,7 +291,7 @@ func _physics_process(delta):
 				else:
 					sidewaysDirection = 1;
 					rotation_degrees = 90;
-			elif(!is_on_floor() && (motion.x != 0 || !$WallSlideStick.is_stopped()) && !isMega && !stomping && !stompSpinning && Global.modern_movement):
+			elif(!is_on_floor() && (motion.x != 0 || !$WallSlideStick.is_stopped()) && !isMega && !stomping && !stompSpinning && !stunned && Global.modern_movement):
 				checkForWallJump();
 		else:
 			can_walljump = false;
@@ -1022,15 +1022,7 @@ func drop_random_powerup():
 	pass
 	
 func drop_powerup(item):
-	
-	var v_alignment = 72;
-	
-	if(Global.level_infinite_vertical_scroll):
-		v_alignment = self.position.y - 64;
-	
-	item.position = Vector2(position.x, v_alignment);
 	item.spawn_as_drop(self);
-	
 	get_parent().call_deferred("add_child", item);
 	pass
 	
