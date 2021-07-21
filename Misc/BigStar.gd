@@ -35,7 +35,11 @@ func _ready():
 	save_area2d_default_collisions($Area2D);
 	save_default_collisions();
 	if(!spawned_from_player):
-		spawn();
+		if(Global.is_online_mode):
+			if(get_tree().is_network_server()):
+				spawnInRandomPosition();
+		else:
+			spawnInRandomPosition();
 	else:
 		spawn_star_from_player(flip);
 	pass
@@ -87,13 +91,7 @@ func spawn_star_from_player(flipStar):
 #	return get_parent().get_child_count() - 1;
 #	pass
 
-func spawn():
-	
-	call_deferred("showDirectionToPlayers");
-	
-	if(!firstTime):
-		playFromChannel(-1, SOUND_STAR_APPEAR, 2, true);
-	
+func spawnInRandomPosition():
 	var parentNodes = get_parent().get_children();
 	
 	var spawns = [];
@@ -107,8 +105,21 @@ func spawn():
 	random_spawn_index = int(random_spawn_index);
 
 	var spawn_point = spawns[random_spawn_index];
-	position.x = spawn_point.position.x;
-	position.y = spawn_point.position.y;
+	
+	spawn(spawn_point.position);
+	if(Global.is_online_mode):
+		rpc("spawn", spawn_point.position);
+	pass
+
+remote func spawn(spawn_position):
+	
+	call_deferred("showDirectionToPlayers");
+	
+	if(!firstTime):
+		playFromChannel(-1, SOUND_STAR_APPEAR, 2, true);
+	
+	position.x = spawn_position.x;
+	position.y = spawn_position.y;
 	show();
 	$Area2D/BigStarSprite.set_animation("appear");
 	firstTime = false;
@@ -123,21 +134,32 @@ func spawn():
 func _on_Area2D_body_entered(body):
 	if "player" in body.name:
 		if(collected == false):
-			collected = true;
-			spawnParticle();
-			body.big_star_collected();
-			if(body.is_local_player):
-				playFromChannel(-1, SOUND_STAR_GET, 2, true);
-			else:
-				playFromChannel(-1, SOUND_STAR_DENIED, 2, true);
-			if(bouncing):
-				queue_free();
-			else:
-				set_all_collisions(false);
-				hide();
-				
-				rebuild_world();
-				$RespawnTimer.start();
+			collectedStar(body.playerID);
+			if(Global.is_online_mode):
+				rpc("collectedStar", body.playerID);
+	pass
+	
+remote func collectedStar(playerID): #Player Objekte scheitern hier. Ich sollte ID's vergeben und players global speichern. (id attribut in player? Oder fortlaufender array)
+	var player = Global.get_player_by_id(playerID);
+	
+	collected = true;
+	spawnParticle();
+	player.big_star_collected();
+	if(player.is_local_player):
+		playFromChannel(-1, SOUND_STAR_GET, 2, true);
+	else:
+		playFromChannel(-1, SOUND_STAR_DENIED, 2, true);
+	if(bouncing):
+		queue_free();
+	else:
+		set_all_collisions(false);
+		hide();
+		
+		rebuild_world();
+		if(Global.is_online_mode):
+			if(get_tree().is_network_server()):
+				rpc("rebuild_world")
+		$RespawnTimer.start();
 	pass
 	
 func spawnParticle():
@@ -146,7 +168,7 @@ func spawnParticle():
 	get_parent().add_child(particle);
 	pass
 
-func rebuild_world():
+remote func rebuild_world():
 	rebuild_coins();
 	rebuild_blocks();
 	rebuild_enemies();
@@ -194,7 +216,11 @@ func _on_DisabledCollisionTime_timeout():
 
 func _on_RespawnTimer_timeout():
 	$RespawnTimer.stop();
-	spawn();
+	if(Global.is_online_mode):
+		if(get_tree().is_network_server()):
+			spawnInRandomPosition();
+	else:
+		spawnInRandomPosition();
 	pass
 	
 func got_hit_from_block(player = null):

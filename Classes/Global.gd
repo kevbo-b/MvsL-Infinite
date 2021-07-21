@@ -4,9 +4,11 @@ class_name GlobalObj
 const VERSION_NUMBER = "0.9.3.2 alpha"
 
 const DEBUG_LUIGI_NON_LOCAL = false; #For pseudo-online tests
-const DEBUG_MODE = false; #faster timer (coop), bigStar fast spawn, fast loading screen, fast win screen
+const DEBUG_MODE = true; #faster timer (coop), bigStar fast spawn, fast loading screen, fast win screen
 
 var is_online_mode = false;
+
+var player2id = 0;
 
 #mode settings
 var playing_splitscreen = false;
@@ -36,6 +38,9 @@ var world_spacing_end = Vector2(0,0);
 var current_tileMap_palette = 0;
 
 #player settings
+
+var players = []
+
 var splitscreen_current_player_hud = 1;
 var max_coins = 8;
 
@@ -91,3 +96,12 @@ var infinite_vertical_all_levels = false;
 #etc
 var canvas3DPaths = [];
 var spawns_path = "";
+#var canPauseGame = true;
+
+
+func get_player_by_id(id):
+	for player in players:
+		if (player.playerID == id):
+			return player
+	return null;
+	pass

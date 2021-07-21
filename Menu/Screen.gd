@@ -45,6 +45,7 @@ var pause;
 var dimension = -1;
 
 func _ready():
+	Global.players = [];
 	get_tree().get_root().set_size_override(true, new_resolution);
 	level = WORLD.instance();
 	setSoundChannels();
@@ -81,19 +82,42 @@ func fit_to_player_count():
 		viewport3.call_deferred("add_child", level.get_node("LevelBackgrounds").duplicate());
 		viewport4.call_deferred("add_child", level.get_node("LevelBackgrounds").duplicate());
 	
-	call_deferred("setup_local_and_online")
 	call_deferred("link_scene_to_player");
 	call_deferred("link_huds");
 	call_deferred("set_screen_separation");
+	call_deferred("setup_local_and_online")
 	pass
 	
 func setup_local_and_online():
 	if(Global.is_online_mode):
+		
+		if(get_tree().is_network_server()):
+			level.get_node("player").set_network_master(get_tree().get_network_unique_id());
+			level.get_node("player2").set_network_master(Global.player2id);
+		else:
+			level.get_node("player2").set_network_master(get_tree().get_network_unique_id());
+			level.get_node("player").set_network_master(Global.player2id);
+		
+		$WholeScreen/LowerScreen.queue_free();
+		$WholeScreen/UpperScreen/ViewPlayer2.queue_free();
+		
+		if(get_tree().is_network_server()):
+			level.get_node("player").is_local_player = true;
+			level.get_node("player2").is_local_player = false;
+			level.get_node("player2").set_controls_for_player(-1)
+			$WholeScreen/LowerScreen.queue_free();
+		else:
+			level.get_node("player").is_local_player = false;
+			level.get_node("player2").is_local_player = true;
+			level.get_node("player").set_controls_for_player(-1)
+			level.get_node("player2").set_controls_for_player(1)
+			
+			level.get_node("player2").hud_path = str(viewPlayer1.get_path()) + "/HUD";
 		pass
 	pass
 	
 func set_screens_and_cams(players):
-	
+		
 	cam_1.target = level.get_node("player");
 	level.get_node("player").cam_path = cam_1.get_path();
 
@@ -110,30 +134,38 @@ func set_screens_and_cams(players):
 		if(Global.player_amount_local > 3):
 			cam_4.target = level.get_node("player4");
 			level.get_node("player4").cam_path = cam_4.get_path();
-
-	if(Global.player_amount_local == 1): #if online mode? But online mode may also have 2 player splitscreen (but not for now)
-		$WholeScreen/LowerScreen.queue_free();
-		$WholeScreen/UpperScreen/ViewPlayer2.queue_free();
-		cams = [cam_1];
-		cam_scale_factor = 4;
-	elif(Global.player_amount_local  == 2): #Players now delete themselves
-		if(Global.player2LeftRight):
-			cams = [cam_1, cam_2];
-			cam_scale_factor = 4;
+	
+	if(!Global.is_online_mode):
+		if(Global.player_amount_local == 1): #if online mode? But online mode may also have 2 player splitscreen (but not for now)
 			$WholeScreen/LowerScreen.queue_free();
-		else:
-			cams = [cam_1, cam_2];
-			cam_scale_factor = 4;
 			$WholeScreen/UpperScreen/ViewPlayer2.queue_free();
-			$WholeScreen/LowerScreen/ViewPlayer4.queue_free();
-	elif(Global.player_amount_local  == 3):
-		if(Global.player3BigScreen):
-			$WholeScreen/LowerScreen/ViewPlayer4.queue_free();
-		else:
-			$WholeScreen/LowerScreen/ViewPlayer4/Viewport4/SplitscreenCam4.queue_free();
-			#$WholeScreen/LowerScreen/ViewPlayer4/Viewport4.queue_free();
-			#$WholeScreen/LowerScreen/ViewPlayer4.print_tree_pretty();
-		cams = [cam_1, cam_2, cam_3];
+
+			cams = [cam_1];
+			cam_scale_factor = 4;
+		elif(Global.player_amount_local  == 2): #Players now delete themselves
+			if(Global.player2LeftRight):
+				cams = [cam_1, cam_2];
+				cam_scale_factor = 4;
+				$WholeScreen/LowerScreen.queue_free();
+			else:
+				cams = [cam_1, cam_2];
+				cam_scale_factor = 4;
+				$WholeScreen/UpperScreen/ViewPlayer2.queue_free();
+				$WholeScreen/LowerScreen/ViewPlayer4.queue_free();
+		elif(Global.player_amount_local  == 3):
+			if(Global.player3BigScreen):
+				$WholeScreen/LowerScreen/ViewPlayer4.queue_free();
+			else:
+				$WholeScreen/LowerScreen/ViewPlayer4/Viewport4/SplitscreenCam4.queue_free();
+				#$WholeScreen/LowerScreen/ViewPlayer4/Viewport4.queue_free();
+				#$WholeScreen/LowerScreen/ViewPlayer4.print_tree_pretty();
+			cams = [cam_1, cam_2, cam_3];
+			
+	if(Global.is_online_mode && !get_tree().is_network_server()):
+		cam_1.target = level.get_node("player2");
+		level.get_node("player2").cam_path = cam_1.get_path();
+	if(Global.is_online_mode):
+		cam_scale_factor = 4;
 		
 	cam_1.zoom.x = cam_1.zoom.x / cam_scale_factor;
 	cam_1.zoom.y = cam_1.zoom.y / cam_scale_factor;
@@ -167,16 +199,17 @@ func initialSpawnAllPlayers():
 		else:
 			setError("No initial spawn found in this Level.", 2)
 
-	
 	for i in range(1, Global.player_amount + 1):
 		if(!level.has_node("player" + str(i)) && i != 1 || !level.has_node("player") && i == 1):
 			var player = PLAYER_INSTANCE.instance();
+			Global.players.append(player)
 			if(differentSpawns && spawns.getSpawnByID(i - 1) != null):
 				player.position = spawns.getSpawnByID(i - 1).position;
 			else:
 				player.position = Vector2(startingPos.x + spacing * (i - 1),startingPos.y);
 			if(i != 1):
 				player.set_name("player" + str(i));
+				player.setPlayerID(i)
 			else:
 				player.set_name("player");
 			
@@ -187,6 +220,7 @@ func initialSpawnAllPlayers():
 		else:
 			if(i == 1):
 				startingPos = level.get_node("player").position;
+				Global.players.append(level.get_node("player"))
 		pass
 	pass
 
@@ -487,18 +521,18 @@ func set_map_limits():
 	pass
 	
 func set_screen_separation():
-	if(players > 1):
+	if(Global.player_amount_local > 1):
 		$WholeScreen/UpperScreen.add_constant_override("separation", PIXEL_SEPARATION);
-		if(players > 2):
+		if(Global.player_amount_local > 2):
 			$WholeScreen.add_constant_override("separation", PIXEL_SEPARATION);
-			if(players > 3):
+			if(Global.player_amount_local > 3):
 				$WholeScreen/LowerScreen.add_constant_override("separation", PIXEL_SEPARATION);
 	pass
 	
-func toggle_pause(player):
-	if(!game_won):
+func toggle_pause(player): 
+	if(!game_won && !Global.is_online_mode):
 		pause.set_pause(player, self);
-		#get_tree().paused = true;
+		get_tree().paused = true;
 	pass
 
 func won_game(player):
@@ -508,6 +542,14 @@ func won_game(player):
 	call_deferred("add_child", win);
 	if(Global.inappropriate_mode):
 		setFunWinScreen(player);
+	get_tree().paused = true;
+	pass
+	
+func onlineGameDisconnected(message): #
+	game_won = true;
+	var win = win_screen.instance();
+	#win.set_winner(player, self);
+	call_deferred("add_child", win);
 	get_tree().paused = true;
 	pass
 	
@@ -547,7 +589,7 @@ func setSoundChannels():
 		Global.world_spacing_end = Vector2(0,0);
 	pass
 	
-func setError(message, status):
+func setError(message, status = -1):
 	errStatus = status;
 	$ErrorWindow.show();
 	$ErrorWindow/Container/ExitBtn.grab_focus();
@@ -559,3 +601,16 @@ func _on_ExitBtn_pressed():
 	Global.Start_menu_page = errStatus;
 	get_tree().change_scene("Menu/StartMenu.tscn");
 	pass # Replace with function body.
+
+func refreshChatWindow():
+	if(Input.is_action_just_pressed("ui_chat")):
+		$Chat.getFocus();
+	if(Input.is_action_just_pressed("ui_chat_send") && $Chat.isOpen()):
+		$Chat.sendMessage();
+	if(Input.is_action_just_pressed("ui_chat_abord")):
+		$Chat._on_TextField_focus_exited()
+	pass
+	
+func printThroughChat(message):
+	$Chat.sendConsoleMessage(message);
+	pass

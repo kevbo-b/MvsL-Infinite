@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Menu/Screen.gd" type="Script" id=1]
 [ext_resource path="res://Menu/SplitscreenCam1.gd" type="Script" id=2]
 [ext_resource path="res://Menu/menu_theme.tres" type="Theme" id=3]
 [ext_resource path="res://SFX/MusicHandler.tscn" type="PackedScene" id=4]
 [ext_resource path="res://SFX/SFXPlayback.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Menu/Chat.tscn" type="PackedScene" id=6]
 
 [node name="Screen" type="Node"]
 script = ExtResource( 1 )
@@ -187,6 +188,9 @@ margin_top = 54.0
 margin_right = 72.0
 margin_bottom = 73.0
 text = "EXIT"
+
+[node name="Chat" parent="." instance=ExtResource( 6 )]
+rect_scale = Vector2( 3, 3 )
 
 [node name="MusicChannel1" parent="." instance=ExtResource( 4 )]
 

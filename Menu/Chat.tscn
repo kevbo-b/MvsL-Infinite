@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Menu/menu_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Menu/Chat.gd" type="Script" id=3]
+
+[node name="Chat" type="VBoxContainer"]
+margin_top = 64.0
+margin_right = 192.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 0, 10 )
+rect_scale = Vector2( 1.2, 1 )
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChatMessages" type="VBoxContainer" parent="."]
+margin_right = 192.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 0, 92 )
+custom_constants/separation = 0
+
+[node name="TextField" type="TextEdit" parent="."]
+visible = false
+margin_top = 96.0
+margin_right = 192.0
+margin_bottom = 136.0
+rect_min_size = Vector2( 0, 40 )
+[connection signal="focus_exited" from="TextField" to="." method="_on_TextField_focus_exited"]

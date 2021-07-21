@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Menu/menu_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Menu/ChatMessage.gd" type="Script" id=2]
+
+[node name="ChatMessage" type="Label"]
+margin_right = 384.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 384, 5 )
+theme = ExtResource( 1 )
+text = "USER: MESSAGE"
+autowrap = true
+max_lines_visible = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deleteTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+[connection signal="timeout" from="deleteTimer" to="." method="_on_deleteTimer_timeout"]

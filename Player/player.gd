@@ -85,7 +85,7 @@ var setInvincibleAfterPipe = true;
 #motion for all tasks of the Player
 var flip_sprite = false;
 var win_num_stars;
-var playerNr;
+var playerID = 1;
 
 var is_dead = true;
 var dead_gravity_disabled = false;
@@ -97,7 +97,7 @@ var maxXSpeed_multiplier = 1;
 
 var megaDestructiveFallSpeed = 250;
 
-var isPlayerControlsSet = false;
+var controlsSet = false; #even needed?
 
 var slipFrictionDivisor = 6.0;
 
@@ -170,8 +170,9 @@ func _ready():
 	save_default_collisions();
 	save_area2d_default_collisions($player_hitbox);
 	deleteNonexistentPlayers();
-	setPlayerNumber();
+	#setPlayerID();
 	setPlayerShader();
+	setPlayerControls();
 	win_num_stars = Global.stars_to_collect;
 	
 	var t = Timer.new() #so components can initiate before respawn, like HUD...
@@ -188,8 +189,9 @@ func _ready():
 		respawn();
 	else:
 		is_dead = false;
-		get_node(hud_path).initCoop();
-		get_node(hud_path + "/Transition/FadeAnimationPlayer").play("Nothing");
+		if(is_local_player):
+			get_node(hud_path).initCoop();
+			get_node(hud_path + "/Transition/FadeAnimationPlayer").play("Nothing");
 	pass
 
 func _physics_process(delta):
@@ -353,10 +355,10 @@ func _physics_process(delta):
 						$PlayerSprite.set_animation(idle_anim);
 				if(Input.is_action_just_pressed(JUMP_BTN)):
 					jump();
-				if(flip_sprite):
-					$PlayerSprite.flip_h = true;
-				else:
-					$PlayerSprite.flip_h = false;
+				set_looking_direction(flip_sprite);
+				if(Global.is_online_mode && self.get_network_master() == get_tree().get_network_unique_id()):
+					rpc("set_looking_direction", flip_sprite);
+
 		elif(!interactingWithPipe):
 			if(idle_anim in $PlayerSprite.get_animation() || turn_anim in $PlayerSprite.get_animation() || (can_walljump == false && wallSlide_anim in $PlayerSprite.get_animation())):
 				$PlayerSprite.set_animation(jump_anim);
@@ -399,6 +401,10 @@ func _physics_process(delta):
 	if(!is_dead):
 		checkIfInsideWall(true);
 		check_if_out_of_bounds();
+		
+	if(Global.is_online_mode):
+		doNetworking();
+		
 	pass
 	
 func jump(var sound = true):
@@ -647,6 +653,8 @@ func dead_from_pit():
 		isMega = false;
 	is_dead = true;
 	loose_star(1);
+	if(Global.is_online_mode && self.get_network_master() == get_tree().get_network_unique_id()):
+		rpc("loose_star", 1);
 	dead_gravity_disabled = true;
 	set_all_collisions(false);
 	motion.x = 0;
@@ -678,6 +686,13 @@ func switchIfSideways(mot):
 	return mot;
 	pass
 	
+remote func set_looking_direction(flipSprite):
+	if(flipSprite):
+		$PlayerSprite.flip_h = true;
+	else:
+		$PlayerSprite.flip_h = false;
+	pass
+	
 func setLocal(val):
 	is_local_player = val;
 	pass
@@ -687,10 +702,12 @@ func check_if_out_of_bounds(infiniteY = true, allowAboveScreen = true):
 	if(position.y >= level_boundary_rect.end.y || position.y <  level_boundary_rect.position.y):
 		if(infinite_y_scroll):
 			if(position.y < level_boundary_rect.position.y):
-				get_node(cam_path).adjustInfiniteWorldWarp(1);
+				if(is_local_player):
+					get_node(cam_path).adjustInfiniteWorldWarp(1);
 				position.y = position.y + level_boundary_rect.size.y;
 			else:
-				get_node(cam_path).adjustInfiniteWorldWarp(2);
+				if(is_local_player):
+					get_node(cam_path).adjustInfiniteWorldWarp(2);
 				position.y = position.y - level_boundary_rect.size.y;
 		else:
 			if(position.y >= level_boundary_rect.end.y):
@@ -698,10 +715,12 @@ func check_if_out_of_bounds(infiniteY = true, allowAboveScreen = true):
 	if(position.x > level_boundary_rect.end.x || position.x < level_boundary_rect.position.x):
 		if(infinite_x_scroll):
 			if(position.x < 0):
-				get_node(cam_path).adjustInfiniteWorldWarp(3);
+				if(is_local_player):
+					get_node(cam_path).adjustInfiniteWorldWarp(3);
 				position.x = position.x + level_boundary_rect.size.x;
 			else:
-				get_node(cam_path).adjustInfiniteWorldWarp(4);
+				if(is_local_player):
+					get_node(cam_path).adjustInfiniteWorldWarp(4);
 				position.x = position.x - level_boundary_rect.size.x;
 
 		else:
@@ -711,7 +730,8 @@ func check_if_out_of_bounds(infiniteY = true, allowAboveScreen = true):
 func respawn():
 	if(!deletedPlayer):
 		resetVariables();
-		get_node(hud_path).transitionRespawn();
+		if(is_local_player):
+			get_node(hud_path).transitionRespawn();
 		have_star = false;
 		isMega = false;
 		$PlayerSprite.modulate = Color(1, 1, 1, 1);
@@ -720,7 +740,8 @@ func respawn():
 		hide();
 		is_dead = true;
 		position = old_position;
-		get_node(cam_path).resetCamera();
+		if(is_local_player):
+			get_node(cam_path).resetCamera();
 		savePlayerPositions();
 		dead_gravity_disabled = true;
 		motion.x = 0;
@@ -773,7 +794,8 @@ func interactWithPipe(inwards, EndOfPipePosition, direction, setInvincible, look
 	if(!inwards || centerEntrance):
 		position = Vector2(EndOfPipePosition.x + (spawn_length * direction.x * -1), EndOfPipePosition.y + (spawn_length * direction.y * -1));
 		if(!centerEntrance):
-			get_node(cam_path).resetCamera();
+			if(is_local_player):
+				get_node(cam_path).resetCamera();
 	interactingWithPipe = true;
 	motion.x = 0;
 	motion.y = 0;
@@ -842,7 +864,7 @@ func _on_RespawnAfterPipeSpawn_timeout():
 	$RespawnAfterPipeSpawn.stop();
 	pipeTravelSpeed = Vector2(6, 8);
 	if(firstTime):
-		interactWithPipe(false, Vector2(old_position.x,old_position.y - 48), Vector2(0, -1), false, 1, (playerNr != 1));
+		interactWithPipe(false, Vector2(old_position.x,old_position.y - 48), Vector2(0, -1), false, 1, (playerID != 1));
 		firstTime = false;
 	else:
 		interactWithPipe(false, Vector2(old_position.x,old_position.y - 48), Vector2(0, -1), true, 1);
@@ -996,35 +1018,61 @@ func drop_random_powerup():
 	var multiplicator = 5.0 / Global.stars_to_collect;
 
 	var r = randomGen.randf_range(-1.0 + (diff * multiplicator),2 + (diff * multiplicator));
-	var item;	
 
 	playSFXAtChannel(0, SOUND_DROP_ITEM);
 	
+	var item_id = 0;
+	
 	if(r < 0.4):
-		item = MUSHROOM.instance();
+		item_id = 1;
 	elif(r >= 0.4 && r < 1.5):
-		item = FIREFLOWER.instance();
+		item_id = 2;
 	elif(r >= 1.5 && r < 2.4):
-		item = MINI_MUSHROOM.instance();
+		item_id = 3;
 	elif(r >= 2.4 && r < 2.9):
-		item = HAMMER_POWERUP.instance();
+		item_id = 4;
 	elif(r >= 2.9 && r <= 3.8):
-		item = POWERSTAR.instance();
+		item_id = 5;
 	elif(r >= 3.8 && r <= 2 + (diff * multiplicator)):
 		if(Global.level_spawns_mega_shroom):
-			item = MEGA_MUSHROOM.instance();
+			item_id = 6;
 		else:
-			item = POWERSTAR.instance();
-	else:
-		item = MUSHROOM.instance();
+			item_id = 7;
 	
-	drop_powerup(item);
+	drop_powerup(item_id);
+	if(Global.is_online_mode && self.get_network_master() == get_tree().get_network_unique_id()):
+		rpc("drop_powerup", item_id);
 	pass
 	
-func drop_powerup(item):
+remote func drop_powerup(item_id):
+	var item = get_item_by_id(item_id);
 	item.spawn_as_drop(self);
 	get_parent().call_deferred("add_child", item);
 	pass
+		
+func get_item_by_id(id):
+	var item;
+	
+	if(id == 1):
+		item = MUSHROOM.instance();
+	elif(id == 2):
+		item = FIREFLOWER.instance();
+	elif(id == 3):
+		item = MINI_MUSHROOM.instance();
+	elif(id == 4):
+		item = HAMMER_POWERUP.instance();
+	elif(id == 5):
+		item = POWERSTAR.instance();
+	elif(id == 6):
+		item = MEGA_MUSHROOM.instance();
+	elif(id == 7):
+		item = POWERSTAR.instance();
+	else:
+		item = MUSHROOM.instance();
+		
+	return item;
+	pass
+
 	
 func playSFXAtChannel(channel, sound, db_add = 0):
 	if(is_local_player || localPlayerNearby(position)):
@@ -1050,7 +1098,8 @@ func getAudioByChannel(channel):
 var coin_count = 0;
 
 func coin_collected():
-	var coins = get_node(hud_path).getCoinCount() + 1;
+	
+	var coins = coin_count + 1;
 	
 	if(Global.is_vs_mode):
 		if(coins >= Global.max_coins):
@@ -1062,12 +1111,14 @@ func coin_collected():
 		
 	coin_count = coins;
 	
-	get_node(hud_path).setCoinCount(coins);
+	if(is_local_player):
+		get_node(hud_path).setCoinCount(coins);
 	pass
 	
 func increaseLives(amount = 1):
 	playSFXAtChannel(0, SOUND_ONE_UP);
-	get_node(hud_path).incrementLive(amount);
+	if(is_local_player):
+		get_node(hud_path).incrementLive(amount);
 	pass
 	
 func resetVariables():
@@ -1103,7 +1154,7 @@ func resetPlayerComponents():
 	#$PipeDetectionRight.cast_to.x = 10;
 	pass
 	
-func setItemStateEffect(new_state):
+remote func setItemStateEffect(new_state):
 	if(new_state == 0):
 		resetPlayerComponents();
 	elif(new_state == -1): #mini
@@ -1232,7 +1283,7 @@ func growToNewAnimation(old_state, new_state):
 	
 	pass
 	
-func set_item_state(new_state_number):
+remote func set_item_state(new_state_number):
 	old_item_state = item_state;
 	item_state = new_state_number;
 
@@ -1272,6 +1323,8 @@ func damaged(enemy):
 			enemy.dead();
 	elif(!invincible):
 		loose_star(1);
+		if(Global.is_online_mode && self.get_network_master() == get_tree().get_network_unique_id()):
+			rpc("loose_star", 1);
 		if(item_state <= 0):
 				dead();
 		else:
@@ -1285,7 +1338,8 @@ func damaged(enemy):
 
 func dead(respawn = true):
 	resetVariables();
-	get_node(cam_path).stopCamera();
+	if(is_local_player):
+		get_node(cam_path).stopCamera();
 	if(isMega):
 		if(!Global.is_vs_mode):
 			get_node(Global.musicC1_path).stopMegaShroomTheme(self);
@@ -1312,8 +1366,9 @@ func dead(respawn = true):
 	pass
 	
 func decrementLive(amount = 1):
-	Global.playerLives[playerNr - 1] -= amount;
-	get_node(hud_path).decrementLive(amount);
+	Global.playerLives[playerID - 1] -= amount;
+	if(is_local_player):
+		get_node(hud_path).decrementLive(amount);
 	pass
 	
 func setPlayerInvincible():
@@ -1323,7 +1378,7 @@ func setPlayerInvincible():
 	
 func savePlayerPositions(setPos = true):
 	if(setPos):
-		Global.playerPositions[playerNr - 1] = position;
+		Global.playerPositions[playerID - 1] = position;
 	pass
 	
 func _on_DeathMoment_timeout():
@@ -1333,8 +1388,9 @@ func _on_DeathMoment_timeout():
 	pass
 
 func _on_FullDeathTimer_timeout():
-	get_node(hud_path).transitionDead()
-	yield(get_node(hud_path + "/Transition/FadeAnimationPlayer"), "animation_finished");
+	if(is_local_player):
+		get_node(hud_path).transitionDead()
+		yield(get_node(hud_path + "/Transition/FadeAnimationPlayer"), "animation_finished");
 	$FullDeathTimer.stop();
 	respawn();
 	pass
@@ -1392,8 +1448,12 @@ func get_pushed(direction, x_speed, y_speed, stun, stomped = false):
 	
 	if(stomped):
 		loose_star(3);
+		if(Global.is_online_mode && self.get_network_master() == get_tree().get_network_unique_id()):
+			rpc("loose_star", 3);
 	else:
 		loose_star(1);
+		if(Global.is_online_mode && self.get_network_master() == get_tree().get_network_unique_id()):
+			rpc("loose_star", 1);
 	playSFXAtChannel(2, SOUND_WALKED_PLAYER);
 	
 	motion.x = x_speed * MASS_MULTIPLICATOR * direction; #x_speed used to be 35
@@ -1416,15 +1476,16 @@ func toggle_pause():
 	get_node(scene_path).toggle_pause(self);
 	pass
 
-func loose_star(amount):
-	stars = get_node(hud_path).stars
+remote func loose_star(amount):
+	#stars = max(0, stars - amount);
 	
 	var i = 0;
 	while i < amount:
 		if(stars > 0):
 			stars = stars - 1;
 			setGlobalCurrentStars(stars);
-			get_node(hud_path).star_lost();
+			if(is_local_player):
+				get_node(hud_path).star_lost();
 			var big = BIG_STAR.instance();
 			big.position = Vector2(position.x, position.y);
 			big.spawned_from_player = true;
@@ -1439,9 +1500,9 @@ func loose_star(amount):
 	pass
 
 func big_star_collected():
-	setGlobalCurrentStars(get_node(hud_path).stars + 1);
-	get_node(hud_path).star_collected();
-	stars = get_node(hud_path).stars
+	stars = stars + 1;
+	if(is_local_player):
+		get_node(hud_path).star_collected();
 
 	if(stars >= win_num_stars):
 		won_game();
@@ -1490,6 +1551,8 @@ func got_shot(direction, affectsCrouchedHammerSuit = false):
 		pass
 	elif(item_state == -1 && !invincible):
 		loose_star(1);
+		if(Global.is_online_mode && self.get_network_master() == get_tree().get_network_unique_id()):
+			rpc("loose_star", 1);
 		dead();
 	else:
 		if(!invincible && !shot_on):
@@ -1577,15 +1640,12 @@ func setPlayerShader():
 	var playerMaterial = ShaderMaterial.new();
 	if(self.name != "player"):
 		if("2" in self.name):
-			set_controls_for_player(2);
 			playerShader = LUIGI_SHADER;
 			if(Global.DEBUG_LUIGI_NON_LOCAL):
-				setLocalPlayer(false); ###########################################UPS
+				setLocalPlayer(false);
 		elif("3" in self.name):
-			set_controls_for_player(3);
 			playerShader = PLAYER3_SHADER;
 		elif("4" in self.name):
-			set_controls_for_player(4);
 			playerShader = PLAYER4_SHADER;
 		else:
 			playerShader = LUIGI_SHADER;
@@ -1599,6 +1659,19 @@ func setPlayerShader():
 		setRandomColorToPlayerShader(playerMaterial);
 
 	$PlayerSprite.material = playerMaterial;
+	pass
+	
+func setPlayerControls():
+	if(!controlsSet):
+		if(self.name != "player"):
+			if("2" in self.name):
+				set_controls_for_player(2);
+			elif("3" in self.name):
+				set_controls_for_player(3);
+			elif("4" in self.name):
+				set_controls_for_player(4);
+		else:
+			controlsSet = true;
 	pass
 	
 func setRandomColorToPlayerShader(shaderMaterial):
@@ -1617,21 +1690,28 @@ func setRandomColorToPlayerShader(shaderMaterial):
 	shaderMaterial.set_shader_param("newFlowerShirtColor", randomColors[3]);
 	pass
 	
-func setPlayerNumber():
-	if(self.name != "player"):
-		if("2" in self.name):
-			playerNr = 2;
-		elif("3" in self.name):
-			playerNr = 3;
-		else:
-			playerNr = 4;
+func setPlayerID(num = -1):
+	if(num != -1):
+		playerID = num;
 	else:
-		playerNr = 1;
+		#old, but still used ?
+		if(self.name != "player"):
+			if("2" in self.name):
+				playerID = 2;
+			elif("3" in self.name):
+				playerID = 3;
+			else:
+				playerID = 4;
+		else:
+			playerID = 1;
 	pass
 	
 func set_controls_for_player(player_number):
-	if(!isPlayerControlsSet):
-		var extension = "_p" + str(player_number);
+	var extension = "_p" + str(player_number);
+		
+	if(player_number == 1):
+		resetControls();
+	else:
 		JUMP_BTN = JUMP_BTN + extension;
 		RUN_BTN = RUN_BTN + extension;
 		SPIN_BTN = SPIN_BTN + extension;
@@ -1640,8 +1720,20 @@ func set_controls_for_player(player_number):
 		LEFT_BTN = LEFT_BTN + extension;
 		RIGHT_BTN = RIGHT_BTN + extension;
 		SHOOT_BTN = SHOOT_BTN + extension;
-		
-		isPlayerControlsSet = true;
+	
+	controlsSet = true;
+	pass
+	
+func resetControls():
+	JUMP_BTN = "jump";
+	RUN_BTN = "ui_select";
+	SPIN_BTN = "ui_cancel"; #unused
+	UP_BTN = "ui_up";
+	DOWN_BTN = "ui_down";
+	LEFT_BTN = "ui_left";
+	RIGHT_BTN = "ui_right";
+	SHOOT_BTN = "ui_shoot";
+	PAUSE_BTN = "pause";
 	pass
 	
 func hit_touched_block():
@@ -1861,7 +1953,6 @@ func _on_WallSlideParticleInterval_timeout():
 	canSpawnWSParticle = true;
 	pass
 
-
 func _on_StompSpinTime_timeout():
 	$StompSpinTime.stop();
 	stompSpinning = false;
@@ -1869,4 +1960,26 @@ func _on_StompSpinTime_timeout():
 		stomping = true;
 		maxYSpeed_multiplier = 1.3;
 		motion.y = 800;
+	pass
+	
+func doNetworking():
+	Network.self_data.position = self.position;
+	if(motion.x != 0 || motion.y != 0):
+		rpc_unreliable("_set_position", global_transform.origin);
+	
+	if(!get_tree().is_network_server()):
+		if(Network.clientConnected != 1):
+			get_node(scene_path).setError(str("Disconnected from Server. " + Network.getClientCodeMsg()));
+	
+	if(Network.notifications.size() > 0):
+		for note in Network.notifications:
+			get_node(scene_path).printThroughChat(note);
+		Network.notifications = []
+	
+	get_node(scene_path).refreshChatWindow();
+	pass
+
+remote func _set_position(pos):
+	if(!is_local_player):
+		global_transform.origin = pos
 	pass

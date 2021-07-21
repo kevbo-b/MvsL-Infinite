@@ -52,6 +52,8 @@ func _on_CollectArea_body_entered(body):
 			body.playCoinSound();
 			checkIf3D();
 			despawn();
+			if(Global.is_online_mode):
+				rpc("despawn");
 	pass
 
 func respawn():
@@ -157,6 +159,8 @@ func got_hit_from_block(player = null):
 		add_to_coin_counter();
 		checkIf3D();
 		despawn();
+		if(Global.is_online_mode):
+			rpc("despawn");
 	pass
 
 func setPaletteShader():
