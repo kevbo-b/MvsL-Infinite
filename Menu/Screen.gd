@@ -530,7 +530,7 @@ func set_screen_separation():
 	pass
 	
 func toggle_pause(player): 
-	if(!game_won && !Global.is_online_mode):
+	if(!game_won && !Global.is_online_mode && pause.can_pause):
 		pause.set_pause(player, self);
 		get_tree().paused = true;
 	pass
