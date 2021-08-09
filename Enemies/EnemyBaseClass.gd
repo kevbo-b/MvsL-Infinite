@@ -188,7 +188,7 @@ func determineKick(body):
 		kick(true, body);
 	pass
 	
-func kick(direction, player):
+func kick(direction, player, playSound = true):
 	pass
 	
 func setPalette():

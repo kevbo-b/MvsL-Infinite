@@ -1,5 +1,5 @@
 extends SMBObjectBaseClass
-class_name PowBlock
+class_name PowBlock #Just an outdated version of PawBlock
 
 const POW_PARTICLE = preload("res://Misc/PowParticle.tscn");
 const SOUND_POW = preload("res://SFX/8bitSMB/mb_Pow.wav");

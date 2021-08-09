@@ -138,7 +138,7 @@ func check_if_shell():
 
 
 				
-		contentNode.kick(shootRight, self);
+		contentNode.kick(shootRight, self, play_sound);
 		
 		if(shootRight):
 			contentNode.position.x = position.x + 8;

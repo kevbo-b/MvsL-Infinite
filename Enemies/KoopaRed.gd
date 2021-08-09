@@ -140,13 +140,14 @@ func squished(body):
 			determineKick(body);
 	pass
 
-func kick(right, body):
+func kick(right, body, playSound = true):
 	if(right && direction == -1):
 		changeDirection();
 	elif(!right && direction == 1):
 		changeDirection();
-
-	playEnemySFX(SOUND_KICKED);
+	
+	if(playSound):
+		playEnemySFX(SOUND_KICKED);
 		
 	if("player" in body.name):
 		invincible_kicker = true;

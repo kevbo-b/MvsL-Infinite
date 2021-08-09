@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Screenshot_20170826-164021.png-c317e4b244f4216f790fc9a3aa0635cf.stex"
+path="res://.import/CustomL_LostLevelClouds.png-7510336d297ff81c56e156ba58f70751.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Menu/RoundOverScreens/Screenshot_20170826-164021.png"
-dest_files=[ "res://.import/Screenshot_20170826-164021.png-c317e4b244f4216f790fc9a3aa0635cf.stex" ]
+source_file="res://Levels/Textures/CustomL_LostLevelClouds.png"
+dest_files=[ "res://.import/CustomL_LostLevelClouds.png-7510336d297ff81c56e156ba58f70751.stex" ]
 
 [params]
 

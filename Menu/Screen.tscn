@@ -59,10 +59,9 @@ script = ExtResource( 2 )
 [node name="P1FunImage" type="TextureRect" parent="WholeScreen/UpperScreen/ViewPlayer1"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 200.0
-margin_bottom = 200.0
+margin_right = -64.0
+margin_bottom = -64.0
 expand = true
-stretch_mode = 4
 
 [node name="ViewPlayer2" type="ViewportContainer" parent="WholeScreen/UpperScreen"]
 margin_left = 128.0
@@ -90,10 +89,9 @@ script = ExtResource( 2 )
 [node name="P2FunImage" type="TextureRect" parent="WholeScreen/UpperScreen/ViewPlayer2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 200.0
-margin_bottom = 200.0
+margin_right = -64.0
+margin_bottom = -64.0
 expand = true
-stretch_mode = 4
 
 [node name="LowerScreen" type="HBoxContainer" parent="WholeScreen"]
 margin_top = 128.0
@@ -128,10 +126,9 @@ script = ExtResource( 2 )
 [node name="P3FunImage" type="TextureRect" parent="WholeScreen/LowerScreen/ViewPlayer3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 72.0
-margin_bottom = 72.0
+margin_right = -64.0
+margin_bottom = -64.0
 expand = true
-stretch_mode = 4
 
 [node name="ViewPlayer4" type="ViewportContainer" parent="WholeScreen/LowerScreen"]
 margin_left = 128.0
@@ -159,10 +156,10 @@ script = ExtResource( 2 )
 [node name="P4FunImage" type="TextureRect" parent="WholeScreen/LowerScreen/ViewPlayer4"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 200.0
-margin_bottom = 200.0
+margin_right = -64.0
+margin_bottom = -64.0
 expand = true
-stretch_mode = 4
+stretch_mode = 1
 
 [node name="ErrorWindow" type="CenterContainer" parent="."]
 pause_mode = 2

@@ -15,19 +15,14 @@
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 3 ) ],
-"loop": false,
-"name": "dead",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "wakeUp",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": false,
 "name": "squished",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": false,
+"name": "dead",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
@@ -39,6 +34,11 @@ animations = [ {
 "loop": true,
 "name": "kicked",
 "speed": 13.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "wakeUp",
+"speed": 5.0
 } ]
 
 [node name="KoopaRed" type="KinematicBody2D"]
@@ -55,6 +55,7 @@ shape = SubResource( 1 )
 position = Vector2( 0, -4 )
 frames = SubResource( 2 )
 animation = "walk"
+frame = 1
 playing = true
 
 [node name="enemie_hitbox" type="Area2D" parent="."]

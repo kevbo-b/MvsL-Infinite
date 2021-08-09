@@ -43,6 +43,5 @@ region_rect = Rect2( 0, 0, 16, 16 )
 [node name="testTimer" type="Timer" parent="."]
 process_mode = 0
 wait_time = 0.01
-
 [connection signal="area_shape_entered" from="BlastRadius" to="." method="_on_BlastRadius_area_shape_entered"]
 [connection signal="timeout" from="testTimer" to="." method="_on_testTimer_timeout"]

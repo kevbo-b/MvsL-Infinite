@@ -15,9 +15,19 @@
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 2 ) ],
+"loop": false,
+"name": "squished",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": false,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
-"name": "wakeUp",
+"name": "walk",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 2 ) ],
@@ -25,19 +35,9 @@ animations = [ {
 "name": "kicked",
 "speed": 13.0
 }, {
-"frames": [ ExtResource( 3 ) ],
-"loop": false,
-"name": "dead",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": false,
-"name": "squished",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 7 ) ],
 "loop": true,
-"name": "walk",
+"name": "wakeUp",
 "speed": 5.0
 } ]
 

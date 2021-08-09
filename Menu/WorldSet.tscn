@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Menu/WorldSet.gd" type="Script" id=1]
+[ext_resource path="res://Levels/Textures/NSMB_1-1.png" type="Texture" id=3]
+
+[node name="WorldSet" type="VBoxContainer"]
+margin_top = 29.0
+margin_right = 312.0
+margin_bottom = 219.0
+rect_min_size = Vector2( 0, 190 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TEMPLATE_LEVEL" type="Button" parent="."]
+visible = false
+margin_right = 312.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 75, 60 )
+
+[node name="TextureRect" type="TextureRect" parent="TEMPLATE_LEVEL"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 58.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 71, 56 )
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TEMPLATE_ROW" type="HBoxContainer" parent="."]
+visible = false
+margin_right = 312.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+custom_constants/separation = 4
+alignment = 1

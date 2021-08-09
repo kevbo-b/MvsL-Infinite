@@ -1,0 +1,520 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Misc/SPAWNS.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Misc/SpawnWarp.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Blocks/Tileset/TileMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/KoopaGreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Misc/BigStar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Misc/Background/LevelBackground.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Misc/LevelSettings.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Enemies/Goomba.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Misc/SMBSmallPipe.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Misc/SMBPipe.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Misc/SMBMiniPipe.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Misc/PawBlock.tscn" type="PackedScene" id=13]
+
+[node name="World" type="Node2D"]
+
+[node name="LevelSettings" parent="." instance=ExtResource( 8 )]
+repeatingHorizontally = true
+canSpawnMegaInLevel = false
+time = 120
+
+[node name="SPAWNS" parent="." instance=ExtResource( 1 )]
+
+[node name="SpawnWarp" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 32, 232 )
+differentSpawnForPlayers = true
+
+[node name="SpawnWarp2" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 64, 232 )
+spawnID = 1
+differentSpawnForPlayers = true
+
+[node name="SpawnWarp3" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 96, 232 )
+spawnID = 2
+differentSpawnForPlayers = true
+
+[node name="SpawnWarp4" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 128, 232 )
+spawnID = 3
+differentSpawnForPlayers = true
+
+[node name="warp1" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 208, 72 )
+spawnID = 10
+spawnType = 4
+differentSpawnForPlayers = true
+destinationSpawn = 11
+
+[node name="warp2" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 560, 40 )
+spawnID = 11
+spawnType = 4
+differentSpawnForPlayers = true
+destinationSpawn = 10
+
+[node name="TileMap" parent="." instance=ExtResource( 3 )]
+tile_data = PoolIntArray( 262152, 20, 0, 262153, 1, 0, 262154, 19, 0, 262161, 132, 0, 262162, 135, 0, 262163, 136, 0, 262177, 132, 0, 262178, 135, 0, 262179, 135, 0, 262180, 136, 0, 327681, 5, 0, 327696, 19, 0, 327697, 133, 0, 327698, 134, 0, 327699, 137, 0, 327700, 5, 0, 327711, 5, 0, 327712, 5, 0, 327713, 133, 0, 327714, 134, 0, 327715, 134, 0, 327716, 137, 0, 393227, 5, 0, 393228, 5, 0, 393240, 1, 0, 393241, 1, 0, 393242, 1, 0, 393243, 31, 0, 458771, 81, 0, 458772, 82, 0, 458776, 33, 0, 458777, 1, 0, 458778, 1, 0, 458779, 1, 0, 458782, 81, 0, 458783, 82, 0, 524288, 81, 0, 524289, 82, 0, 524298, 81, 0, 524299, 82, 0, 524300, 81, 0, 524301, 82, 0, 524302, 81, 0, 524303, 82, 0, 524307, 84, 0, 524308, 83, 0, 524312, 1, 0, 524313, 1, 0, 524314, 1, 0, 524315, 1, 0, 524318, 84, 0, 524319, 83, 0, 589824, 84, 0, 589825, 83, 0, 589829, 132, 0, 589830, 135, 0, 589831, 136, 0, 589834, 84, 0, 589835, 83, 0, 589836, 84, 0, 589837, 83, 0, 589838, 84, 0, 589839, 83, 0, 589843, 84, 0, 589844, 83, 0, 589848, 1, 0, 589851, 1, 0, 589854, 81, 0, 589855, 82, 0, 655360, 81, 0, 655361, 82, 0, 655365, 133, 0, 655366, 134, 0, 655367, 137, 0, 655370, 84, 0, 655371, 83, 0, 655372, 84, 0, 655373, 83, 0, 655374, 84, 0, 655375, 83, 0, 655379, 81, 0, 655380, 82, 0, 655390, 1, 0, 720906, 81, 0, 720907, 82, 0, 720908, 81, 0, 720909, 82, 0, 720910, 81, 0, 720911, 82, 0, 720926, 1, 0, 786462, 1, 0, 786467, 5, 0, 851991, 5, 0, 851996, 5, 0, 851998, 1, 0, 917504, 87, 0, 917505, 87, 0, 917506, 87, 0, 917507, 87, 0, 917508, 87, 0, 917509, 87, 0, 917510, 87, 0, 917511, 87, 0, 917512, 87, 0, 917513, 87, 0, 917514, 87, 0, 917515, 87, 0, 917516, 87, 0, 917517, 87, 0, 917518, 87, 0, 917519, 87, 0, 917520, 87, 0, 917521, 87, 0, 917522, 87, 0, 917523, 87, 0, 917524, 87, 0, 917525, 87, 0, 917526, 87, 0, 917527, 85, 0, 917528, 1, 0, 917529, 1, 0, 917530, 1, 0, 917531, 1, 0, 917532, 85, 0, 917533, 87, 0, 917534, 87, 0, 917535, 87, 0, 917536, 87, 0, 917537, 87, 0, 917538, 87, 0, 917539, 87, 0, 917540, 87, 0, 917541, 87, 0, 983040, 88, 0, 983041, 88, 0, 983042, 88, 0, 983043, 88, 0, 983044, 88, 0, 983045, 88, 0, 983046, 88, 0, 983047, 88, 0, 983048, 88, 0, 983049, 88, 0, 983050, 88, 0, 983051, 88, 0, 983052, 88, 0, 983053, 88, 0, 983054, 88, 0, 983055, 88, 0, 983056, 88, 0, 983057, 88, 0, 983058, 88, 0, 983059, 88, 0, 983060, 88, 0, 983061, 88, 0, 983062, 88, 0, 983063, 86, 0, 983068, 86, 0, 983069, 88, 0, 983070, 88, 0, 983071, 88, 0, 983072, 88, 0, 983073, 88, 0, 983074, 88, 0, 983075, 88, 0, 983076, 88, 0, 983077, 88, 0 )
+palette = 4
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Goomba" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 488, 104 )
+
+[node name="Goomba2" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 376, 88 )
+
+[node name="KoopaGreen" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 552, 216 )
+
+[node name="BigStarPositions" type="Node2D" parent="."]
+
+[node name="BigStarPosition1" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 272, 192 )
+
+[node name="BigStarPosition2" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 144, 48 )
+
+[node name="BigStarPosition3" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 384, 192 )
+
+[node name="BigStarPosition4" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 448, 192 )
+
+[node name="BigStarPosition5" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 32, 96 )
+
+[node name="BigStarPosition6" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 544, 192 )
+
+[node name="BigStarPosition7" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 496, 64 )
+
+[node name="BigStarPosition8" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 240, 112 )
+
+[node name="BigStar" parent="BigStarPositions" instance=ExtResource( 6 )]
+position = Vector2( 496, 64 )
+
+[node name="LevelBackgrounds" type="Node2D" parent="."]
+
+[node name="LevelBackground" parent="LevelBackgrounds" instance=ExtResource( 7 )]
+backgroundScale = Vector2( 0.3, 0.3 )
+additionalOffset = Vector2( 0, -90 )
+scrollMotion = Vector2( 0, 0 )
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="SMBSmallPipe" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 64, 80 )
+pipeTileLength = 1
+
+[node name="SMBSmallPipe25" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 80, 80 )
+pipeTileLength = 1
+
+[node name="SMBSmallPipe26" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 80, 112 )
+rotation = 3.14159
+pipeTileLength = 1
+
+[node name="SMBSmallPipe27" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 96, 112 )
+rotation = 3.14159
+pipeTileLength = 1
+
+[node name="SMBSmallPipe4" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 144, 128 )
+pipeColor = 7
+pipeTileLength = 1
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe5" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 160, 176 )
+rotation = 3.14159
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe6" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 304, 176 )
+rotation = 3.14159
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe16" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 528, 160 )
+rotation = 3.14159
+pipeColor = 8
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe19" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 560, 160 )
+rotation = 3.14159
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe10" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 352, 176 )
+rotation = 3.14159
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe18" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 544, 160 )
+rotation = 3.14159
+pipeTileLength = 1
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe21" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 576, 176 )
+rotation = 3.14159
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe12" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 400, 88 )
+rotation = 3.14159
+pipeTileLength = 14
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe13" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 448, 88 )
+rotation = 3.14159
+pipeTileLength = 14
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe28" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 176, 32 )
+rotation = 3.14159
+pipeTileLength = 9
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe29" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 192, 48 )
+rotation = 3.14159
+pipeTileLength = 10
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe7" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 288, 128 )
+pipeTileLength = 1
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe15" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 512, 112 )
+pipeColor = 8
+pipeTileLength = 1
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe20" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 544, 96 )
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe14" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 400, 240 )
+pipeColor = 2
+pipeTileLength = 1
+isFastPipe = true
+fastPipeWarpTileLength = 1
+
+[node name="SMBSmallPipe9" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 336, 112 )
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe17" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 528, 112 )
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe22" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 560, 112 )
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe8" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 288, 224 )
+rotation = 4.71239
+pipeTileLength = 3
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe11" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 352, 208 )
+rotation = 1.5708
+pipeTileLength = 1
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBSmallPipe2" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 144, 128 )
+rotation = 1.5708
+pipeTileLength = 4
+
+[node name="SMBSmallPipe24" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 128, 112 )
+rotation = 1.5708
+pipeColor = 7
+pipeTileLength = 3
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 6
+
+[node name="SMBSmallPipe3" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 32, 144 )
+rotation = 4.71239
+pipeTileLength = 3
+
+[node name="SMBSmallPipe23" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 32, 128 )
+rotation = 4.71239
+pipeColor = 7
+pipeTileLength = 3
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 6
+
+[node name="SMBPipe4" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 256, 128 )
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe10" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 352, 96 )
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBPipe15" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 576, 128 )
+pipeColor = 7
+pipeTileLength = 1
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe13" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 448, 96 )
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBPipe11" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 384, 160 )
+rotation = 3.14159
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBPipe16" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 608, 176 )
+rotation = 3.14159
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe14" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 480, 160 )
+rotation = 3.14159
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBPipe5" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 288, 176 )
+rotation = 3.14159
+pipeColor = 7
+pipeTileLength = 1
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe8" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 224, 64 )
+rotation = 3.14159
+pipeTileLength = 13
+isEnterable = true
+spawnID = 10
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe17" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 160, 32 )
+rotation = 3.14159
+pipeTileLength = 13
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe18" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 128, 32 )
+rotation = 3.14159
+pipeTileLength = 13
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe19" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 96, 32 )
+rotation = 3.14159
+pipeTileLength = 13
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe20" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 64, 32 )
+rotation = 3.14159
+pipeTileLength = 13
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe21" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 32, 48 )
+rotation = 3.14159
+pipeTileLength = 14
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe22" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 256, 48 )
+rotation = 3.14159
+pipeTileLength = 14
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe23" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 288, 48 )
+rotation = 3.14159
+pipeTileLength = 14
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe24" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 320, 48 )
+rotation = 3.14159
+pipeTileLength = 14
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe27" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 480, 48 )
+rotation = 3.14159
+pipeTileLength = 14
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe28" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 512, 48 )
+rotation = 3.14159
+pipeTileLength = 14
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe29" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 544, 32 )
+rotation = 3.14159
+pipeTileLength = 13
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe30" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 608, 48 )
+rotation = 3.14159
+pipeTileLength = 13
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe25" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 352, 64 )
+rotation = 3.14159
+pipeTileLength = 14
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe26" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 384, 64 )
+rotation = 3.14159
+pipeTileLength = 14
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe9" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 576, 32 )
+rotation = 3.14159
+pipeTileLength = 11
+isEnterable = true
+spawnID = 11
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe12" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 432, 88 )
+rotation = 3.14159
+pipeTileLength = 14
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe2" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 160, 224 )
+rotation = 4.71239
+pipeColor = 7
+pipeTileLength = 3
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 6
+
+[node name="SMBPipe6" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 304, 208 )
+rotation = 4.71239
+pipeColor = 6
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBPipe3" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 256, 192 )
+rotation = 1.5708
+pipeColor = 7
+pipeTileLength = 3
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 6
+
+[node name="SMBPipe7" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 352, 176 )
+rotation = 1.5708
+pipeColor = 6
+pipeTileLength = 1
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 3
+
+[node name="SMBMiniPipe2" parent="Blocks" instance=ExtResource( 12 )]
+position = Vector2( 384, 96 )
+rotation = 4.71239
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBMiniPipe3" parent="Blocks" instance=ExtResource( 12 )]
+position = Vector2( 448, 88 )
+rotation = 1.5708
+pipeColor = 7
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="PawBlock" parent="Blocks" instance=ExtResource( 13 )]
+position = Vector2( 416, 152 )
+typeAsColor = 5

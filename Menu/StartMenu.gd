@@ -4,6 +4,9 @@ const MAIN_NSMB_THEME = preload("res://SFX/MusicThemes/nsmb_mainMenu.ogg");
 const RESULTS_THEME = preload("res://SFX/MusicThemes/nsmb_vsResults.ogg");
 const WIN_THEME = preload("res://SFX/NSMB/BGM_MATCH_WIN.ogg");
 const LOSE_THEME = preload("res://SFX/NSMB/BGM_MATCH_LOST.ogg");
+const VS_LEVELS = preload("res://Levels/Levels.gd")
+
+const FILE_CRYPT_PASS = "fmmcksnx9a01l";
 
 const SAVE_DIR = "user://saves/"
 var options_save_path = SAVE_DIR + "saveData.dat"
@@ -11,6 +14,9 @@ var options_save_path = SAVE_DIR + "saveData.dat"
 var menu_db;
 
 func _ready():
+	if(Global.DEBUG_MODE):
+		$CenterContainer/StartingMenu/OnlineVS.show()
+	
 	get_tree().paused = false;
 	$VERSION/VersionNr.text = "v. " + Global.VERSION_NUMBER;
 	loadSave();
@@ -41,7 +47,7 @@ func saveData():
 		dir.make_dir_recursive(SAVE_DIR)
 		
 	var file = File.new()
-	var error = file.open_encrypted_with_pass(options_save_path, File.WRITE, "fmmcksnx9a01l")
+	var error = file.open_encrypted_with_pass(options_save_path, File.WRITE, FILE_CRYPT_PASS)
 	if error == OK:
 		file.store_var(save_data)
 		file.close()
@@ -51,7 +57,7 @@ func saveData():
 func loadSave():
 	var file = File.new()
 	if file.file_exists(options_save_path):
-		var error = file.open_encrypted_with_pass(options_save_path, File.READ, "fmmcksnx9a01l")
+		var error = file.open_encrypted_with_pass(options_save_path, File.READ, FILE_CRYPT_PASS)
 		if error == OK:
 			var save_data = file.get_var()
 			file.close()
@@ -108,7 +114,7 @@ func setMenu():
 			$FullscreenOverlay/OverlayAnimation.play("FadeIn");
 			yield($FullscreenOverlay/OverlayAnimation, "animation_finished");
 			$FullscreenOverlay/OverlayAnimation.stop();
-			$CenterContainer/VsLevelMenu/WorldSet/World1/Level1.grab_focus();
+			$CenterContainer/VsLevelMenu/WorldSet.get_custom_focus();
 		else: #instant start on Random
 			startRandomLevel();
 	elif(menuNr == 3): #Win Menu
@@ -145,16 +151,17 @@ func _on_ConfirmSplitscreenGame_pressed():
 	else:
 		$CenterContainer/SplitscreenMenu.visible = false;
 		$CenterContainer/VsLevelMenu.visible = true;
-		$CenterContainer/VsLevelMenu/WorldSet/World1/Level1.grab_focus();
+		$CenterContainer/VsLevelMenu/WorldSet.get_custom_focus();
 	pass
 
 func startRandomLevel():
 	var randomLevelGen = RandomNumberGenerator.new();
 	randomLevelGen.randomize();
 	
-	var world = randomLevelGen.randi()%$CenterContainer/VsLevelMenu/WorldSet.get_child_count() + 1;
-	var lvl = randomLevelGen.randi()%get_node("CenterContainer/VsLevelMenu/WorldSet/World" + str(world)).get_child_count() + 1;
-	get_node("CenterContainer/VsLevelMenu/WorldSet/World" + str(world) + "/Level" + str(lvl)).emit_signal("pressed");
+	var levels = VS_LEVELS.new()
+	var level = levels.getRandomVsLevel();
+	
+	load_splitscreen_level(level[1]);
 	pass
 
 func _on_DecreaseWorld_pressed():
@@ -215,10 +222,11 @@ func _on_DecreasePlayer_pressed():
 	pass
 
 func set_world_sites():
-	var num = 0;
+	var num = 0; 
 	
 	for child in $CenterContainer/VsLevelMenu/WorldSet.get_children():
 		num = num + 1;
+	num = num - 2; #so it doesnt count template worlds
 	
 	if(num % 3 == 0):
 		num = num / 3; #because 3 World-Lines per Site
@@ -278,7 +286,7 @@ func load_splitscreen_level(level):
 	Global.playing_splitscreen = true;
 	Global.current_max_stars = 0;
 	Global.player_current_stars = [0,0,0,0];
-	Global.world_to_load = "Levels/" + level + ".tscn";
+	Global.world_to_load = level;
 	get_tree().change_scene("Menu/ReadyScreen.tscn");
 	get_tree().get_root().set_disable_input(false);
 	pass
@@ -755,9 +763,9 @@ func setHostLobby():
 
 
 func _on_OnlineStartGame_pressed():
+	
+	var levels = VS_LEVELS.new()
+	var level = levels.getRandomVsLevel();
 
-	var level = "NSMB_Underground";
-	
-	Network.startLevel(level);
-	
+	Network.initStartLevel(level);
 	pass

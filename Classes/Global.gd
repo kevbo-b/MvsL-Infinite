@@ -1,10 +1,10 @@
 extends Node
 class_name GlobalObj
 
-const VERSION_NUMBER = "0.9.3.2 alpha"
+const VERSION_NUMBER = "0.9.4"
 
-const DEBUG_LUIGI_NON_LOCAL = false; #For pseudo-online tests
-const DEBUG_MODE = true; #faster timer (coop), bigStar fast spawn, fast loading screen, fast win screen
+const DEBUG_LUIGI_NON_LOCAL = false; #For pseudo-online tests, like sounds that are off-screen
+const DEBUG_MODE = false; #faster timer (coop, but unused), bigStar instant spawn, no loading screen, fast win screen, shows Online Menu
 
 var is_online_mode = false;
 
@@ -12,12 +12,12 @@ var player2id = 0;
 
 #mode settings
 var playing_splitscreen = false;
-var is_vs_mode = true	#false if game is not in vs mode (i.e. coop)
+var is_vs_mode = true	#false if game is not in vs mode (i.e. coop), unused
 var player_amount = 2;
 var stars_to_collect = 5;
 var wins_to_collect = 3;
 var world_selection = true;
-var livesWithVS = false; #unused except hud so far
+var livesWithVS = false; #unused, only in hud so far
 
 var Start_menu_page = 0;
 

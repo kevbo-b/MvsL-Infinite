@@ -104,11 +104,11 @@ func connectNetworkFunctions():
 
 
 
-func startLevel(level):
+func initStartLevel(level):
 	for peer_id in players:
 		if(peer_id != 1):
-			rpc_id(peer_id, 'loadLevel', level);
-	loadLevel(level);
+			rpc_id(peer_id, 'loadLevel', level[1]);
+	loadLevel(level[1]);
 	pass
 
 remote func loadLevel(level):
@@ -120,7 +120,7 @@ remote func loadLevel(level):
 	Global.current_max_stars = 0;
 	Global.player_current_stars = [0,0,0,0];
 	
-	Global.world_to_load = "Levels/" + level + ".tscn";
+	Global.world_to_load = level;
 	get_tree().change_scene("Menu/ReadyScreen.tscn");
 	pass
 

@@ -72,6 +72,7 @@ position = Vector2( 488, 64 )
 [node name="LevelBackgrounds" type="Node2D" parent="."]
 
 [node name="LevelBackground" parent="LevelBackgrounds" instance=ExtResource( 7 )]
+BackgroundColor = Color( 0.360784, 0.576471, 0.988235, 1 )
 
 [node name="Blocks" type="Node2D" parent="."]
 

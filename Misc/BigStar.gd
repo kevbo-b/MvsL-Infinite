@@ -20,11 +20,14 @@ var firstTime = true;
 var flip = true;
 
 var spawnTime = 12; #12 is default
+var previousSpawnIndex = -1;
 
 var default_collision_layer_kinematic = 0;
 var default_collision_layer_hitbox = 0;
 var default_collision_mask_kinematic = 0;
 var default_collision_mask_hitbox = 0;
+
+var spawnerPlayerID = -1;
 
 func _ready():
 	if(Global.DEBUG_MODE):
@@ -101,10 +104,17 @@ func spawnInRandomPosition():
 			spawns.append(obj);
 
 	randomize();
-	var random_spawn_index = rand_range(0.0, spawns.size());
-	random_spawn_index = int(random_spawn_index);
-
+	var random_spawn_index = randi() % spawns.size();
+	
+	if(random_spawn_index == previousSpawnIndex):
+		if(random_spawn_index == 0):
+			random_spawn_index = 1;
+		else:
+			random_spawn_index = random_spawn_index - 1;
+	
 	var spawn_point = spawns[random_spawn_index];
+	
+	previousSpawnIndex = random_spawn_index;
 	
 	spawn(spawn_point.position);
 	if(Global.is_online_mode):
@@ -146,7 +156,13 @@ remote func collectedStar(playerID): #Player Objekte scheitern hier. Ich sollte 
 	spawnParticle();
 	player.big_star_collected();
 	if(player.is_local_player):
-		playFromChannel(-1, SOUND_STAR_GET, 2, true);
+		if(Global.is_online_mode || !bouncing):
+			playFromChannel(-1, SOUND_STAR_GET, 2, true);
+		else: #offline and bouncing
+			if(playerID == spawnerPlayerID):
+				playFromChannel(-1, SOUND_STAR_GET, 2, true); # retrieved his own star
+			else:
+				playFromChannel(-1, SOUND_STAR_DENIED, 2, true); #stole star
 	else:
 		playFromChannel(-1, SOUND_STAR_DENIED, 2, true);
 	if(bouncing):

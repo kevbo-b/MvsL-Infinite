@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Screenshot_20170804-180203.png-0135cecdc64ca26d35a1c45f56f5ed7b.stex"
+path="res://.import/CustomL_SpikesAndBeetles.png-d96f06d8f7b10feda832fe01b3215466.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Menu/RoundOverScreens/Screenshot_20170804-180203.png"
-dest_files=[ "res://.import/Screenshot_20170804-180203.png-0135cecdc64ca26d35a1c45f56f5ed7b.stex" ]
+source_file="res://Levels/Textures/CustomL_SpikesAndBeetles.png"
+dest_files=[ "res://.import/CustomL_SpikesAndBeetles.png-d96f06d8f7b10feda832fe01b3215466.stex" ]
 
 [params]
 

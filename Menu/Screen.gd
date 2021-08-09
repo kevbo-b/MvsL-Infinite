@@ -555,15 +555,50 @@ func onlineGameDisconnected(message): #
 	
 func setFunWinScreen(winner):
 	
-	if(winner.name != "player"):
-		$WholeScreen/UpperScreen/ViewPlayer1/P1FunImage.texture = load("res://Levels/Textures/AnormalHunnel.jpg");
-	elif(winner.name != "player2"):
-		$WholeScreen/UpperScreen/ViewPlayer2/P2FunImage.texture = load("res://Levels/Textures/AnormalHunnel.jpg");
-	elif(winner.name != "player3"):
-		$WholeScreen/LowerScreen/ViewPlayer3/P3FunImage.texture = load("res://Levels/Textures/AnormalHunnel.jpg");
-	elif(winner.name != "player4"):
-		$WholeScreen/LowerScreen/ViewPlayer4/P4FunImage.texture = load("res://Levels/Textures/AnormalHunnel.jpg");
+	var loose_pic = getRandomPicFromDirectory("res://Menu/RoundOverScreens/loose")
+	var win_pic = getRandomPicFromDirectory("res://Menu/RoundOverScreens/win")
+	
+	if(winner.name == "player"):
+		$WholeScreen/UpperScreen/ViewPlayer1/P1FunImage.texture = win_pic;
+	else:
+		$WholeScreen/UpperScreen/ViewPlayer1/P1FunImage.texture = loose_pic;
 		
+	if(Global.player_amount_local > 1):
+		if(winner.name == "player2"):
+			$WholeScreen/UpperScreen/ViewPlayer2/P2FunImage.texture = win_pic;
+		else:
+			$WholeScreen/UpperScreen/ViewPlayer2/P2FunImage.texture = loose_pic;
+			
+		if(Global.player_amount_local > 2):
+			if(winner.name == "player3"):
+				$WholeScreen/LowerScreen/ViewPlayer3/P3FunImage.texture = win_pic;
+			else:
+				$WholeScreen/LowerScreen/ViewPlayer3/P3FunImage.texture = loose_pic;
+				
+			if(Global.player_amount_local > 3):
+				if(winner.name == "player4"):
+					$WholeScreen/LowerScreen/ViewPlayer4/P4FunImage.texture = win_pic;
+				else:
+					$WholeScreen/LowerScreen/ViewPlayer4/P4FunImage.texture = loose_pic;
+	pass
+	
+func getRandomPicFromDirectory(directoryPath):
+	var pictures = Array();
+	var dir = Directory.new()
+	if dir.open(directoryPath) == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				pass
+			else:
+				if(file_name.get_extension() == "jpg" || file_name.get_extension() == "png"):
+					pictures.append(directoryPath+"/"+file_name)
+			file_name = dir.get_next()
+		randomize();
+		var i = randi() % pictures.size()
+		return load(pictures[i]);
+	return null;
 	pass
 	
 func setSoundChannels():

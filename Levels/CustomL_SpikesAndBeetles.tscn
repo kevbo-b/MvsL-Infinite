@@ -1,0 +1,116 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Misc/SPAWNS.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Misc/SpawnWarp.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Blocks/Tileset/TileMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemies/KoopaRed.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Misc/BigStar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Misc/Background/LevelBackground.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Misc/LevelSettings.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Misc/ShootingGenerator.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Misc/SMBPipe.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Misc/SMBSmallPipe.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Enemies/Goomba.tscn" type="PackedScene" id=12]
+
+[node name="World" type="Node2D"]
+
+[node name="LevelSettings" parent="." instance=ExtResource( 8 )]
+musicTheme = 2
+repeatingHorizontally = true
+time = 120
+
+[node name="SPAWNS" parent="." instance=ExtResource( 1 )]
+
+[node name="SpawnWarp" parent="SPAWNS" instance=ExtResource( 2 )]
+position = Vector2( 32, 216 )
+
+[node name="TileMap" parent="." instance=ExtResource( 3 )]
+tile_data = PoolIntArray( 131082, 143, 0, 131083, 144, 0, 131084, 144, 0, 131085, 147, 0, 131091, 155, 0, 131092, 18, 0, 131093, 18, 0, 131094, 18, 0, 131095, 18, 0, 131096, 155, 0, 131103, 143, 0, 131104, 144, 0, 131105, 147, 0, 131111, 156, 0, 196618, 142, 0, 196619, 145, 0, 196620, 145, 0, 196621, 146, 0, 196623, 143, 0, 196624, 144, 0, 196625, 147, 0, 196639, 142, 0, 196640, 145, 0, 196641, 146, 0, 196661, 143, 0, 196662, 144, 0, 196663, 144, 0, 196664, 147, 0, 196667, 5, 0, 196668, 5, 0, 262149, 5, 0, 262159, 142, 0, 262160, 145, 0, 262161, 146, 0, 262197, 142, 0, 262198, 145, 0, 262199, 145, 0, 262200, 146, 0, 262202, 9, 0, 262205, 9, 0, 262207, 143, 0, 262208, 144, 0, 262209, 147, 0, 393214, 3, 0, 393215, 3, 0, 327691, 5, 0, 327701, 18, 0, 327702, 18, 0, 327703, 19, 0, 327716, 18, 0, 327717, 18, 0, 327718, 18, 0, 327719, 18, 0, 327737, 12, 0, 327738, 57, 0, 327739, 3, 0, 327740, 3, 0, 327741, 57, 0, 327743, 142, 0, 327744, 145, 0, 327745, 146, 0, 393221, 9, 0, 393263, 155, 0, 393264, 3, 0, 393265, 3, 0, 393266, 3, 0, 393267, 3, 0, 393268, 3, 0, 393269, 3, 0, 393270, 3, 0, 458757, 57, 0, 458763, 9, 0, 524299, 57, 0, 524306, 5, 0, 524308, 20, 0, 524309, 18, 0, 524310, 18, 0, 524311, 8, 0, 524314, 5, 0, 524322, 19, 0, 524323, 18, 0, 524324, 18, 0, 524327, 18, 0, 524328, 18, 0, 524329, 155, 0, 524332, 5, 0, 655372, 128, 0, 655391, 111, 0, 655392, 111, 0, 655393, 111, 0, 655394, 111, 0, 655395, 111, 0, 655396, 111, 0, 655397, 111, 0, 655398, 111, 0, 655399, 111, 0, 655400, 111, 0, 655401, 111, 0, 655402, 111, 0, 720905, 129, 0, 720908, 64, 0, 720914, 3, 0, 720915, 3, 0, 720916, 3, 0, 720917, 3, 0, 720918, 3, 0, 720919, 3, 0, 720920, 3, 0, 720921, 3, 0, 720922, 3, 0, 720926, 0, 0, 720927, 60, 0, 720928, 60, 0, 720929, 60, 0, 720930, 60, 0, 720931, 60, 0, 720932, 60, 0, 720933, 60, 0, 720934, 60, 0, 720935, 60, 0, 720936, 60, 0, 720937, 60, 0, 720938, 60, 0, 720939, 25, 0, 720940, 3, 0, 720951, 129, 0, 720959, 124, 0, 786441, 130, 0, 786444, 48, 0, 786445, 48, 0, 786472, 5, 0, 786474, 5, 0, 786476, 3, 0, 786477, 3, 0, 786487, 130, 0, 786492, 128, 0, 786494, 121, 0, 786495, 122, 0, 786496, 125, 0, 917503, 49, 0, 851968, 49, 0, 851969, 49, 0, 851970, 49, 0, 851973, 120, 0, 851974, 119, 0, 851975, 118, 0, 851977, 64, 0, 851979, 48, 0, 851980, 48, 0, 851981, 56, 0, 852009, 5, 0, 852011, 5, 0, 852012, 3, 0, 852013, 3, 0, 852014, 3, 0, 852018, 120, 0, 852019, 119, 0, 852020, 118, 0, 852023, 64, 0, 852028, 64, 0, 852029, 121, 0, 852030, 122, 0, 852031, 123, 0, 852032, 122, 0, 852033, 125, 0, 983037, 48, 0, 983038, 48, 0, 983039, 48, 0, 917504, 48, 0, 917505, 48, 0, 917506, 48, 0, 917507, 48, 0, 917508, 48, 0, 917509, 48, 0, 917510, 48, 0, 917511, 48, 0, 917512, 48, 0, 917513, 48, 0, 917514, 48, 0, 917515, 48, 0, 917516, 48, 0, 917517, 66, 0, 917518, 13, 0, 917519, 13, 0, 917520, 13, 0, 917521, 13, 0, 917522, 13, 0, 917523, 13, 0, 917524, 13, 0, 917525, 13, 0, 917526, 13, 0, 917527, 13, 0, 917528, 13, 0, 917529, 13, 0, 917530, 13, 0, 917531, 13, 0, 917532, 13, 0, 917533, 13, 0, 917534, 13, 0, 917535, 13, 0, 917536, 13, 0, 917537, 13, 0, 917538, 13, 0, 917539, 13, 0, 917545, 3, 0, 917546, 48, 0, 917547, 48, 0, 917548, 48, 0, 917549, 48, 0, 917550, 48, 0, 917552, 48, 0, 917553, 48, 0, 917554, 48, 0, 917555, 48, 0, 917556, 48, 0, 917557, 48, 0, 917558, 48, 0, 917559, 48, 0, 917560, 48, 0, 917561, 48, 0, 917562, 48, 0, 917563, 48, 0, 917564, 48, 0, 917565, 48, 0, 917566, 48, 0, 917567, 48, 0, 917568, 48, 0, 917569, 48, 0, 1048573, 48, 0, 1048574, 48, 0, 1048575, 48, 0, 983040, 48, 0, 983041, 48, 0, 983042, 48, 0, 983043, 48, 0, 983044, 48, 0, 983045, 48, 0, 983046, 48, 0, 983047, 48, 0, 983048, 48, 0, 983049, 48, 0, 983050, 48, 0, 983051, 48, 0, 983052, 48, 0, 983053, 48, 0, 983054, 48, 0, 983055, 48, 0, 983056, 48, 0, 983057, 48, 0, 983058, 48, 0, 983059, 48, 0, 983060, 48, 0, 983061, 48, 0, 983062, 48, 0, 983063, 48, 0, 983064, 48, 0, 983065, 48, 0, 983066, 48, 0, 983067, 48, 0, 983068, 48, 0, 983069, 48, 0, 983070, 48, 0, 983071, 48, 0, 983072, 48, 0, 983073, 48, 0, 983074, 48, 0, 983075, 48, 0, 983076, 139, 0, 983077, 139, 0, 983078, 139, 0, 983079, 139, 0, 983080, 139, 0, 983081, 139, 0, 983082, 48, 0, 983083, 48, 0, 983084, 48, 0, 983085, 48, 0, 983086, 48, 0, 983087, 139, 0, 983088, 48, 0, 983089, 48, 0, 983090, 48, 0, 983091, 48, 0, 983092, 48, 0, 983093, 48, 0, 983094, 48, 0, 983095, 48, 0, 983096, 48, 0, 983097, 48, 0, 983098, 48, 0, 983099, 48, 0, 983100, 48, 0, 983101, 48, 0, 983102, 48, 0, 983103, 48, 0, 983104, 48, 0, 983105, 48, 0 )
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="KoopaRed" parent="Enemies" instance=ExtResource( 4 )]
+position = Vector2( 520, 168 )
+
+[node name="Goomba" parent="Enemies" instance=ExtResource( 12 )]
+position = Vector2( 840, 216 )
+
+[node name="BigStarPositions" type="Node2D" parent="."]
+
+[node name="BigStarPosition1" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 352, 64 )
+
+[node name="BigStarPosition2" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 240, 144 )
+
+[node name="BigStarPosition4" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 464, 112 )
+
+[node name="BigStarPosition5" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 656, 112 )
+
+[node name="BigStarPosition6" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 976, 160 )
+
+[node name="BigStarPosition7" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 736, 128 )
+
+[node name="BigStarPosition8" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 560, 64 )
+
+[node name="BigStarPosition9" type="Position2D" parent="BigStarPositions"]
+position = Vector2( -16, 64 )
+
+[node name="BigStarPosition11" type="Position2D" parent="BigStarPositions"]
+position = Vector2( 864, 192 )
+
+[node name="BigStar" parent="BigStarPositions" instance=ExtResource( 6 )]
+position = Vector2( 352, 64 )
+
+[node name="LevelBackgrounds" type="Node2D" parent="."]
+
+[node name="LevelBackground" parent="LevelBackgrounds" instance=ExtResource( 7 )]
+BackgroundColor = Color( 0, 0, 0, 1 )
+backgroundScale = Vector2( 0.3, 0.3 )
+additionalOffset = Vector2( 0, -90 )
+scrollMotion = Vector2( 0, 0 )
+
+[node name="Blocks" type="Node2D" parent="."]
+
+[node name="SMBSmallPipe" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 768, 96 )
+rotation = 4.71239
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBSmallPipe2" parent="Blocks" instance=ExtResource( 11 )]
+position = Vector2( 832, 80 )
+rotation = 1.5708
+isEnterable = true
+isFastPipe = true
+fastPipeWarpTileLength = 4
+
+[node name="SMBPipe" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 784, 176 )
+pipeTileLength = 3
+
+[node name="SMBPipe3" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 928, 192 )
+
+[node name="SMBPipe2" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 880, 176 )
+rotation = 3.14159
+pipeTileLength = 4
+
+[node name="SMBPipe4" parent="Blocks" instance=ExtResource( 10 )]
+position = Vector2( 816, 80 )
+rotation = 3.14159
+pipeTileLength = 9
+
+[node name="ShootingGenerator" parent="." instance=ExtResource( 9 )]
+position = Vector2( 216, 216 )
+shooting_interval = 1.0
+content = 3
+oneWayShootDirection = true
+play_sound = false

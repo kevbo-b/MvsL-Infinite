@@ -203,6 +203,11 @@ func _physics_process(delta):
 	var walkInputPressed = false;
 	can_walljump = false;
 	
+	if(Global.is_online_mode):
+		if(self.get_network_master() == get_tree().get_network_unique_id()):
+			var btns = networkConstructPressedButtons();
+			rpc("networkSetPressedButtons", btns);
+	
 	if(Input.is_action_pressed(PAUSE_BTN)):
 		toggle_pause();
 	
@@ -1489,6 +1494,7 @@ remote func loose_star(amount):
 			var big = BIG_STAR.instance();
 			big.position = Vector2(position.x, position.y);
 			big.spawned_from_player = true;
+			big.spawnerPlayerID = playerID;
 			if(i == 1 || i == 2):
 				big.flip = !$PlayerSprite.flip_h;
 			else:
@@ -1503,7 +1509,9 @@ func big_star_collected():
 	stars = stars + 1;
 	if(is_local_player):
 		get_node(hud_path).star_collected();
-
+	
+	setGlobalCurrentStars(stars);
+	
 	if(stars >= win_num_stars):
 		won_game();
 	pass
@@ -1982,4 +1990,66 @@ func doNetworking():
 remote func _set_position(pos):
 	if(!is_local_player):
 		global_transform.origin = pos
+	pass
+	
+	
+func networkConstructPressedButtons():
+	var bool0 = false;
+	var bool1 = false;
+	var bool2 = false;
+	var bool3 = false;
+	var bool4 = false;
+	var bool5 = false;
+	var bool6 = false;
+	var bool7 = false;
+	var bool8 = false;
+	if(Input.is_action_just_pressed(JUMP_BTN)):
+		 bool0 = true;
+	if(Input.is_action_just_pressed(RUN_BTN)):
+		 bool1 = true;
+	if(Input.is_action_just_pressed(SPIN_BTN)):
+		 bool2 = true;
+	if(Input.is_action_just_pressed(UP_BTN)):
+		 bool3 = true;
+	if(Input.is_action_just_pressed(DOWN_BTN)):
+		 bool4 = true;
+	if(Input.is_action_pressed(LEFT_BTN)):
+		 bool5 = true;
+	if(Input.is_action_pressed(RIGHT_BTN)):
+		 bool6 = true;
+	if(Input.is_action_just_pressed(SHOOT_BTN)):
+		 bool7 = true;
+	if(Input.is_action_just_pressed(PAUSE_BTN)):
+		 bool8 = true;
+	return [bool0, bool1, bool2, bool3, bool4, bool5, bool6, bool7, bool8];
+	pass
+	
+remote func networkSetPressedButtons(bools):
+	Input.action_release(JUMP_BTN);
+	Input.action_release(RUN_BTN);
+	Input.action_release(SPIN_BTN);
+	Input.action_release(UP_BTN);
+	Input.action_release(DOWN_BTN);
+	Input.action_release(LEFT_BTN);
+	Input.action_release(RIGHT_BTN);
+	Input.action_release(SHOOT_BTN);
+	Input.action_release(PAUSE_BTN);
+	if(bools[0]):
+		Input.action_press(JUMP_BTN)
+	if(bools[1]):
+		Input.action_press(RUN_BTN)
+	if(bools[2]):
+		Input.action_press(SPIN_BTN)
+	if(bools[3]):
+		Input.action_press(UP_BTN)
+	if(bools[4]):
+		Input.action_press(DOWN_BTN)
+	if(bools[5]):
+		Input.action_press(LEFT_BTN)
+	if(bools[6]):
+		Input.action_press(RIGHT_BTN)
+	if(bools[7]):
+		Input.action_press(SHOOT_BTN)
+	if(bools[8]):
+		Input.action_press(PAUSE_BTN)
 	pass

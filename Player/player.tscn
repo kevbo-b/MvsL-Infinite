@@ -96,145 +96,45 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 38 ), ExtResource( 38 ) ],
-"loop": false,
-"name": "Stomp",
-"speed": 30.0
-}, {
 "frames": [ ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 49 ), ExtResource( 49 ) ],
 "loop": false,
 "name": "Stomp_Big",
 "speed": 30.0
 }, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 24 ), ExtResource( 24 ) ],
+"frames": [ ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 38 ), ExtResource( 38 ) ],
 "loop": false,
-"name": "Stomp_Flower",
+"name": "Stomp",
 "speed": 30.0
 }, {
-"frames": [ ExtResource( 11 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 7 ), ExtResource( 6 ) ],
 "loop": true,
-"name": "Jump_Flower_Shot",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 93 ), ExtResource( 92 ) ],
-"loop": false,
-"name": "MegaShroomGrow",
-"speed": 3.0
-}, {
-"frames": [ ExtResource( 86 ), ExtResource( 87 ), ExtResource( 82 ), ExtResource( 83 ), ExtResource( 84 ), ExtResource( 85 ), ExtResource( 81 ), ExtResource( 80 ), ExtResource( 80 ), ExtResource( 80 ) ],
-"loop": false,
-"name": "Stomp_Hammer",
-"speed": 30.0
-}, {
-"frames": [ ExtResource( 29 ) ],
-"loop": false,
-"name": "WallSlide",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "WallSlide_Big",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 30 ) ],
-"loop": false,
-"name": "Stun_Flower",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "Idle_Big",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 3 ) ],
-"loop": true,
-"name": "Duck",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 88 ) ],
-"loop": true,
-"name": "Turn_Hammer_Shot",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 79 ), ExtResource( 78 ) ],
-"loop": true,
-"name": "Climbing_Hammer",
-"speed": 7.5
-}, {
-"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ) ],
-"loop": true,
-"name": "Run_Flower",
+"name": "Run_Big",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 15 ), ExtResource( 73 ) ],
-"loop": true,
-"name": "Climbing",
-"speed": 7.5
-}, {
-"frames": [ ExtResource( 75 ), ExtResource( 76 ) ],
-"loop": true,
-"name": "Poleslide_Flower",
-"speed": 12.0
-}, {
-"frames": [ ExtResource( 58 ) ],
-"loop": true,
-"name": "Turn",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 28 ) ],
-"loop": true,
-"name": "Duck_Flower",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 69 ) ],
-"loop": true,
-"name": "Turn_Hammer",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "Idle_Flower_Shot",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 56 ) ],
 "loop": false,
-"name": "Grow_Big",
-"speed": 8.0
-}, {
-"frames": [ ExtResource( 74 ), ExtResource( 77 ) ],
-"loop": true,
-"name": "Poleslide_Big",
-"speed": 12.0
-}, {
-"frames": [ ExtResource( 79 ), ExtResource( 78 ) ],
-"loop": true,
-"name": "Poleslide_Hammer",
-"speed": 12.0
-}, {
-"frames": [ ExtResource( 41 ) ],
-"loop": true,
-"name": "Jump_Flower",
+"name": "Stun_Big",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 55 ) ],
+"frames": [ ExtResource( 52 ) ],
 "loop": true,
-"name": "Idle_Flower",
+"name": "Jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 71 ) ],
+"frames": [ ExtResource( 70 ) ],
 "loop": true,
-"name": "WallSlide_Hammer",
+"name": "Duck_Hammer",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 15 ), ExtResource( 73 ) ],
+"frames": [ ExtResource( 39 ) ],
 "loop": true,
-"name": "Poleslide",
-"speed": 12.0
+"name": "Turn_Flower",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 57 ) ],
+"loop": true,
+"name": "WallSlide_Flower",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ) ],
 "loop": true,
@@ -286,10 +186,150 @@ animations = [ {
 "name": "Jump_Big",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 79 ), ExtResource( 78 ) ],
+"loop": true,
+"name": "Poleslide_Hammer",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 41 ) ],
+"loop": true,
+"name": "Jump_Flower",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 55 ) ],
+"loop": true,
+"name": "Idle_Flower",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 71 ) ],
+"loop": true,
+"name": "WallSlide_Hammer",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 73 ) ],
+"loop": true,
+"name": "Poleslide",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 24 ), ExtResource( 24 ) ],
+"loop": false,
+"name": "Stomp_Flower",
+"speed": 30.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "Jump_Flower_Shot",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 93 ), ExtResource( 92 ) ],
+"loop": false,
+"name": "MegaShroomGrow",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 86 ), ExtResource( 87 ), ExtResource( 82 ), ExtResource( 83 ), ExtResource( 84 ), ExtResource( 85 ), ExtResource( 81 ), ExtResource( 80 ), ExtResource( 80 ), ExtResource( 80 ) ],
+"loop": false,
+"name": "Stomp_Hammer",
+"speed": 30.0
+}, {
+"frames": [ ExtResource( 29 ) ],
+"loop": false,
+"name": "WallSlide",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "WallSlide_Big",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 69 ) ],
+"loop": true,
+"name": "Turn_Hammer",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "Idle_Flower_Shot",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 12 ) ],
+"loop": false,
+"name": "Grow_Big",
+"speed": 8.0
+}, {
+"frames": [ ExtResource( 74 ), ExtResource( 77 ) ],
+"loop": true,
+"name": "Poleslide_Big",
+"speed": 12.0
+}, {
 "frames": [ ExtResource( 11 ), ExtResource( 53 ), ExtResource( 54 ) ],
 "loop": true,
 "name": "Run_Flower_Shot",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ) ],
+"loop": true,
+"name": "Run_Flower",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 73 ) ],
+"loop": true,
+"name": "Climbing",
+"speed": 7.5
+}, {
+"frames": [ ExtResource( 75 ), ExtResource( 76 ) ],
+"loop": true,
+"name": "Poleslide_Flower",
+"speed": 12.0
+}, {
+"frames": [ ExtResource( 58 ) ],
+"loop": true,
+"name": "Turn",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "Duck_Flower",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 30 ) ],
+"loop": false,
+"name": "Stun_Flower",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "Idle_Big",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Duck",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 88 ) ],
+"loop": true,
+"name": "Turn_Hammer_Shot",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 79 ), ExtResource( 78 ) ],
+"loop": true,
+"name": "Climbing_Hammer",
+"speed": 7.5
+}, {
+"frames": [ ExtResource( 65 ) ],
+"loop": true,
+"name": "Jump_Hammer",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 74 ), ExtResource( 77 ) ],
+"loop": true,
+"name": "Climbing_Big",
+"speed": 7.5
 }, {
 "frames": [ ExtResource( 72 ) ],
 "loop": false,
@@ -310,46 +350,6 @@ animations = [ {
 "loop": true,
 "name": "Run",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 7 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "Run_Big",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 56 ) ],
-"loop": false,
-"name": "Stun_Big",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 52 ) ],
-"loop": true,
-"name": "Jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 70 ) ],
-"loop": true,
-"name": "Duck_Hammer",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 39 ) ],
-"loop": true,
-"name": "Turn_Flower",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 57 ) ],
-"loop": true,
-"name": "WallSlide_Flower",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 65 ) ],
-"loop": true,
-"name": "Jump_Hammer",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 74 ), ExtResource( 77 ) ],
-"loop": true,
-"name": "Climbing_Big",
-"speed": 7.5
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]

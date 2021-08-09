@@ -2,7 +2,7 @@ extends SMBObjectBaseClass
 
 export var barSize = 6; #Big = 12
 export var spinClockwise = true;
-export var speedMultiplier = 1;
+export var speedMultiplier = 1.0;
 export var asFallingBlock = false;
 export var onlySolidToMovingPlatform = false;
 

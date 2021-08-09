@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/AnormalHunnel.jpg-cf4f6646211fbbcf352df47b15b6e641.stex"
+path="res://.import/CustomL_Unnamed5.png-bfff0e2d15ba7b2e1257eaad3f9a71fd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Menu/RoundOverScreens/AnormalHunnel.jpg"
-dest_files=[ "res://.import/AnormalHunnel.jpg-cf4f6646211fbbcf352df47b15b6e641.stex" ]
+source_file="res://Levels/Textures/CustomL_Unnamed5.png"
+dest_files=[ "res://.import/CustomL_Unnamed5.png-bfff0e2d15ba7b2e1257eaad3f9a71fd.stex" ]
 
 [params]
 
