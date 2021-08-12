@@ -521,12 +521,15 @@ func set_map_limits():
 	pass
 	
 func set_screen_separation():
-	if(Global.player_amount_local > 1):
-		$WholeScreen/UpperScreen.add_constant_override("separation", PIXEL_SEPARATION);
-		if(Global.player_amount_local > 2):
-			$WholeScreen.add_constant_override("separation", PIXEL_SEPARATION);
-			if(Global.player_amount_local > 3):
-				$WholeScreen/LowerScreen.add_constant_override("separation", PIXEL_SEPARATION);
+	if(Global.player_amount_local == 2 && !Global.player2LeftRight):
+		$WholeScreen.add_constant_override("separation", PIXEL_SEPARATION);
+	else:
+		if(Global.player_amount_local > 1):
+			$WholeScreen/UpperScreen.add_constant_override("separation", PIXEL_SEPARATION);
+			if(Global.player_amount_local > 2 || (!Global.player2LeftRight && Global.player_amount_local == 2)):
+				$WholeScreen.add_constant_override("separation", PIXEL_SEPARATION);
+				if(Global.player_amount_local > 3 || !Global.player3BigScreen):
+					$WholeScreen/LowerScreen.add_constant_override("separation", PIXEL_SEPARATION);
 	pass
 	
 func toggle_pause(player): 

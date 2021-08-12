@@ -1,6 +1,8 @@
-NOTE: Not everything has been added on to here. Changes yes, but not ideas.
-Most ideas are still on the Phone, so keep that in mind.
+---------------------------------------------
 
+ THIS IS OUTDATED!!! Changes are now on Git.
+
+---------------------------------------------
 
 20 Nov 19
 
@@ -16,7 +18,6 @@ Most ideas are still on the Phone, so keep that in mind.
 *Mega Shroom grow goes more smoothly. Only Needs Animation, Room detection + Stop Music when dead
 *Player sometimes invincible to Buzzy Beetle, reason unknown. Consider using area_entered
 
-!Cut down the to do list to only necessary things and IdeasOnly, define the next near goal
 
 
 21 Nov 19
@@ -138,8 +139,6 @@ Platform Chaos level
 
 *When big, invisible blocks still stop yout jumping
 *After Mega, can stay in firebar (no refresh)
-
-LO: look phone m9
 
 
 1 Dec 19
@@ -440,11 +439,6 @@ CHANGED ENGINE TO GODOT 3.2.1
 +fixed enemy falling infinitely in infinite Y world
 
 
-Pipes (in tileset, entrance over pipe??? or just create a Pipe.tscn)
-triple jump???
-fix player input (method for input). like this, you might adapt to online mode faster
-
-
 21 Mar 2020
 
 +added WallJump Explosion on Wall Jumping
@@ -575,47 +569,3 @@ Once you release the first version, you can try to make some individual and crea
 
 +added new Level (SidewaysDown CustomL)
 +changed pause menu / win screen
-
-
-might do next:
-loading icon should move constantly (threads), tut on loading icons
-some cool and creative Levels.
-zustände implementieren (adjazenz listen, siehe AuDS 10, prüfe ob von einen zustand auf anderen geht)
-pause screen sound
-on/off switch with on/off blocks (GlobalGameState class, crazy level mit on & off und infinite vertical)
-p switch ? (zu aufwändig...)
-
-Problems:
--Items dont despawn because of player position (for now). Might be better than checking every item every cycle like with enemies. Or: Despawn timer (like 100 seconds)
-
--camera (y) is still off by a bit in levels with y scroll, camera should show more where youre going (x, addition to current movement)
-
--big + crouched + jump in wall = uncrouch because of wallSlide and then glitches through wall... (Crouch jump into corner)
-
--random item spawn (link in super mario war)
-
--add shell item
-
--menu stage select: small stages only, reihenfolge, random. Show level names
-
--The Fireball Enemie doesnt jump to proper height (only destructible by mega, star or "hammer"), still not killable by those
--star max shader might not work with intel processor
--are platforms ok? they maybe want more movement modes
--resizing windows messes up view (also, HUD player 1 still messed up. Try the 1/128 thing...)
--no hud player 3 on big screen FFFFF!
-... not added Fun images after win yet (P1FunImage in Screen.tscn)
-
-level ideas:
--cannon blast levels
--moving platform level
--shell level (buzzy), spikes
--paw level
--banzai bill or smth lol
--crazy pipes ecks deh
-
-online:
-
-SOUND: when playing sound, check FOR WHO object is visible (with function checking player position) and
-then play sound for them. Pretty easy
-
-maybe only transfer position & input. Rest is handled by itself.

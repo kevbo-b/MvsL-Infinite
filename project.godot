@@ -300,6 +300,7 @@ Network="*res://Classes/Network.gd"
 window/size/width=256
 window/size/height=256
 window/size/resizable=false
+window/size/fullscreen=true
 window/size/test_width=1365
 window/size/test_height=768
 window/vsync/vsync_via_compositor=true

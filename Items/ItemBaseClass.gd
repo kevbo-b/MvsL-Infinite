@@ -5,6 +5,7 @@ const SPAWN_MOTION = -14;
 const MAX_Y_SPEED = 64;
 const DEFAULT_X_SPEED = 16; #will get multiplied with mass
 const COINSPAWN_HEIGHT_FLAT_LEVEL = 72;
+const COINSPAWN_HEIGHT_FLAT_LEVEL_FLAT_SCREEN = 104;
 const COINSPAWN_HEIGHT = 64;
 const COINSPAWN_Y_MARGIN = 16;
 
@@ -136,5 +137,8 @@ func setPositionAbovePlayer():
 	elif(Global.level_boundary_rect.size.y > 256):
 		position.y = max(player.position.y - COINSPAWN_HEIGHT, Global.level_boundary_rect.position.y + COINSPAWN_Y_MARGIN);
 	else:
-		position.y = COINSPAWN_HEIGHT_FLAT_LEVEL;
+		if(!Global.player2LeftRight && Global.player_amount_local == 2):
+			position.y = COINSPAWN_HEIGHT_FLAT_LEVEL_FLAT_SCREEN; # else players cant see item above them
+		else:
+			position.y = COINSPAWN_HEIGHT_FLAT_LEVEL;
 	pass

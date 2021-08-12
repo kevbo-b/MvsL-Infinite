@@ -16,6 +16,8 @@ var menu_db;
 func _ready():
 	if(Global.DEBUG_MODE):
 		$CenterContainer/StartingMenu/OnlineVS.show()
+		$CenterContainer/OptionsMenu/Op3.show()
+		$CenterContainer/OptionsMenu/Op6.show()
 	
 	get_tree().paused = false;
 	$VERSION/VersionNr.text = "v. " + Global.VERSION_NUMBER;
@@ -768,4 +770,18 @@ func _on_OnlineStartGame_pressed():
 	var level = levels.getRandomVsLevel();
 
 	Network.initStartLevel(level);
+	pass
+
+
+func _on_Credits_pressed():
+	$CenterContainer/StartingMenu.hide()
+	$CenterContainer/CreditsMenu.show()
+	$CenterContainer/CreditsMenu/Back/BackFromCredits.grab_focus()
+	pass
+
+
+func _on_BackFromCredits_pressed():
+	$CenterContainer/CreditsMenu.hide()
+	$CenterContainer/StartingMenu.show()
+	$CenterContainer/StartingMenu/Credits.grab_focus()
 	pass

@@ -39,8 +39,16 @@ func _ready():
 	drag_margin_left = 0.2
 	drag_margin_right = 0.2
 	
-	if(Global.playing_splitscreen && Global.player_amount > 2):
+	if((Global.playing_splitscreen && Global.player_amount_local > 2) || (!Global.player2LeftRight && Global.player_amount_local > 1)):
 		marginVSize = Vector2(32,32);
+
+		if(Global.player_amount_local == 2):
+			zoom.y = zoom.y * 1.3
+		else:
+			zoom.y = zoom.y / 0.9
+			if(Global.player_amount_local == 3 && Global.player3BigScreen && get_parent().name == "Viewport3"): #player 3 big screen
+				zoom.x = zoom.x / 1.35
+	
 	#position = target.position
 	#drag_margin_h_enabled = false
 	pass

@@ -1,10 +1,10 @@
 extends Node
 class_name GlobalObj
 
-const VERSION_NUMBER = "0.9.4"
+const VERSION_NUMBER = "0.9.5"
 
 const DEBUG_LUIGI_NON_LOCAL = false; #For pseudo-online tests, like sounds that are off-screen
-const DEBUG_MODE = false; #faster timer (coop, but unused), bigStar instant spawn, no loading screen, fast win screen, shows Online Menu
+const DEBUG_MODE = false; #bigStar instant spawn, no loading screen, fast win screen, shows Online Menu. faster timer (coop, but unused)
 
 var is_online_mode = false;
 
@@ -86,8 +86,8 @@ var modern_movement = true;
 var musicEnabled = true;
 var player2LeftRight = true;
 var player3BigScreen = true;
-var inappropriate_mode = false;
-var threeDMode = false;
+var inappropriate_mode = false; #Hidden Options
+var threeDMode = false; #Hidden Options
 
 #Dev Options
 var decimalStarCounter = false;

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/kicked0.png-d87323ce17ecb9faa0fce996dc200200.stex"
+path="res://.import/cross.png-4f1bacd5458e4d262c2de050aaba0252.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Enemies/kicked0.png"
-dest_files=[ "res://.import/kicked0.png-d87323ce17ecb9faa0fce996dc200200.stex" ]
+source_file="res://Player/HudIcons/cross.png"
+dest_files=[ "res://.import/cross.png-4f1bacd5458e4d262c2de050aaba0252.stex" ]
 
 [params]
 
