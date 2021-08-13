@@ -2,6 +2,14 @@
 
 This Project is a fangame / remake of the Game Mode "Mario vs Luigi" from New Super Mario Bros. DS.
 
+Gameplay of the Project can be seen here:
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=KRRK1Vs6hPQ
+" target="_blank"><img src="http://img.youtube.com/vi/KRRK1Vs6hPQ/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
+https://youtu.be/KRRK1Vs6hPQ 
+
 ## Features
 
 The Game features mostly the same things given in the Original game.
