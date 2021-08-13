@@ -284,11 +284,13 @@ _global_script_class_icons={
 
 [application]
 
-config/name="MarioVSLuigiPC"
+config/name="Mario vs Luigi Infinite"
 run/main_scene="res://Menu/StartMenu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="MvsL-Infinite"
 config/icon="res://GFX/ProjectIcon.png"
+config/macos_native_icon="res://GFX/ProjectIcon.icns"
+config/windows_native_icon="res://GFX/ProjectIcon.ico"
 
 [autoload]
 
